@@ -1,0 +1,115 @@
+networks:
+  timemanagement-dev:
+    driver: bridge
+  traefik-proxy-blumilk-local-environment:
+    external: true
+
+volumes:
+  timemanagement-postgres-data:
+    name: timemanagement-postgres-data
+  timemanagement-redis-data:
+    name: timemanagement-redis-data
+
+services:
+  app:
+    build:
+      context: ./environment/dev/app
+      dockerfile: Dockerfile
+      args:
+        - INSTALL_XDEBUG=${DOCKER_INSTALL_XDEBUG:-true}
+        - USER_ID=${DOCKER_HOST_USER_ID:-1000}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.blumilk.local.environment=true"
+      # HTTP
+      - "traefik.http.routers.timemanagement-http-router.rule=Host(`${APP_DOCKER_HOST_NAME}`)"
+      - "traefik.http.routers.timemanagement-http-router.entrypoints=web"
+      - "traefik.http.routers.timemanagement-http-router.service=timemanagement-app"
+      # HTTP to HTTPS redirect
+      # - "traefik.http.routers.intenrs2025b-http-router.middlewares=https-redirect@file"
+      # HTTPS
+      - "traefik.http.routers.timemanagement-https-router.rule=Host(`$(APP_DOCKER_HOST_NAME)`)"
+      - "traefik.http.routers.timemanagement-https-router.entrypoints=websecure"
+      - "traefik.http.routers.timemanagement-https-router.tls=true"
+      - "traefik.http.routers.timemanagement-https-router.service=interns2025-app"
+      # APP LOADBALANCER
+      - "traefik.http.services.timemanagement-app.loadbalancer.server.port=80"
+      # VITE DEV SERVER
+      - "traefik.http.routers.timemanagement-vite-dev-server-https-router.rule=Host(`${VITE_DEV_SERVER_DOCKER_HOST_NAME}`)"
+      - "traefik.http.routers.timemanagement-vite-dev-server-https-router.entrypoints=websecure"
+      - "traefik.http.routers.timemanagement-vite-dev-server-https-router.tls=true"
+      - "traefik.http.routers.timemanagement-vite-dev-server-https-router.service=timemanagement-vite-dev-server"
+      - "traefik.http.services.timemanagement-vite-dev-server.loadbalancer.server.port=5173"
+    container_name: timemanagement-app-dev
+    working_dir: /application
+    volumes:
+      - ./environment/dev/app/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./environment/dev/app/php.ini:/usr/local/etc/php/conf.d/zzz-overrides.ini:ro
+      - ./environment/dev/app/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-overrides.conf:ro
+      - ./environment/dev/app/supervisord.conf:/etc/supervisor/custom-supervisord.conf:ro
+      - .:/application
+    ports:
+      - ${DOCKER_APP_HOST_PORT:-63851}:80
+    networks:
+      - timemanagement-dev
+      - traefik-proxy-blumilk-local-environment
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: postgres:16.3-alpine3.18@sha256:64e18e8fb3e9c9aac89ac590c5dd8306b862478404f76cd9b5f7720d012b4c47
+    container_name: timemanagement-db-dev
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+      - PGDATA=/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready --dbname ${DB_DATABASE} --username ${DB_USERNAME}"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    ports:
+      - ${DOCKER_DATABASE_HOST_PORT:-63853}:5432
+    volumes:
+      - timemanagement-postgres-data:/var/lib/postgresql/data
+    networks:
+      - timemanagement-dev
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.20.5@sha256:cd75e91719cace4e3100eab9f848ecf2ecdd7f4db01e1573a0114769dad4ba2e
+    container_name: timemanagement-mailpit-dev
+    labels:
+      - "traefik.enable=true"
+      - "traefik.blumilk.local.environment=true"
+      # HTTP
+      - "traefik.http.routers.timemanagement-mailpit-http-router.rule=Host(`${MAILPIT_DOCKER_HOST_NAME}`)"
+      - "traefik.http.routers.timemanagement-mailpit-http-router.entrypoints=web"
+      # HTTP to HTTPS redirect
+      #      - "traefik.http.routers.erasmus-mailpit-http-router.middlewares=https-redirect@file"
+      # HTTPS
+      - "traefik.http.routers.timemanagement-mailpit-https-router.rule=Host(`${MAILPIT_DOCKER_HOST_NAME}`)"
+      - "traefik.http.routers.timemanagement-mailpit-https-router.entrypoints=websecure"
+      - "traefik.http.routers.timemanagement-mailpit-https-router.tls=true"
+      # LOADBALANCER MAILPIT PORT
+      - "traefik.http.services.timemanagement-mailpit.loadbalancer.server.port=8025"
+    networks:
+      - timemanagement-dev
+      - traefik-proxy-blumilk-local-environment
+    ports:
+      - ${DOCKER_MAILPIT_DASHBOARD_HOST_PORT:-63854}:8025
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.2.5-alpine3.19@sha256:8f157725f8eee31e65a8d4765f1f986d76aedc1a0503345dfb63a2b1b5a441ee
+    container_name: timemanagement-redis-dev
+    ports:
+      - ${DOCKER_REDIS_HOST_PORT:-63852}:6379
+    volumes:
+      - timemanagement-redis-data:/data
+    networks:
+      - timemanagement-dev
+    restart: unless-stopped
