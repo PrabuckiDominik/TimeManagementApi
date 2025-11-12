@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Interns2025b\Models\User;
+use TimeManagement\Models\User;
 
 class AdminSeeder extends Seeder
 {

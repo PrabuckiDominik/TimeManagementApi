@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Providers;
+namespace TimeManagement\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

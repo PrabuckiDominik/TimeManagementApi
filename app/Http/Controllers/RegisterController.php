@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Http\Controllers;
+namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-use Interns2025b\Http\Requests\RegisterRequest;
-use Interns2025b\Models\User;
+use TimeManagement\Http\Requests\RegisterRequest;
+use TimeManagement\Models\User;
 use Symfony\Component\HttpFoundation\Response as Status;
 
 class RegisterController extends Controller

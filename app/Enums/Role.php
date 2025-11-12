@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Enums;
+namespace TimeManagement\Enums;
 
 enum Role: string
 {

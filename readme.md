@@ -8,7 +8,7 @@ cp .env.example .env
 make init
 make dev
 ```
-Application will be running under [localhost:63851](localhost:63851) and [http://interns2025b.blumilk.localhost/](http://example-app.blumilk.localhost/) in Blumilk traefik environment. If you don't have a Blumilk traefik environment set up yet, follow the instructions from this [repository](https://github.com/blumilksoftware/environment).
+Application will be running under [localhost:63851](localhost:63851) and [http://timemanagement.blumilk.localhost/](http://example-app.blumilk.localhost/) in Blumilk traefik environment. If you don't have a Blumilk traefik environment set up yet, follow the instructions from this [repository](https://github.com/blumilksoftware/environment).
 
 #### Commands
 Before running any of the commands below, you must run shell:
@@ -35,7 +35,7 @@ make shell
 
 | service    | container name            | default host port               |
 |:-----------|:--------------------------|:--------------------------------|
-| `app`      | `interns2025b-app-dev`    | [63851](http://localhost:63851) |
-| `database` | `interns2025b-db-dev`      | 63853                           |
-| `redis`    | `interns2025b-redis-dev`   | 63852                           |
-| `mailpit`  | `interns2025b-mailpit-dev` | 63854                           |
+| `app`      | `timemanagement-app-dev`    | [63851](http://localhost:63851) |
+| `database` | `timemanagement-db-dev`      | 63853                           |
+| `redis`    | `timemanagement-redis-dev`   | 63852                           |
+| `mailpit`  | `timemanagement-mailpit-dev` | 63854                           |

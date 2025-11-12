@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Http\Controllers;
+namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
-use Interns2025b\Models\User;
+use TimeManagement\Models\User;
 use Symfony\Component\HttpFoundation\Response as Status;
 
 class EmailVerificationController extends Controller

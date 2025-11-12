@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Http\Controllers;
+namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Interns2025b\Http\Requests\PasswordResetLinkRequest;
-use Interns2025b\Http\Requests\ResetPasswordRequest;
-use Interns2025b\Models\User;
+use TimeManagement\Http\Requests\PasswordResetLinkRequest;
+use TimeManagement\Http\Requests\ResetPasswordRequest;
+use TimeManagement\Models\User;
 use Symfony\Component\HttpFoundation\Response as Status;
 
 class ResetPasswordController extends Controller

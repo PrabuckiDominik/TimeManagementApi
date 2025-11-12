@@ -13,8 +13,8 @@ CURRENT_USER_ID = $(shell id --user)
 CURRENT_USER_GROUP_ID = $(shell id --group)
 CURRENT_DIR = $(shell pwd)
 
-DATABASE_USERNAME=interns2025b
-TEST_DATABASE_NAME=interns2025b-test
+DATABASE_USERNAME=timemanagement
+TEST_DATABASE_NAME=timemanagement-test
 
 init: check-env-file
 	@make build \

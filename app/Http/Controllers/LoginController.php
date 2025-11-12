@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Http\Controllers;
+namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Interns2025b\Http\Requests\LoginRequest;
+use TimeManagement\Http\Requests\LoginRequest;
 use Symfony\Component\HttpFoundation\Response as Status;
 
 class LoginController extends Controller

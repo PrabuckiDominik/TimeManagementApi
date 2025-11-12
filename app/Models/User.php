@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Models;
+namespace TimeManagement\Models;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\CanResetPassword;

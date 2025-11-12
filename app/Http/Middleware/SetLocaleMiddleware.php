@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Http\Middleware;
+namespace TimeManagement\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

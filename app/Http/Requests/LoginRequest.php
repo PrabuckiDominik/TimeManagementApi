@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Interns2025b\Http\Requests;
+namespace TimeManagement\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;

@@ -31,7 +31,7 @@ services:
       - "traefik.http.routers.timemanagement-https-router.rule=Host(`$(APP_DOCKER_HOST_NAME)`)"
       - "traefik.http.routers.timemanagement-https-router.entrypoints=websecure"
       - "traefik.http.routers.timemanagement-https-router.tls=true"
-      - "traefik.http.routers.timemanagement-https-router.service=interns2025-app"
+      - "traefik.http.routers.timemanagement-https-router.service=timemanagement-app"
       # APP LOADBALANCER
       - "traefik.http.services.timemanagement-app.loadbalancer.server.port=80"
       # VITE DEV SERVER

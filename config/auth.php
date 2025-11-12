@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Interns2025b\Models\User;
+use TimeManagement\Models\User;
 
 return [
     "defaults" => [
