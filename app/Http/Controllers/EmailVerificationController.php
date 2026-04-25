@@ -8,8 +8,8 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
-use TimeManagement\Models\User;
 use Symfony\Component\HttpFoundation\Response as Status;
+use TimeManagement\Models\User;
 
 class EmailVerificationController extends Controller
 {

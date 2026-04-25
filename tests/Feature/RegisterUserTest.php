@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Feature;
+namespace Tests\Feature;
 
+use Tests\TestCase;
 use TimeManagement\Models\User;
-use TestCase;
 
 class RegisterUserTest extends TestCase
 {

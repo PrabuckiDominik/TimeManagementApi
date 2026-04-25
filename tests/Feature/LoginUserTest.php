@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Feature;
+namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 use TimeManagement\Models\User;
-use TestCase;
 
 class LoginUserTest extends TestCase
 {

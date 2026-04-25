@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Feature;
+namespace Tests\Feature;
 
-use TimeManagement\Models\User;
 use Laravel\Sanctum\Sanctum;
-use TestCase;
+use Tests\TestCase;
+use TimeManagement\Models\User;
 
 class LogoutUserTest extends TestCase
 {

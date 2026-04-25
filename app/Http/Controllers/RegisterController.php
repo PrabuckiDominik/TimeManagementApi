@@ -6,9 +6,9 @@ namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response as Status;
 use TimeManagement\Http\Requests\RegisterRequest;
 use TimeManagement\Models\User;
-use Symfony\Component\HttpFoundation\Response as Status;
 
 class RegisterController extends Controller
 {

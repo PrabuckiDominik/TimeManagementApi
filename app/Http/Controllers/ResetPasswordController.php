@@ -9,10 +9,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response as Status;
 use TimeManagement\Http\Requests\PasswordResetLinkRequest;
 use TimeManagement\Http\Requests\ResetPasswordRequest;
 use TimeManagement\Models\User;
-use Symfony\Component\HttpFoundation\Response as Status;
 
 class ResetPasswordController extends Controller
 {

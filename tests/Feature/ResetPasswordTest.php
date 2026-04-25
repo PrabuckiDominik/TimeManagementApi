@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Feature;
+namespace Tests\Feature;
 
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
+use Tests\TestCase;
 use TimeManagement\Models\User;
-use TestCase;
 
 class ResetPasswordTest extends TestCase
 {

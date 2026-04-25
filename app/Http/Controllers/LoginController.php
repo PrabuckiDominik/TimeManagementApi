@@ -6,8 +6,8 @@ namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
-use TimeManagement\Http\Requests\LoginRequest;
 use Symfony\Component\HttpFoundation\Response as Status;
+use TimeManagement\Http\Requests\LoginRequest;
 
 class LoginController extends Controller
 {

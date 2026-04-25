@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Feature;
+namespace Tests\Feature;
 
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 use TimeManagement\Models\User;
-use TestCase;
 
 class ForgotPasswordTest extends TestCase
 {
