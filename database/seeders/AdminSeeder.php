@@ -16,8 +16,7 @@ class AdminSeeder extends Seeder
         $admin = User::firstOrCreate(
             ["email" => "admin@example.com"],
             [
-                "first_name" => "Admin",
-                "last_name" => "Admin_Last_Name",
+                "name" => "Admin",
                 "email_verified_at" => now(),
                 "password" => Hash::make("password"),
                 "remember_token" => Str::random(10),
@@ -28,8 +27,7 @@ class AdminSeeder extends Seeder
         $superAdmin = User::firstOrCreate(
             ["email" => "superadmin@example.com"],
             [
-                "first_name" => "Super_Admin",
-                "last_name" => "Super_Admin_Last_Name",
+                "name" => "Super_Admin",
                 "email_verified_at" => now(),
                 "password" => Hash::make("password"),
                 "remember_token" => Str::random(10),

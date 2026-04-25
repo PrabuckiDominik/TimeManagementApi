@@ -15,8 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property int $id
- * @property string $first_name
- * @property string $last_name
+ * @property string $name
  * @property string $email
  * @property string $password
  * @property Carbon $email_verified_at
@@ -31,8 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     use HasRoles;
 
     protected $fillable = [
-        "first_name",
-        "last_name",
+        "name",
         "email",
         "password",
     ];
