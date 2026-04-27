@@ -15,6 +15,7 @@ return new class() extends Migration {
         Schema::create("tasks", function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(User::class, "user_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("category_id")->nullable()->constrained()->nullOnDelete();
             $table->string("name");
             $table->text("description")->nullable();
             $table->enum("priority", TaskPriority::cases())->default(TaskPriority::MEDIUM);
