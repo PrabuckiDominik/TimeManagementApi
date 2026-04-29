@@ -4,12 +4,26 @@ declare(strict_types=1);
 
 namespace TimeManagement\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use TimeManagement\Enums\TaskPriority;
 use TimeManagement\Enums\TaskStatus;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string $name
+ * @property ?string $description
+ * @property ?TaskStatus $status
+ * @property ?TaskPriority $priority
+ * @property bool $is_overdue
+ * @property ?Carbon $due_date
+ * @property ?Carbon $completed_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class Task extends Model
 {
     use HasFactory;

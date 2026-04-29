@@ -5,26 +5,15 @@ declare(strict_types=1);
 namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response as Status;
+use TimeManagement\Actions\RegisterUserAction;
 use TimeManagement\Http\Requests\RegisterRequest;
-use TimeManagement\Models\User;
 
 class RegisterController extends Controller
 {
-    public function register(RegisterRequest $registerRequest): JsonResponse
+    public function register(RegisterRequest $registerRequest, RegisterUserAction $action): JsonResponse
     {
-        $validated = $registerRequest->validated();
-        $userExist = User::query()->where("email", $validated["email"])->exists();
-
-        if (!$userExist) {
-            $user = new User($validated);
-            $user->password = Hash::make($validated["password"]);
-            $user->save();
-            $user->assignRole("user");
-
-            $user->sendEmailVerificationNotification();
-        }
+        $action->execute($registerRequest->toDto());
 
         return response()->json([
             "message" => "success",

@@ -2,89 +2,64 @@
 
 declare(strict_types=1);
 
-namespace TimeManagement\Http\Controllers\Api;
+namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Status;
-use TimeManagement\Http\Controllers\Controller;
+use TimeManagement\Actions\GetUserTaskAction;
+use TimeManagement\Actions\ShowTaskAction;
+use TimeManagement\Actions\StoreTaskAction;
+use TimeManagement\Actions\UpdateTaskAction;
+use TimeManagement\Http\Requests\StoreTaskRequest;
+use TimeManagement\Http\Requests\UpdateTaskRequest;
 use TimeManagement\Http\Resources\TaskResource;
 use TimeManagement\Models\Task;
 
 class TaskController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(GetUserTaskAction $action): JsonResponse
     {
-        $user = request()->user();
+        $this->authorize("viewAny", Task::class);
 
-        $tasks = Task::with("category")
-            ->where("user_id", $user->id)->latest()->get();
+        $tasks = $action->execute(request()->user());
 
         return response()->json([
             "data" => TaskResource::collection($tasks),
         ]);
     }
 
-    public function show(Task $task): JsonResponse
+    public function show(Task $task, ShowTaskAction $action): JsonResponse
     {
-        $this->authorizeUser($task);
+        $this->authorize("view", $task);
 
-        $task->load("category");
+        $task = $action->execute($task);
 
         return response()->json([
             "data" => new TaskResource($task),
         ]);
     }
 
-    public function store(StoreTaskRequest $request): JsonResponse
+    public function store(StoreTaskRequest $request, StoreTaskAction $action): JsonResponse
     {
-        $user = $request->user();
-        $data = $request->validated();
+        $this->authorize("create", Task::class);
 
-        if (!empty($data["category_id"])) {
-            $data["category_id"] = $user->categories()
-                ->findOrFail($data["category_id"])
-                ->id;
-        }
-
-        $data["user_id"] = $user->id;
-
-        $task = Task::create($data);
+        $task = $action->execute($request->user(), $request->validated());
 
         return response()->json([
             "message" => __("tasks.created"),
-            "data" => new TaskResource($task->load("category")),
+            "data" => new TaskResource($task),
         ], Status::HTTP_CREATED);
     }
 
-    public function update(UpdateTaskRequest $request, Task $task): JsonResponse
+    public function update(UpdateTaskRequest $request, Task $task, UpdateTaskAction $action): JsonResponse
     {
-        $this->authorizeUser($task);
+        $this->authorize("update", $task);
 
-        $data = $request->validated();
-        $user = $request->user();
-
-        if (array_key_exists("category_id", $data)) {
-            if ($data["category_id"] === null) {
-                $data["category_id"] = null;
-            } else {
-                $data["category_id"] = $user->categories()
-                    ->findOrFail($data["category_id"])
-                    ->id;
-            }
-        }
-
-        $task->update($data);
+        $task = $action->execute($task, $request->validated(), $request->user());
 
         return response()->json([
             "message" => __("tasks.updated"),
-            "data" => new TaskResource($task->load("category")),
+            "data" => new TaskResource($task),
         ]);
-    }
-
-    private function authorizeUser(Task $task): void
-    {
-        if ($task->user_id !== request()->user()->id) {
-            abort(Status::HTTP_FORBIDDEN);
-        }
     }
 }

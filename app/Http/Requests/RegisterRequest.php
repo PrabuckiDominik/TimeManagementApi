@@ -6,6 +6,7 @@ namespace TimeManagement\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use TimeManagement\DTO\RegisterUserDto;
 
 class RegisterRequest extends FormRequest
 {
@@ -16,5 +17,14 @@ class RegisterRequest extends FormRequest
             "email" => ["required", "email", "max:225"],
             "password" => ["required", "confirmed", Password::min(8)],
         ];
+    }
+
+    public function toDto(): RegisterUserDto
+    {
+        return new RegisterUserDto(
+            name: $this->input("name"),
+            email: $this->input("email"),
+            password: $this->input("password"),
+        );
     }
 }
