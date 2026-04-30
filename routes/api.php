@@ -10,10 +10,12 @@ use TimeManagement\Http\Controllers\LoginController;
 use TimeManagement\Http\Controllers\LogoutController;
 use TimeManagement\Http\Controllers\RegisterController;
 use TimeManagement\Http\Controllers\ResetPasswordController;
+use TimeManagement\Http\Controllers\TaskController;
 
 Route::middleware("auth:sanctum")->group(function (): void {
     Route::get("/user", fn(Request $request): JsonResponse => $request->user());
     Route::post("/auth/logout", LogoutController::class);
+    Route::apiResource("tasks", TaskController::class);
 });
 
 Route::get("/auth/verify-email/{id}/{hash}", [EmailVerificationController::class, "verify"])

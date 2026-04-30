@@ -20,8 +20,7 @@ class RegisterUserTest extends TestCase
 
         $this->assertDatabaseHas("users", [
             "email" => "jan.kowalski@gmail.com",
-            "first_name" => "Jan",
-            "last_name" => "Kowalski",
+            "name" => "Jan",
         ]);
 
         $user = User::query()->where("email", "jan.kowalski@gmail.com")->first();
@@ -32,13 +31,12 @@ class RegisterUserTest extends TestCase
     public function testRegisterFailsWithExistingEmail(): void
     {
         User::factory()->create([
-            "first_name" => "NotJan",
+            "name" => "NotJan",
             "email" => "existing@gmail.com",
         ]);
 
         $response = $this->postJson("/api/auth/register", $this->validData([
-            "first_name" => "Jan",
-            "last_name" => "Nowak",
+            "name" => "Jan",
             "email" => "existing@gmail.com",
         ]));
 
@@ -46,21 +44,20 @@ class RegisterUserTest extends TestCase
 
         $this->assertDatabaseHas("users", [
             "email" => "existing@gmail.com",
-            "first_name" => "NotJan",
+            "name" => "NotJan",
         ]);
     }
 
     public function testRegisterFailsWithInvalidData(): void
     {
         $response = $this->postJson("/api/auth/register", [
-            "first_name" => "",
-            "last_name" => "",
+            "name" => "",
             "email" => "not-an-email",
             "password" => "short",
         ]);
 
         $response->assertStatus(422);
-        $response->assertJsonValidationErrors(["first_name", "last_name", "email", "password"]);
+        $response->assertJsonValidationErrors(["name", "email", "password"]);
     }
 
     public function testUserCanNotRegisterWithTooLongEmail(): void
@@ -75,19 +72,10 @@ class RegisterUserTest extends TestCase
     public function testUserCanNotRegisterWithTooLongName(): void
     {
         $longName = str_repeat("a", 256);
-        $response = $this->postJson("/api/auth/register", $this->validData(["first_name" => $longName]));
+        $response = $this->postJson("/api/auth/register", $this->validData(["name" => $longName]));
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors("first_name");
-    }
-
-    public function testUserCanNotRegisterWithTooLongSurname(): void
-    {
-        $longSurname = str_repeat("b", 256);
-        $response = $this->postJson("/api/auth/register", $this->validData(["last_name" => $longSurname]));
-
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors("last_name");
+            ->assertJsonValidationErrors("name");
     }
 
     public function testUserCanNotRegisterWithTooLongPassword(): void
@@ -111,8 +99,7 @@ class RegisterUserTest extends TestCase
     private function validData(array $overrides = []): array
     {
         return array_merge([
-            "first_name" => "Jan",
-            "last_name" => "Kowalski",
+            "name" => "Jan",
             "email" => "jan.kowalski@gmail.com",
             "password" => "securePassword123",
             "password_confirmation" => "securePassword123",
