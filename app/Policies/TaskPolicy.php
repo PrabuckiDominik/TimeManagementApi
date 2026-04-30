@@ -22,6 +22,11 @@ class TaskPolicy
         return $task->user_id === $user->id;
     }
 
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
+
     public function update(User $user, Task $task): bool
     {
         return $this->view($user, $task);

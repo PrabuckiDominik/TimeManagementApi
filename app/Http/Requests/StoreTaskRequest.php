@@ -20,8 +20,8 @@ class StoreTaskRequest extends FormRequest
         return [
             "name" => ["required", "string", "max:255"],
             "description" => ["nullable", "string"],
-            "priority" => ["required", "in:" . implode(",", array_column(TaskPriority::cases(), "value"))],
-            "status" => ["required", "in:" . implode(",", array_column(TaskStatus::cases(), "value"))],
+            "priority" => ["nullable", "in:" . implode(",", array_column(TaskPriority::cases(), "value"))],
+            "status" => ["nullable", "in:" . implode(",", array_column(TaskStatus::cases(), "value"))],
             "due_date" => ["nullable", "date"],
             "category_id" => ["nullable", "integer"],
         ];

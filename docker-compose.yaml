@@ -28,7 +28,7 @@ services:
       # HTTP to HTTPS redirect
       # - "traefik.http.routers.intenrs2025b-http-router.middlewares=https-redirect@file"
       # HTTPS
-      - "traefik.http.routers.timemanagement-https-router.rule=Host(`$(APP_DOCKER_HOST_NAME)`)"
+      - "traefik.http.routers.timemanagement-https-router.rule=Host(`${APP_DOCKER_HOST_NAME}`)"
       - "traefik.http.routers.timemanagement-https-router.entrypoints=websecure"
       - "traefik.http.routers.timemanagement-https-router.tls=true"
       - "traefik.http.routers.timemanagement-https-router.service=timemanagement-app"

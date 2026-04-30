@@ -20,11 +20,7 @@ class TaskResource extends JsonResource
             "due_date" => $this->due_date?->toISOString(),
             "completed_at" => $this->completed_at?->toISOString(),
             "is_overdue" => $this->isOverdue(),
-            "category" => $this->whenLoaded("category", fn() => [
-                "id" => $this->category->id,
-                "title" => $this->category->title,
-                "color" => $this->category->color,
-            ]),
+            "category" => CategoryResource::make($this->whenLoaded("category")),
             "created_at" => $this->created_at->toISOString(),
             "updated_at" => $this->updated_at->toISOString(),
         ];

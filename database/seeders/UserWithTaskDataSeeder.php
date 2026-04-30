@@ -13,9 +13,14 @@ class UserWithTaskDataSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = User::factory()->create([
-            "email" => "user@example.com",
-        ]);
+        $user = User::firstOrCreate(
+            ["email" => "user@example.com"],
+            [
+                "name" => "User",
+                "password" => bcrypt("password"),
+                "email_verified_at" => now(),
+            ],
+        );
 
         $categories = Category::factory()
             ->count(3)
