@@ -7,7 +7,11 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use TimeManagement\Enums\TaskPriority;
 use TimeManagement\Enums\TaskStatus;
+use TimeManagement\Models\Task;
 
+/**
+ * @extends Factory<Task>
+ */
 class TaskFactory extends Factory
 {
     public function definition(): array

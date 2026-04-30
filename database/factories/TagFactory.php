@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use TimeManagement\Models\Category;
+use TimeManagement\Models\Tag;
 
 /**
- * @extends Factory<Category>
+ * @extends Factory<Tag>
  */
-class CategoryFactory extends Factory
+class TagFactory extends Factory
 {
     public function definition(): array
     {
         return [
-            "title" => fake()->word(),
-            "color" => fake()->hexColor(),
+            "name" => fake()->unique()->word(),
         ];
     }
 }

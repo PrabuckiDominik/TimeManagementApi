@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use TimeManagement\Models\Category;
+use TimeManagement\Models\Tag;
 use TimeManagement\Models\Task;
 use TimeManagement\Models\User;
 
@@ -30,11 +31,23 @@ class UserWithTaskDataSeeder extends Seeder
 
         $categoryIds = $categories->pluck("id")->toArray();
 
-        Task::factory()
+        $tags = Tag::factory()
+            ->count(5)
+            ->create([
+                "user_id" => $user->id,
+            ]);
+
+        $tasks = Task::factory()
             ->count(10)
             ->create([
                 "user_id" => $user->id,
                 "category_id" => fake()->optional()->randomElement($categoryIds),
             ]);
+
+        foreach ($tasks as $task) {
+            $randomTags = $tags->shuffle()->take(rand(0, 3));
+
+            $task->tags()->attach($randomTags->pluck("id"));
+        }
     }
 }
