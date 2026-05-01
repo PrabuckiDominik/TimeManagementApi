@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use TimeManagement\Http\Controllers\CategoryController;
 use TimeManagement\Http\Controllers\EmailVerificationController;
 use TimeManagement\Http\Controllers\LoginController;
 use TimeManagement\Http\Controllers\LogoutController;
@@ -16,6 +17,7 @@ Route::middleware("auth:sanctum")->group(function (): void {
     Route::get("/user", fn(Request $request): JsonResponse => $request->user());
     Route::post("/auth/logout", LogoutController::class);
     Route::apiResource("tasks", TaskController::class);
+    Route::apiResource("categories", CategoryController::class);
 });
 
 Route::get("/auth/verify-email/{id}/{hash}", [EmailVerificationController::class, "verify"])

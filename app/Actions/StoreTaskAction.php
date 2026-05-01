@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TimeManagement\Actions;
 
+use TimeManagement\DTO\StoreTaskDto;
 use TimeManagement\Enums\TaskPriority;
 use TimeManagement\Enums\TaskStatus;
 use TimeManagement\Models\Task;
@@ -11,17 +12,23 @@ use TimeManagement\Models\User;
 
 class StoreTaskAction
 {
-    public function execute(User $user, array $data): Task
+    public function execute(User $user, StoreTaskDto $dto): Task
     {
-        if (!empty($data["category_id"])) {
+        $data = [
+            "name" => $dto->name,
+            "description" => $dto->description,
+            "priority" => $dto->priority ?? TaskPriority::MEDIUM,
+            "status" => $dto->status ?? TaskStatus::TODO,
+            "due_date" => $dto->due_date,
+        ];
+
+        if (!empty($dto->category_id)) {
             $data["category_id"] = $user->categories()
-                ->findOrFail($data["category_id"])
+                ->findOrFail($dto->category_id)
                 ->id;
         }
 
         $data["user_id"] = $user->id;
-        $data["priority"] ??= TaskPriority::MEDIUM;
-        $data["status"] ??= TaskStatus::TODO;
 
         return Task::create($data)->load("category");
     }

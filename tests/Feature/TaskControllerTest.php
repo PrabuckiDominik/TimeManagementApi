@@ -178,4 +178,27 @@ class TaskControllerTest extends TestCase
         $response->assertStatus(Http::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors(["name"]);
     }
+
+    public function testUserCanDeleteOwnTask(): void
+    {
+        $response = $this->actingAs($this->user)
+            ->deleteJson("/api/tasks/{$this->task->id}");
+
+        $response->assertStatus(Http::HTTP_OK);
+
+        $this->assertDatabaseMissing("tasks", [
+            "id" => $this->task->id,
+        ]);
+    }
+
+    public function testUserCannotDeleteOtherUserTask(): void
+    {
+        $task = Task::factory()->create([
+            "user_id" => $this->otherUser->id,
+        ]);
+
+        $this->actingAs($this->user)
+            ->deleteJson("/api/tasks/{$task->id}")
+            ->assertStatus(Http::HTTP_FORBIDDEN);
+    }
 }
