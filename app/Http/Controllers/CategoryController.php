@@ -43,7 +43,7 @@ class CategoryController extends Controller
     {
         $this->authorize("create", Category::class);
 
-        $category = $action->execute($request->user(), $request->validated());
+        $category = $action->execute($request->user(), $request->toDto());
 
         return response()->json([
             "message" => __("categories.created"),
@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
         $this->authorize("update", $category);
 
-        $category = $action->execute($category, $request->validated(), $request->user());
+        $category = $action->execute($category, $request->toDto());
 
         return response()->json([
             "message" => __("categories.updated"),

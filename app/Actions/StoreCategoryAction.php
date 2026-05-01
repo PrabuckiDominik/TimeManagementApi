@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace TimeManagement\Actions;
 
+use TimeManagement\DTO\StoreCategoryDto;
 use TimeManagement\Models\Category;
 use TimeManagement\Models\User;
 
 class StoreCategoryAction
 {
-    public function execute(User $user, array $data): Category
+    public function execute(User $user, StoreCategoryDto $dto): Category
     {
-        $data["user_id"] = $user->id;
-
-        return Category::create($data);
+        return Category::create([
+            "user_id" => $user->id,
+            "title" => $dto->title,
+            "color" => $dto->color,
+        ]);
     }
 }
