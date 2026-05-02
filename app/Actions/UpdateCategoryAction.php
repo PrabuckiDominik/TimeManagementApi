@@ -11,12 +11,7 @@ class UpdateCategoryAction
 {
     public function execute(Category $category, UpdateCategoryDto $dto): Category
     {
-        $data = array_filter([
-            "title" => $dto->title,
-            "color" => $dto->color,
-        ], fn ($value) => $value !== null);
-
-        $category->update($data);
+        $category->update($dto->toArray());
 
         return $category->refresh();
     }

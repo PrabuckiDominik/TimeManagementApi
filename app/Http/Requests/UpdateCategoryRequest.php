@@ -27,6 +27,8 @@ class UpdateCategoryRequest extends FormRequest
         return new UpdateCategoryDto(
             title: $this->input("title"),
             color: $this->input("color"),
+            hasColor: $this->has("color"),
+            hasTitle: $this->has("title"),
         );
     }
 }
