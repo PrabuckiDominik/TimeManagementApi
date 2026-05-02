@@ -13,6 +13,7 @@ use TimeManagement\Http\Controllers\RegisterController;
 use TimeManagement\Http\Controllers\ResetPasswordController;
 use TimeManagement\Http\Controllers\TagController;
 use TimeManagement\Http\Controllers\TaskController;
+use TimeManagement\Http\Controllers\UserProfileController;
 
 Route::middleware("auth:sanctum")->group(function (): void {
     Route::get("/user", fn(Request $request): JsonResponse => $request->user());
@@ -20,6 +21,8 @@ Route::middleware("auth:sanctum")->group(function (): void {
     Route::apiResource("tasks", TaskController::class);
     Route::apiResource("categories", CategoryController::class);
     Route::apiResource("tags", TagController::class);
+    Route::get("/profile", [UserProfileController::class, "show"]);
+    Route::put("/profile", [UserProfileController::class, "update"]);
 });
 
 Route::get("/auth/verify-email/{id}/{hash}", [EmailVerificationController::class, "verify"])

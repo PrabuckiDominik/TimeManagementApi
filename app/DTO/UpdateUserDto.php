@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace TimeManagement\DTO;
 
-class UpdateUserDto
+readonly class UpdateUserDto
 {
     public function __construct(
         public ?string $name,
-        public ?string $email,
     ) {}
+
+    public function toArray(): array
+    {
+        return array_filter([
+            "name" => $this->name,
+        ], fn($value) => $value !== null);
+    }
 }

@@ -7,62 +7,29 @@ namespace TimeManagement\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as Status;
+use TimeManagement\Actions\UpdateUserAction;
 use TimeManagement\Http\Requests\UpdateUserRequest;
-use TimeManagement\Http\Resources\UserDetailResource;
-use TimeManagement\Http\Resources\UserResource;
-use TimeManagement\Models\User;
+use TimeManagement\Http\Resources\UserProfileResource;
 
 class UserProfileController extends Controller
 {
     public function show(Request $request): JsonResponse
     {
-        $user = $request->user();
-
-        $user->loadCount([
-            "ownedEvents",
-            "followers",
-            "followingUsers",
-        ])->load(["organizations", "ownedEvents", "badge"]);
+        $request->user();
 
         return response()->json([
             "message" => __("profile.retrieved"),
-            "data" => new UserResource($user),
+            "data" => new UserProfileResource($request->user()),
         ])->setStatusCode(Status::HTTP_OK);
     }
 
-    public function update(UpdateUserRequest $request): JsonResponse
+    public function update(UpdateUserRequest $request, UpdateUserAction $action): JsonResponse
     {
-        $user = $request->user();
-        $user->update($request->validated());
-
-        $user->loadCount([
-            "ownedEvents",
-            "followers",
-            "followingUsers",
-        ])->load([
-            "organizations", "ownedEvents", "badge",
-        ]);
+        $user = $action->execute($request->user(), $request->toDto());
 
         return response()->json([
             "message" => __("profile.updated"),
-            "data" => new UserResource($user),
-        ])->setStatusCode(Status::HTTP_OK);
-    }
-
-    public function showDetail(Request $request, User $user): JsonResponse
-    {
-        if ($request->user()->id === $user->id) {
-            return response()->json([
-                "message" => __("profile.redirected"),
-                "redirect" => "/api/profile",
-            ], 302);
-        }
-
-        $user->load(["ownedEvents", "badge"])->loadCount(["ownedEvents", "followers", "followingUsers"]);
-
-        return response()->json([
-            "message" => __("profile.retrieved"),
-            "data" => new UserDetailResource($user),
+            "data" => new UserProfileResource($user),
         ])->setStatusCode(Status::HTTP_OK);
     }
 }

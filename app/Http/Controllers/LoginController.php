@@ -8,7 +8,7 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Status;
 use TimeManagement\Http\Requests\LoginRequest;
-use TimeManagement\Http\Resources\UserResource;
+use TimeManagement\Http\Resources\UserProfileResource;
 
 class LoginController extends Controller
 {
@@ -28,7 +28,7 @@ class LoginController extends Controller
         return response()->json([
             "message" => "success",
             "token" => $token,
-            "user_id" => new UserResource($user),
+            "user_id" => new UserProfileResource($user),
         ], Status::HTTP_OK);
     }
 }
