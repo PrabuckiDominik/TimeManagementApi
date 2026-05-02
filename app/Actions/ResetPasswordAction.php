@@ -24,9 +24,7 @@ class ResetPasswordAction
 
                 event(new PasswordReset($user));
 
-                activity()
-                    ->performedOn($user)
-                    ->log("Reset password via API");
+                activity()->performedOn($user)->log("Reset password via API");
             },
         );
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TimeManagement\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use TimeManagement\DTO\StoreCategoryDto;
 
 class StoreCategoryRequest extends FormRequest
@@ -17,7 +18,13 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => ["required", "string", "max:255"],
+            "title" => [
+                "required",
+                "string",
+                "max:255",
+                Rule::unique("categories", "title")
+                    ->where(fn($query) => $query->where("user_id", $this->user()->id)),
+            ],
             "color" => ["nullable", "string", "max:20"],
         ];
     }

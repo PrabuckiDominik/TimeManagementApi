@@ -17,6 +17,8 @@ class UpdateTaskDto
         public ?string $due_date,
         public bool $hasCategoryId,
         public ?int $category_id,
+        public ?array $tag_ids,
+        public bool $hasTagIds,
     ) {}
 
     public function toArray(): array

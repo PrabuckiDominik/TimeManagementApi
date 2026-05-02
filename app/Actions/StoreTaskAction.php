@@ -23,13 +23,18 @@ class StoreTaskAction
         ];
 
         if (!empty($dto->category_id)) {
-            $data["category_id"] = $user->categories()
-                ->findOrFail($dto->category_id)
-                ->id;
+            $data["category_id"] = $user->categories()->findOrFail($dto->category_id)->id;
         }
 
         $data["user_id"] = $user->id;
 
-        return Task::create($data)->load("category");
+        $task = Task::create($data);
+
+        if (!empty($dto->tag_ids)) {
+            $tagIds = $user->tags()->whereIn("id", $dto->tag_ids)->pluck("id")->toArray();
+            $task->tags()->sync($tagIds);
+        }
+
+        return $task->load(["category", "tags"]);
     }
 }

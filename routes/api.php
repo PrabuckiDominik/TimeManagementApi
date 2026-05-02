@@ -11,6 +11,7 @@ use TimeManagement\Http\Controllers\LoginController;
 use TimeManagement\Http\Controllers\LogoutController;
 use TimeManagement\Http\Controllers\RegisterController;
 use TimeManagement\Http\Controllers\ResetPasswordController;
+use TimeManagement\Http\Controllers\TagController;
 use TimeManagement\Http\Controllers\TaskController;
 
 Route::middleware("auth:sanctum")->group(function (): void {
@@ -18,6 +19,7 @@ Route::middleware("auth:sanctum")->group(function (): void {
     Route::post("/auth/logout", LogoutController::class);
     Route::apiResource("tasks", TaskController::class);
     Route::apiResource("categories", CategoryController::class);
+    Route::apiResource("tags", TagController::class);
 });
 
 Route::get("/auth/verify-email/{id}/{hash}", [EmailVerificationController::class, "verify"])

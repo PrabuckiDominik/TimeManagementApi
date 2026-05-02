@@ -178,4 +178,19 @@ class CategoryControllerTest extends TestCase
             ->deleteJson("/api/categories/$category->id")
             ->assertStatus(Http::HTTP_FORBIDDEN);
     }
+
+    public function testUserCannotCreateDuplicateCategoryTitle(): void
+    {
+        Category::factory()->create([
+            "user_id" => $this->user->id,
+            "title" => "Work",
+        ]);
+
+        $response = $this->actingAs($this->user)
+            ->postJson("/api/categories", [
+                "title" => "Work",
+            ]);
+
+        $response->assertStatus(Http::HTTP_UNPROCESSABLE_ENTITY);
+    }
 }

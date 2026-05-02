@@ -22,6 +22,15 @@ class UpdateTaskAction
 
         $task->update($data);
 
-        return $task->load("category");
+        if ($dto->hasTagIds) {
+            if ($dto->tag_ids === null) {
+                $task->tags()->sync([]);
+            } else {
+                $tagIds = $user->tags()->whereIn("id", $dto->tag_ids)->pluck("id")->toArray();
+                $task->tags()->sync($tagIds);
+            }
+        }
+
+        return $task->load(["category", "tags"]);
     }
 }

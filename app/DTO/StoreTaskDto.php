@@ -16,5 +16,6 @@ class StoreTaskDto
         public ?TaskStatus $status,
         public ?string $due_date,
         public ?int $category_id,
+        public ?array $tag_ids,
     ) {}
 }

@@ -20,6 +20,8 @@ class UpdateTaskRequest extends FormRequest
             "status" => ["nullable", "in:" . implode(",", array_column(TaskStatus::cases(), "value"))],
             "due_date" => ["nullable", "date"],
             "category_id" => ["nullable", "integer"],
+            "tag_ids" => ["sometimes", "array"],
+            "tag_ids.*" => ["integer"],
         ];
     }
 
@@ -37,6 +39,8 @@ class UpdateTaskRequest extends FormRequest
             due_date: $this->input("due_date"),
             hasCategoryId: $this->exists("category_id"),
             category_id: $this->input("category_id"),
+            tag_ids: $this->input("tag_ids"),
+            hasTagIds: $this->exists("tag_ids"),
         );
     }
 }

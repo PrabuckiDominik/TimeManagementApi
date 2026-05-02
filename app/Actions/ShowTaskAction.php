@@ -10,6 +10,6 @@ class ShowTaskAction
 {
     public function execute(Task $task): Task
     {
-        return $task->load("category");
+        return $task->load(["category", "tags"]);
     }
 }
