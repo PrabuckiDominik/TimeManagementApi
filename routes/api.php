@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use TimeManagement\Http\Controllers\CategoryController;
+use TimeManagement\Http\Controllers\DashboardController;
 use TimeManagement\Http\Controllers\EmailVerificationController;
 use TimeManagement\Http\Controllers\LoginController;
 use TimeManagement\Http\Controllers\LogoutController;
@@ -21,6 +22,7 @@ Route::middleware("auth:sanctum")->group(function (): void {
     Route::apiResource("tasks", TaskController::class);
     Route::apiResource("categories", CategoryController::class);
     Route::apiResource("tags", TagController::class);
+    Route::get("/dashboard", [DashboardController::class, "show"]);
     Route::get("/profile", [UserProfileController::class, "show"]);
     Route::put("/profile", [UserProfileController::class, "update"]);
 });

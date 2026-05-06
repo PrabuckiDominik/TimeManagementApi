@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as Status;
 use TimeManagement\Actions\DeleteTagAction;
 use TimeManagement\Actions\GetUserTagsAction;
@@ -18,11 +19,11 @@ use TimeManagement\Models\Tag;
 
 class TagController extends Controller
 {
-    public function index(GetUserTagsAction $action): JsonResponse
+    public function index(Request $request, GetUserTagsAction $action): JsonResponse
     {
         $this->authorize("viewAny", Tag::class);
 
-        $tags = $action->execute(request()->user());
+        $tags = $action->execute($request->user());
 
         return response()->json([
             "data" => TagResource::collection($tags),

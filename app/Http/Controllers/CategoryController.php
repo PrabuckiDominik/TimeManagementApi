@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as Status;
+use TimeManagement\Actions\DeleteCategoryAction;
 use TimeManagement\Actions\GetUserCategoriesAction;
 use TimeManagement\Actions\ShowCategoryAction;
 use TimeManagement\Actions\StoreCategoryAction;
@@ -17,11 +19,11 @@ use TimeManagement\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function index(GetUserCategoriesAction $action): JsonResponse
+    public function index(Request $request, GetUserCategoriesAction $action): JsonResponse
     {
         $this->authorize("viewAny", Category::class);
 
-        $categories = $action->execute(request()->user());
+        $categories = $action->execute($request->user());
 
         return response()->json([
             "data" => CategoryResource::collection($categories),
@@ -63,11 +65,11 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function destroy(Category $category): JsonResponse
+    public function destroy(Category $category, DeleteCategoryAction $action): JsonResponse
     {
         $this->authorize("delete", $category);
 
-        $category->delete();
+        $action->execute($category);
 
         return response()->json([
             "message" => __("categories.deleted"),

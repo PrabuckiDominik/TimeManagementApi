@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as Status;
 use TimeManagement\Actions\DeleteTaskAction;
 use TimeManagement\Actions\GetUserTaskAction;
@@ -18,11 +19,11 @@ use TimeManagement\Models\Task;
 
 class TaskController extends Controller
 {
-    public function index(GetUserTaskAction $action): JsonResponse
+    public function index(Request $request, GetUserTaskAction $action): JsonResponse
     {
         $this->authorize("viewAny", Task::class);
 
-        $tasks = $action->execute(request()->user());
+        $tasks = $action->execute($request->user());
 
         return response()->json([
             "data" => TaskResource::collection($tasks),
