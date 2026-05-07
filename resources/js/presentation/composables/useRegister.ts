@@ -1,7 +1,7 @@
-import { reactive, ref } from "vue"
-import { useRouter } from "vue-router"
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { AuthRepositoryImpl } from "@/data/auth/AuthRepositoryImpl"
+import { AuthRepositoryImpl } from '@/data/auth/AuthRepositoryImpl'
 
 const authRepository = new AuthRepositoryImpl()
 
@@ -13,10 +13,10 @@ export function useRegister() {
   const errors = ref<Record<string, string[]>>({})
 
   const form = reactive({
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
   })
 
   const submit = async (): Promise<void> => {
@@ -27,7 +27,7 @@ export function useRegister() {
     try {
       await authRepository.register(form)
 
-      await router.push("/login")
+      await router.push('/login')
     } catch (error: any) {
       if (error.response?.status === 422) {
         errors.value = error.response.data.errors

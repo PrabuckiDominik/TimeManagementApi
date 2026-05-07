@@ -1,3 +1,3 @@
 export const appConfig = {
-  name: import.meta.env.VITE_APP_NAME ?? "Time Management",
+  name: import.meta.env.VITE_APP_NAME ?? 'Time Management',
 }

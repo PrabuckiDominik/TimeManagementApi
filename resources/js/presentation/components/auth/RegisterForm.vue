@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { useRegister } from "@/presentation/composables/useRegister"
-import { useI18n } from "vue-i18n"
+import { useRegister } from '@/presentation/composables/useRegister'
+import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
 
-import AuthCard from "@/presentation/components/auth/AuthCard.vue"
-import AuthHeader from "@/presentation/components/auth/AuthHeader.vue"
-import AuthInput from "@/presentation/components/auth/AuthInput.vue"
-import AuthSubmitButton from "@/presentation/components/auth/AuthSubmitButton.vue"
-import AuthFooter from "@/presentation/components/auth/AuthFooter.vue"
+import AuthCard from '@/presentation/components/auth/AuthCard.vue'
+import AuthHeader from '@/presentation/components/auth/AuthHeader.vue'
+import AuthInput from '@/presentation/components/auth/AuthInput.vue'
+import AuthSubmitButton from '@/presentation/components/auth/AuthSubmitButton.vue'
+import AuthFooter from '@/presentation/components/auth/AuthFooter.vue'
 
 const { t } = useI18n()
 
@@ -16,6 +17,9 @@ const {
   loading,
   errors,
 } = useRegister()
+
+const showPassword = ref(false)
+const showPasswordConfirmation = ref(false)
 </script>
 
 <template>
@@ -25,7 +29,7 @@ const {
       :subtitle="t('auth.register.subtitle')"
     />
 
-    <form @submit.prevent="submit" class="space-y-4">
+    <form class="space-y-4" @submit.prevent="submit">
       <AuthInput
         v-model="form.name"
         :label="t('auth.register.name')"
@@ -41,20 +45,41 @@ const {
         :error="errors.email"
       />
 
-      <AuthInput
-        v-model="form.password"
-        type="password"
-        :label="t('auth.register.password')"
-        placeholder="********"
-        :error="errors.password"
-      />
+      <div class="relative">
+        <AuthInput
+          v-model="form.password"
+          :type="showPassword ? 'text' : 'password'"
+          :label="t('auth.register.password')"
+          placeholder="********"
+          :error="errors.password"
+        />
 
-      <AuthInput
-        v-model="form.password_confirmation"
-        type="password"
-        :label="t('auth.register.passwordConfirmation')"
-        placeholder="********"
-      />
+        <button
+          type="button"
+          class="absolute right-3 top-9 text-sm text-slate-500 hover:text-slate-700"
+          @click="showPassword = !showPassword"
+        >
+          {{ showPassword ? 'Hide' : 'Show' }}
+        </button>
+      </div>
+
+      <div class="relative">
+        <AuthInput
+          v-model="form.password_confirmation"
+          :type="showPasswordConfirmation ? 'text' : 'password'"
+          :label="t('auth.register.passwordConfirmation')"
+          placeholder="********"
+          :error="errors.password_confirmation"
+        />
+
+        <button
+          type="button"
+          class="absolute right-3 top-9 text-sm text-slate-500 hover:text-slate-700"
+          @click="showPasswordConfirmation = !showPasswordConfirmation"
+        >
+          {{ showPasswordConfirmation ? 'Hide' : 'Show' }}
+        </button>
+      </div>
 
       <AuthSubmitButton
         :loading="loading"

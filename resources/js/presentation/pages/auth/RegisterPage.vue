@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import AuthLayout from "@/presentation/layouts/AuthLayout.vue"
-import AppLogo from "@/presentation/components/AppLogo.vue"
-import RegisterForm from "@/presentation/components/auth/RegisterForm.vue"
+import AuthLayout from '@/presentation/layouts/AuthLayout.vue'
+import AppLogo from '@/presentation/components/AppLogo.vue'
+import RegisterForm from '@/presentation/components/auth/RegisterForm.vue'
 </script>

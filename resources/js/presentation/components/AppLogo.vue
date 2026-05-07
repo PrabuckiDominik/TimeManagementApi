@@ -1,20 +1,21 @@
 <script>
-import { appConfig } from "@/appConfig"
-import {defineComponent} from "vue";
+import { appConfig } from '@/appConfig'
+import {defineComponent} from 'vue'
 
 export default defineComponent({
   computed: {
     appConfig() {
       return appConfig
-    }
-  }
+    },
+  },
 })
 
 </script>
+
 <template>
   <div class="flex flex-col items-center">
     <div
-      class="flex h-16 w-16 items-center justify-center rounded-2xl border-4 border-white bg-white/10 backdrop-blur"
+      class="flex size-16 items-center justify-center rounded-2xl border-4 border-white bg-white/10 backdrop-blur"
     >
       <span class="text-2xl font-bold text-white">✓</span>
     </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AuthLayout from "@/presentation/layouts/AuthLayout.vue"
-import AppLogo from "@/presentation/components/AppLogo.vue"
-import LoginForm from "@/presentation/components/auth/LoginForm.vue"
+import AuthLayout from '@/presentation/layouts/AuthLayout.vue'
+import AppLogo from '@/presentation/components/AppLogo.vue'
+import LoginForm from '@/presentation/components/auth/LoginForm.vue'
 </script>
 
 <template>

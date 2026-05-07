@@ -1,6 +1,6 @@
-import { ref } from "vue"
-import type { LoginDto } from "@/domain/auth/dto/LoginDto"
-import { AuthRepositoryImpl } from "@/data/auth/AuthRepositoryImpl"
+import { ref } from 'vue'
+import type { LoginDto } from '@/domain/auth/dto/LoginDto'
+import { AuthRepositoryImpl } from '@/data/auth/AuthRepositoryImpl'
 
 type FormErrors = Record<string, string[]>
 
@@ -16,7 +16,7 @@ export function useLogin(repository = new AuthRepositoryImpl()){
     try {
       const result = await repository.login(dto)
 
-      localStorage.setItem("token", result.token)
+      localStorage.setItem('token', result.token)
 
       return result
     } catch (e: any) {
@@ -24,7 +24,7 @@ export function useLogin(repository = new AuthRepositoryImpl()){
         errors.value = e.response.data.errors
       } else {
         errors.value = {
-          general: [e.response?.data?.message ?? "Login failed"],
+          general: [e.response?.data?.message ?? 'Login failed'],
         }
       }
 

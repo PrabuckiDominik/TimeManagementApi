@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue"
-import { useI18n } from "vue-i18n"
+import { ref, reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import { useLogin } from "@/presentation/composables/useLogin"
+import { useLogin } from '@/presentation/composables/useLogin'
 
-import AuthCard from "@/presentation/components/auth/AuthCard.vue"
-import AuthHeader from "@/presentation/components/auth/AuthHeader.vue"
-import AuthInput from "@/presentation/components/auth/AuthInput.vue"
-import AuthSubmitButton from "@/presentation/components/auth/AuthSubmitButton.vue"
-import AuthFooter from "@/presentation/components/auth/AuthFooter.vue"
+import AuthCard from '@/presentation/components/auth/AuthCard.vue'
+import AuthHeader from '@/presentation/components/auth/AuthHeader.vue'
+import AuthInput from '@/presentation/components/auth/AuthInput.vue'
+import AuthSubmitButton from '@/presentation/components/auth/AuthSubmitButton.vue'
+import AuthFooter from '@/presentation/components/auth/AuthFooter.vue'
 
 const { t } = useI18n()
 
@@ -17,8 +17,8 @@ const { login, loading, errors } = useLogin()
 const showPassword = ref(false)
 
 const form = reactive({
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 })
 
 const submit = async () => {
@@ -36,7 +36,7 @@ const submit = async () => {
       :subtitle="t('auth.login.subtitle')"
     />
 
-    <form @submit.prevent="submit" class="space-y-4">
+    <form class="space-y-4" @submit.prevent="submit">
       <AuthInput
         v-model="form.email"
         type="email"
