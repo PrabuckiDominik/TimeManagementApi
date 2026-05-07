@@ -31,11 +31,22 @@ class UserWithTaskDataSeeder extends Seeder
 
         $categoryIds = $categories->pluck("id")->toArray();
 
-        $tags = Tag::factory()
-            ->count(5)
-            ->create([
-                "user_id" => $user->id,
-            ]);
+        $tagNames = [
+            "work",
+            "personal",
+            "urgent",
+            "meeting",
+            "study",
+        ];
+
+        $tags = collect($tagNames)->map(
+            fn(string $name): Tag => Tag::firstOrCreate(
+                [
+                    "user_id" => $user->id,
+                    "name" => $name,
+                ],
+            ),
+        );
 
         $tasks = Task::factory()
             ->count(10)
@@ -47,7 +58,9 @@ class UserWithTaskDataSeeder extends Seeder
         foreach ($tasks as $task) {
             $randomTags = $tags->shuffle()->take(rand(0, 3));
 
-            $task->tags()->attach($randomTags->pluck("id"));
+            $task->tags()->syncWithoutDetaching(
+                $randomTags->pluck("id"),
+            );
         }
     }
 }

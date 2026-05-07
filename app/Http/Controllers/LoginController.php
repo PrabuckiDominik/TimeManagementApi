@@ -28,7 +28,7 @@ class LoginController extends Controller
         return response()->json([
             "message" => "success",
             "token" => $token,
-            "user_id" => new UserProfileResource($user),
+            "user" => new UserProfileResource($user),
         ], Status::HTTP_OK);
     }
 }
