@@ -33,6 +33,7 @@ class GetDashboardStatsAction
                 $now,
             ),
             monthlyStats: $this->periodStats($user, $now->startOfMonth(), $now->endOfMonth(), $now),
+            completionTrend: $this->completionTrend($user, $now),
             upcomingDeadlines: $this->upcomingDeadlines($user, $now),
         );
     }
@@ -172,6 +173,45 @@ class GetDashboardStatsAction
                 ])
                 ->values()
                 ->all(),
+        ];
+    }
+
+    private function completionTrend(
+        User $user,
+        CarbonImmutable $now,
+    ): array {
+        $start = $now
+            ->subDays(6)
+            ->startOfDay();
+
+        $end = $now->endOfDay();
+
+        $completedTasks = $user->tasks()
+            ->selectRaw("DATE(completed_at) as date")
+            ->selectRaw("COUNT(*) as count")
+            ->whereNotNull("completed_at")
+            ->whereBetween("completed_at", [$start, $end])
+            ->groupByRaw("DATE(completed_at)")
+            ->orderByRaw("DATE(completed_at)")
+            ->pluck("count", "date");
+
+        $days = [];
+
+        foreach (range(0, 6) as $dayOffset) {
+            $date = $start
+                ->addDays($dayOffset)
+                ->toDateString();
+
+            $days[] = [
+                "date" => $date,
+                "count" => $completedTasks[$date] ?? 0,
+            ];
+        }
+
+        return [
+            "period_start" => $start->toDateString(),
+            "period_end" => $end->toDateString(),
+            "days" => $days,
         ];
     }
 }

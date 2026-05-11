@@ -17,6 +17,7 @@ class DashboardStatsDto
         public array $categoryDistribution,
         public array $weeklyStats,
         public array $monthlyStats,
+        public readonly array $completionTrend,
         public array $upcomingDeadlines,
     ) {}
 }

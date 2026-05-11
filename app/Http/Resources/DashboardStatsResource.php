@@ -22,6 +22,7 @@ class DashboardStatsResource extends JsonResource
             "category_distribution" => $this->categoryDistribution,
             "weekly" => $this->weeklyStats,
             "monthly" => $this->monthlyStats,
+            "completion_trend" => $this->completionTrend,
             "upcoming_deadlines" => $this->upcomingDeadlines,
         ];
     }
