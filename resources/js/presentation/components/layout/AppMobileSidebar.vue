@@ -3,7 +3,7 @@
     <div
       v-if="open"
       class="fixed inset-0 z-40 bg-black/50 lg:hidden"
-      @click="$emit(&quot;close&quot;)"
+      @click="emit('close')"
     />
   </Transition>
 
@@ -12,16 +12,14 @@
       v-if="open"
       class="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl lg:hidden"
     >
-      <div
-        class="flex items-center justify-between border-b border-gray-100 p-6"
-      >
+      <div class="flex items-center justify-between border-b border-gray-100 p-6">
         <h1 class="text-2xl font-bold text-gray-900">
           {{ appName }}
         </h1>
 
         <button
           class="rounded-xl border border-gray-200 p-2"
-          @click="$emit(&quot;close&quot;)"
+          @click="emit('close')"
         >
           ✕
         </button>
@@ -31,7 +29,7 @@
         <RouterLink
           to="/dashboard"
           class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          @click="$emit(&quot;close&quot;)"
+          @click="emit('close')"
         >
           Dashboard
         </RouterLink>
@@ -39,7 +37,7 @@
         <RouterLink
           to="/tasks"
           class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          @click="$emit(&quot;close&quot;)"
+          @click="emit('close')"
         >
           Tasks
         </RouterLink>
@@ -47,7 +45,7 @@
         <RouterLink
           to="/profile"
           class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          @click="$emit(&quot;close&quot;)"
+          @click="emit('close')"
         >
           Profile
         </RouterLink>
@@ -56,12 +54,12 @@
   </Transition>
 </template>
 
-<script setup lang='ts'>
-defineProps<{
+<script setup lang="ts">
+const { open } = defineProps<{
   open: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   close: []
 }>()
 
