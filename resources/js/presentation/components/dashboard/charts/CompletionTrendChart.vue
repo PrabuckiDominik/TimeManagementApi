@@ -5,7 +5,7 @@
   />
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -14,13 +14,13 @@ import {
   LinearScale,
   PointElement,
   Tooltip,
-} from "chart.js"
+} from 'chart.js'
 
-import { computed } from "vue"
+import { computed } from 'vue'
 
-import { Line } from "vue-chartjs"
+import { Line } from 'vue-chartjs'
 
-import type { CompletionTrend } from "@/domain/dashboard/models/DashboardStats"
+import type { CompletionTrend } from '@/domain/dashboard/models/DashboardStats'
 
 ChartJS.register(
   CategoryScale,
@@ -42,11 +42,11 @@ const chartData = computed(() => ({
 
   datasets: [
     {
-      label: "Completed tasks",
+      label: 'Completed tasks',
       data: props.data.days.map(day => day.count),
 
-      borderColor: "#6366F1",
-      backgroundColor: "#6366F1",
+      borderColor: '#6366F1',
+      backgroundColor: '#6366F1',
 
       tension: 0.4,
     },
@@ -56,5 +56,10 @@ const chartData = computed(() => ({
 const options = {
   responsive: true,
   maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
 }
 </script>

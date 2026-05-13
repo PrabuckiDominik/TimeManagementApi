@@ -1,9 +1,5 @@
 export interface DashboardStats {
-  total_tasks: number
-  completed: number
-  in_progress: number
-  to_do: number
-  overdue: number
+  task_stats: TaskStats
 
   priority_distribution: PriorityDistribution[]
   status_distribution: StatusDistribution[]
@@ -75,4 +71,12 @@ export interface CompletionTrend {
 export interface CompletionTrendDay {
   date: string
   count: number
+}
+
+export interface TaskStats {
+  total_tasks: number
+  completed: number
+  in_progress: number
+  to_do: number
+  overdue: number
 }

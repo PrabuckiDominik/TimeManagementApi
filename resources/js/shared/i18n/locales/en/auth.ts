@@ -21,4 +21,6 @@ export default {
     alreadyHaveAccount: 'Already have an account?',
     login: 'Sign in',
   },
+  show: 'Show',
+  hide: 'Hide',
 }

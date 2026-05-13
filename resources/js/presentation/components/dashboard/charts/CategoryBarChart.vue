@@ -2,7 +2,7 @@
   <Bar :data="chartData" :options="options" />
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 import {
   BarElement,
   CategoryScale,
@@ -10,13 +10,13 @@ import {
   Legend,
   LinearScale,
   Tooltip,
-} from "chart.js"
+} from 'chart.js'
 
-import { computed } from "vue"
+import { computed } from 'vue'
 
-import { Bar } from "vue-chartjs"
+import { Bar } from 'vue-chartjs'
 
-import type { CategoryDistribution } from "@/domain/dashboard/models/DashboardStats"
+import type { CategoryDistribution } from '@/domain/dashboard/models/DashboardStats'
 
 ChartJS.register(
   CategoryScale,
@@ -31,14 +31,13 @@ const props = defineProps<{
 }>()
 
 const chartData = computed(() => ({
-  labels: props.data.map(item => item.title ?? "No category"),
-
+  labels: props.data.map(item => item.title ?? 'No category'),
   datasets: [
     {
-      label: "Tasks",
+      label: 'Tasks',
       data: props.data.map(item => item.count),
       backgroundColor: props.data.map(
-        item => item.color ?? "#6366F1",
+        item => item.color ?? '#6366F1',
       ),
     },
   ],
@@ -47,5 +46,11 @@ const chartData = computed(() => ({
 const options = {
   responsive: true,
   maintainAspectRatio: false,
+
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
 }
 </script>

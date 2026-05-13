@@ -10,8 +10,8 @@
   </AppCard>
 </template>
 
-<script setup lang="ts">
-import AppCard from "@/presentation/components/ui/AppCard.vue"
+<script setup lang='ts'>
+import AppCard from '@/presentation/components/ui/AppCard.vue'
 
 defineProps<{
   title: string

@@ -5,13 +5,13 @@
   />
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 withDefaults(
   defineProps<{
     height?: string
   }>(),
   {
-    height: "h-32",
+    height: 'h-32',
   },
 )
 </script>

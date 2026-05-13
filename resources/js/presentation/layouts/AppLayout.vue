@@ -21,13 +21,13 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue"
+<script setup lang='ts'>
+import { ref } from 'vue'
 
-import AppContainer from "@/presentation/components/layout/AppContainer.vue"
-import AppMobileSidebar from "@/presentation/components/layout/AppMobileSidebar.vue"
-import AppSidebar from "@/presentation/components/layout/AppSidebar.vue"
-import AppTopbar from "@/presentation/components/layout/AppTopbar.vue"
+import AppContainer from '@/presentation/components/layout/AppContainer.vue'
+import AppMobileSidebar from '@/presentation/components/layout/AppMobileSidebar.vue'
+import AppSidebar from '@/presentation/components/layout/AppSidebar.vue'
+import AppTopbar from '@/presentation/components/layout/AppTopbar.vue'
 
 const mobileSidebarOpen = ref(false)
 </script>

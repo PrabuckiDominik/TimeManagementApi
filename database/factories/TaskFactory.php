@@ -18,17 +18,62 @@ class TaskFactory extends Factory
     {
         $status = fake()->randomElement(TaskStatus::cases());
 
-        $dueDate = fake()->optional(0.8)->dateTimeBetween("-3 days", "+7 days");
-
         return [
             "name" => fake()->sentence(3),
             "description" => fake()->optional()->sentence(),
-            "priority" => fake()->randomElement(TaskPriority::cases())->value,
+
+            "priority" => fake()
+                ->randomElement(TaskPriority::cases())
+                ->value,
+
             "status" => $status->value,
-            "due_date" => $dueDate,
+
+            "due_date" => fake()
+                ->optional(0.9)
+                ->dateTimeBetween("-5 days", "+14 days"),
+
             "completed_at" => $status === TaskStatus::DONE
-                ? fake()->dateTimeBetween("-3 days", "+3 days")
+                ? fake()->dateTimeBetween("-5 days")
                 : null,
         ];
+    }
+
+    public function todo(): static
+    {
+        return $this->state([
+            "status" => TaskStatus::TODO,
+            "completed_at" => null,
+        ]);
+    }
+
+    public function inProgress(): static
+    {
+        return $this->state([
+            "status" => TaskStatus::IN_PROGRESS,
+            "completed_at" => null,
+        ]);
+    }
+
+    public function done(): static
+    {
+        return $this->state([
+            "status" => TaskStatus::DONE,
+            "completed_at" => now(),
+        ]);
+    }
+
+    public function overdue(): static
+    {
+        return $this->state([
+            "due_date" => now()->subDays(2),
+            "status" => TaskStatus::TODO,
+        ]);
+    }
+
+    public function highPriority(): static
+    {
+        return $this->state([
+            "priority" => TaskPriority::HIGH,
+        ]);
     }
 }

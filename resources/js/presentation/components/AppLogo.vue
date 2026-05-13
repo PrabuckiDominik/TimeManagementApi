@@ -25,7 +25,7 @@ export default defineComponent({
     </h1>
 
     <p class="mt-2 text-lg text-white/80">
-      Manage your tasks efficiently
+      {{ $t('dashboard.greeting.manage') }}
     </p>
   </div>
 </template>

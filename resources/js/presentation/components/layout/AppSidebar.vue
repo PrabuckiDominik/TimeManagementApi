@@ -43,12 +43,12 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router"
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
 const appName =
-  import.meta.env.VITE_APP_NAME ?? "TaskFlow"
+  import.meta.env.VITE_APP_NAME ?? 'Time Management'
 
 const isActive = (path: string): boolean => {
   return route.path.startsWith(path)

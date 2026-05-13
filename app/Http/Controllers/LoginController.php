@@ -23,6 +23,15 @@ class LoginController extends Controller
         }
 
         $user = $auth->user();
+
+        if (!$user->hasVerifiedEmail()) {
+            $auth->logout();
+
+            return response()->json([
+                "message" => __("auth.email_not_verified"),
+            ], Status::HTTP_FORBIDDEN);
+        }
+
         $token = $user->createToken("token")->plainTextToken;
 
         return response()->json([

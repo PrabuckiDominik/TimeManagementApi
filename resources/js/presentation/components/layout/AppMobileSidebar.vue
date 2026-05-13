@@ -3,7 +3,7 @@
     <div
       v-if="open"
       class="fixed inset-0 z-40 bg-black/50 lg:hidden"
-      @click="$emit('close')"
+      @click="$emit(&quot;close&quot;)"
     />
   </Transition>
 
@@ -21,7 +21,7 @@
 
         <button
           class="rounded-xl border border-gray-200 p-2"
-          @click="$emit('close')"
+          @click="$emit(&quot;close&quot;)"
         >
           ✕
         </button>
@@ -31,7 +31,7 @@
         <RouterLink
           to="/dashboard"
           class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          @click="$emit('close')"
+          @click="$emit(&quot;close&quot;)"
         >
           Dashboard
         </RouterLink>
@@ -39,7 +39,7 @@
         <RouterLink
           to="/tasks"
           class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          @click="$emit('close')"
+          @click="$emit(&quot;close&quot;)"
         >
           Tasks
         </RouterLink>
@@ -47,7 +47,7 @@
         <RouterLink
           to="/profile"
           class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          @click="$emit('close')"
+          @click="$emit(&quot;close&quot;)"
         >
           Profile
         </RouterLink>
@@ -56,7 +56,7 @@
   </Transition>
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 defineProps<{
   open: boolean
 }>()
@@ -66,27 +66,5 @@ defineEmits<{
 }>()
 
 const appName =
-  import.meta.env.VITE_APP_NAME ?? "TaskFlow"
+  import.meta.env.VITE_APP_NAME ?? 'Time Management'
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.25s ease;
-}
-
-.slide-enter-from,
-.slide-leave-to {
-  transform: translateX(-100%);
-}
-</style>

@@ -16,9 +16,9 @@
       </template>
 
       <template v-else-if="stats">
-        <DashboardStatsGrid :stats="stats" />
+        <DashboardStatsGrid v-if="stats" :stats="stats" />
 
-        <DashboardChartsGrid :stats="stats" />
+        <DashboardChartsGrid v-if="stats" :stats="stats" />
 
         <DashboardUpcomingDeadlines
           :tasks="stats.upcoming_deadlines.tasks"
@@ -28,15 +28,15 @@
   </AppLayout>
 </template>
 
-<script setup lang="ts">
-import AppLayout from "@/presentation/layouts/AppLayout.vue"
+<script setup lang='ts'>
+import AppLayout from '@/presentation/layouts/AppLayout.vue'
 
-import DashboardHeader from "@/presentation/components/dashboard/DashboardHeader.vue"
-import DashboardStatsGrid from "@/presentation/components/dashboard/DashboardStatsGrid.vue"
-import DashboardChartsGrid from "@/presentation/components/dashboard/DashboardChartsGrid.vue"
-import DashboardUpcomingDeadlines from "@/presentation/components/dashboard/DashboardUpcomingDeadlines.vue"
+import DashboardHeader from '@/presentation/components/dashboard/DashboardHeader.vue'
+import DashboardStatsGrid from '@/presentation/components/dashboard/DashboardStatsGrid.vue'
+import DashboardChartsGrid from '@/presentation/components/dashboard/DashboardChartsGrid.vue'
+import DashboardUpcomingDeadlines from '@/presentation/components/dashboard/DashboardUpcomingDeadlines.vue'
 
-import { useDashboard } from "@/presentation/composables/useDashboard"
+import { useDashboard } from '@/presentation/composables/useDashboard'
 
 const { stats, loading } = useDashboard()
 </script>

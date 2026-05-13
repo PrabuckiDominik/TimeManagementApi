@@ -8,7 +8,7 @@
       </h4>
 
       <p class="mt-1 text-sm text-gray-500">
-        {{ task.category?.title ?? "No category" }}
+        {{ task.category?.title ?? $t('dashboard.task.no_category') }}
       </p>
     </div>
 
@@ -18,13 +18,13 @@
         ? 'bg-red-100 text-red-600'
         : 'bg-green-100 text-green-600'"
     >
-      {{ task.is_overdue ? "Overdue" : "Upcoming" }}
+      {{ task.is_overdue ? $t('dashboard.task.overdue') : $t('dashboard.task.upcoming') }}
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import type { UpcomingDeadlineTask } from "@/domain/dashboard/models/DashboardStats"
+<script setup lang='ts'>
+import type { UpcomingDeadlineTask } from '@/domain/dashboard/models/DashboardStats'
 
 defineProps<{
   task: UpcomingDeadlineTask

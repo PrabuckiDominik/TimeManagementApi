@@ -2,19 +2,19 @@
   <Pie :data="chartData" :options="options" />
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 import {
   ArcElement,
   Chart as ChartJS,
   Legend,
   Tooltip,
-} from "chart.js"
+} from 'chart.js'
 
-import { computed } from "vue"
+import { computed } from 'vue'
 
-import { Pie } from "vue-chartjs"
+import { Pie } from 'vue-chartjs'
 
-import type { PriorityDistribution } from "@/domain/dashboard/models/DashboardStats"
+import type { PriorityDistribution } from '@/domain/dashboard/models/DashboardStats'
 
 ChartJS.register(
   ArcElement,
@@ -33,9 +33,9 @@ const chartData = computed(() => ({
     {
       data: props.data.map(item => item.count),
       backgroundColor: [
-        "#10B981",
-        "#F59E0B",
-        "#EF4444",
+        '#10B981',
+        '#F59E0B',
+        '#EF4444',
       ],
     },
   ],
@@ -44,5 +44,10 @@ const chartData = computed(() => ({
 const options = {
   responsive: true,
   maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
 }
 </script>

@@ -12,4 +12,5 @@ return [
     "invalid_verification_hash" => "Nieprawidłowy hash weryfikacyjny.",
     "email_already_verified" => "Adres e-mail jest już zweryfikowany.",
     "email_verified_successfully" => "Adres e-mail został pomyślnie zweryfikowany.",
+    "email_not_verified" => "Adres e-mail nie został jeszcze zweryfikowany.",
 ];

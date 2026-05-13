@@ -15,7 +15,9 @@ class UserWithTaskDataSeeder extends Seeder
     public function run(): void
     {
         $user = User::firstOrCreate(
-            ["email" => "user@example.com"],
+            [
+                "email" => "user@example.com",
+            ],
             [
                 "name" => "User",
                 "password" => bcrypt("password"),
@@ -24,42 +26,41 @@ class UserWithTaskDataSeeder extends Seeder
         );
 
         $categories = Category::factory()
-            ->count(3)
+            ->count(5)
             ->create([
                 "user_id" => $user->id,
             ]);
 
-        $categoryIds = $categories->pluck("id")->toArray();
-
-        $tagNames = [
-            "work",
-            "personal",
-            "urgent",
-            "meeting",
-            "study",
-        ];
-
-        $tags = collect($tagNames)->map(
-            fn(string $name): Tag => Tag::firstOrCreate(
-                [
-                    "user_id" => $user->id,
-                    "name" => $name,
-                ],
-            ),
-        );
-
-        $tasks = Task::factory()
-            ->count(10)
+        $tags = Tag::factory()
+            ->count(8)
             ->create([
                 "user_id" => $user->id,
-                "category_id" => fake()->optional()->randomElement($categoryIds),
             ]);
+
+        $tasks = collect([
+            Task::factory()->todo()->count(5),
+            Task::factory()->inProgress()->count(4),
+            Task::factory()->done()->count(6),
+            Task::factory()->overdue()->count(3),
+            Task::factory()->highPriority()->count(2),
+        ])
+            ->flatMap(
+                fn($factory) => $factory->make(),
+            );
 
         foreach ($tasks as $task) {
-            $randomTags = $tags->shuffle()->take(rand(0, 3));
+            $task->user_id = $user->id;
 
-            $task->tags()->syncWithoutDetaching(
-                $randomTags->pluck("id"),
+            $task->category_id = $categories
+                ->random()
+                ->id;
+
+            $task->save();
+
+            $task->tags()->attach(
+                $tags
+                    ->random(rand(1, 3))
+                    ->pluck("id"),
             );
         }
     }

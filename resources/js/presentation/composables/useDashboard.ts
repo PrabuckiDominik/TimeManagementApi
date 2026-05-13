@@ -1,8 +1,8 @@
-import { onMounted, ref } from "vue"
+import { onMounted, ref } from 'vue'
 
-import { DashboardRepositoryImpl } from "@/data/dashboard/DashboardRepositoryImpl"
+import { DashboardRepositoryImpl } from '@/data/dashboard/DashboardRepositoryImpl'
 
-import type { DashboardStats } from "@/domain/dashboard/models/DashboardStats"
+import type { DashboardStats } from '@/domain/dashboard/models/DashboardStats'
 
 const repository = new DashboardRepositoryImpl()
 

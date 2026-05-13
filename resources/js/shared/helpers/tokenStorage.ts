@@ -1,4 +1,4 @@
-const TOKEN_KEY = "auth_token"
+const TOKEN_KEY = 'auth_token'
 
 export const tokenStorage = {
   get(): string | null {

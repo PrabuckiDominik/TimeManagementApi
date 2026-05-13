@@ -12,16 +12,12 @@ class DashboardStatsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "total_tasks" => $this->totalTasks,
-            "completed" => $this->completed,
-            "in_progress" => $this->inProgress,
-            "to_do" => $this->toDo,
-            "overdue" => $this->overdue,
+            "task_stats" => new TaskStatsResource($this->taskStats),
             "priority_distribution" => $this->priorityDistribution,
             "status_distribution" => $this->statusDistribution,
             "category_distribution" => $this->categoryDistribution,
-            "weekly" => $this->weeklyStats,
-            "monthly" => $this->monthlyStats,
+            "weekly" => new PeriodStatsResource($this->weekly),
+            "monthly" => new PeriodStatsResource($this->monthly),
             "completion_trend" => $this->completionTrend,
             "upcoming_deadlines" => $this->upcomingDeadlines,
         ];

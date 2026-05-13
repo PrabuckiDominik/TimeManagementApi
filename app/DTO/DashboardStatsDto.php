@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace TimeManagement\DTO;
 
-class DashboardStatsDto
+readonly class DashboardStatsDto
 {
     public function __construct(
-        public int $totalTasks,
-        public int $completed,
-        public int $inProgress,
-        public int $toDo,
-        public int $overdue,
+        public TaskStatsDto $taskStats,
+        /** @var array<PriorityDistributionDto> */
         public array $priorityDistribution,
+        /** @var array<StatusDistributionDto> */
         public array $statusDistribution,
+        /** @var array<CategoryDistributionDto> */
         public array $categoryDistribution,
-        public array $weeklyStats,
-        public array $monthlyStats,
-        public readonly array $completionTrend,
-        public array $upcomingDeadlines,
+        public PeriodStatsDto $weekly,
+        public PeriodStatsDto $monthly,
+        public CompletionTrendDto $completionTrend,
+        public UpcomingDeadlinesDto $upcomingDeadlines,
     ) {}
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace TimeManagement\Models;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,6 +26,12 @@ use TimeManagement\Enums\TaskStatus;
  * @property ?Carbon $completed_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
+ * @method static Builder done()
+ * @method static Builder todo()
+ * @method static Builder inProgress()
+ * @method static Builder overdue(CarbonImmutable $now)
+ * @method static Builder betweenDates(string $column, CarbonImmutable $start, CarbonImmutable $end)
  */
 class Task extends Model
 {
@@ -66,5 +74,39 @@ class Task extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function scopeDone(Builder $query): Builder
+    {
+        return $query->where("status", TaskStatus::DONE);
+    }
+
+    public function scopeTodo(Builder $query): Builder
+    {
+        return $query->where("status", TaskStatus::TODO);
+    }
+
+    public function scopeInProgress(Builder $query): Builder
+    {
+        return $query->where("status", TaskStatus::IN_PROGRESS);
+    }
+
+    public function scopeOverdue(
+        Builder $query,
+        CarbonImmutable $now,
+    ): Builder {
+        return $query
+            ->whereNotNull("due_date")
+            ->where("due_date", "<", $now)
+            ->where("status", "!=", TaskStatus::DONE);
+    }
+
+    public function scopeBetweenDates(
+        Builder $query,
+        string $column,
+        CarbonImmutable $start,
+        CarbonImmutable $end,
+    ): Builder {
+        return $query->whereBetween($column, [$start, $end]);
     }
 }
