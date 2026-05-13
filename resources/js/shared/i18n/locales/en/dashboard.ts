@@ -18,6 +18,7 @@ export default {
     category_distribution: 'Tasks by Category',
     completion_trend: 'Completion Trend',
     completed_tasks: 'Completed Tasks',
+    tasks: 'Tasks',
   },
   grid: {
     completed: 'Completed',

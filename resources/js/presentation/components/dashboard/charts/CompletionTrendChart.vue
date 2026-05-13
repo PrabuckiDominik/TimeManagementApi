@@ -17,10 +17,11 @@ import {
 } from 'chart.js'
 
 import { computed } from 'vue'
-
 import { Line } from 'vue-chartjs'
-
 import type { CompletionTrend } from '@/domain/dashboard/models/DashboardStats'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 ChartJS.register(
   CategoryScale,
@@ -42,7 +43,7 @@ const chartData = computed(() => ({
 
   datasets: [
     {
-      label: 'Completed tasks',
+      label: t('dashboard.charts.completed_tasks'),
       data: props.data.days.map(day => day.count),
 
       borderColor: '#6366F1',

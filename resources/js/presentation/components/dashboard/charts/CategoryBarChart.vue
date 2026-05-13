@@ -13,10 +13,11 @@ import {
 } from 'chart.js'
 
 import { computed } from 'vue'
-
 import { Bar } from 'vue-chartjs'
-
 import type { CategoryDistribution } from '@/domain/dashboard/models/DashboardStats'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +35,7 @@ const chartData = computed(() => ({
   labels: props.data.map(item => item.title ?? 'No category'),
   datasets: [
     {
-      label: 'Tasks',
+      label: t('dashboard.charts.tasks'),
       data: props.data.map(item => item.count),
       backgroundColor: props.data.map(
         item => item.color ?? '#6366F1',
