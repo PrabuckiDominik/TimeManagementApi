@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="hidden lg:flex lg:w-72 lg:flex-col border-r border-gray-200 bg-white"
+    class="fixed inset-y-0 left-0 hidden w-72 flex-col border-r border-gray-200 bg-white lg:flex"
   >
     <div class="border-b border-gray-100 p-6">
       <h1 class="text-2xl font-bold text-gray-900">
@@ -16,7 +16,7 @@
           ? 'bg-indigo-50 text-indigo-600'
           : 'text-gray-700 hover:bg-gray-100'"
       >
-        Dashboard
+        {{ $t('sidebar.dashboard') }}
       </RouterLink>
 
       <RouterLink
@@ -26,7 +26,7 @@
           ? 'bg-indigo-50 text-indigo-600'
           : 'text-gray-700 hover:bg-gray-100'"
       >
-        Tasks
+        {{ $t('sidebar.tasks') }}
       </RouterLink>
 
       <RouterLink
@@ -36,7 +36,7 @@
           ? 'bg-indigo-50 text-indigo-600'
           : 'text-gray-700 hover:bg-gray-100'"
       >
-        Profile
+        {{ $t('sidebar.profile') }}
       </RouterLink>
     </nav>
   </aside>

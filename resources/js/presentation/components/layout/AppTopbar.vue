@@ -8,12 +8,6 @@
         >
           ☰
         </button>
-
-        <div>
-          <h2 class="text-xl font-semibold text-gray-900">
-            {{ $t('dashboard.title') }}
-          </h2>
-        </div>
       </div>
     </div>
   </header>

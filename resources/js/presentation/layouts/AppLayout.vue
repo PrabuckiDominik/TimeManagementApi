@@ -1,17 +1,15 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <div class="flex min-h-screen">
-      <AppSidebar />
+    <AppSidebar />
 
-      <div class="flex min-w-0 flex-1 flex-col">
-        <AppTopbar
-          @open-sidebar="mobileSidebarOpen = true"
-        />
+    <div class="flex min-h-screen flex-col lg:ml-72">
+      <AppTopbar
+        @open-sidebar="mobileSidebarOpen = true"
+      />
 
-        <AppContainer>
-          <slot />
-        </AppContainer>
-      </div>
+      <AppContainer>
+        <slot />
+      </AppContainer>
     </div>
 
     <AppMobileSidebar
@@ -21,7 +19,7 @@
   </div>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 import AppContainer from '@/presentation/components/layout/AppContainer.vue'

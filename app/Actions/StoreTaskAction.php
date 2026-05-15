@@ -28,6 +28,10 @@ class StoreTaskAction
 
         $data["user_id"] = $user->id;
 
+        if (($data["status"] ?? null) === TaskStatus::DONE) {
+            $data["completed_at"] = now();
+        }
+
         $task = Task::create($data);
 
         if (!empty($dto->tag_ids)) {
