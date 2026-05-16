@@ -11,6 +11,7 @@ export default {
     no_category: 'Brak kategorii',
     overdue: 'Spóźnione',
     upcoming: 'Nadchodzące',
+    due: 'Termin:',
   },
 
   charts: {

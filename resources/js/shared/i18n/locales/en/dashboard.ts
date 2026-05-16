@@ -10,6 +10,7 @@ export default {
     no_category: 'No category',
     overdue: 'Overdue',
     upcoming: 'Upcoming',
+    due: 'Due:',
   },
 
   charts: {

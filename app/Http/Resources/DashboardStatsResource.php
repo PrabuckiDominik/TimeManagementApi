@@ -18,8 +18,31 @@ class DashboardStatsResource extends JsonResource
             "category_distribution" => $this->categoryDistribution,
             "weekly" => new PeriodStatsResource($this->weekly),
             "monthly" => new PeriodStatsResource($this->monthly),
-            "completion_trend" => $this->completionTrend,
-            "upcoming_deadlines" => $this->upcomingDeadlines,
+            "completion_trend" => [
+                "period_start" => $this->completionTrend->periodStart,
+                "period_end" => $this->completionTrend->periodEnd,
+                "days" => collect($this->completionTrend->days)
+                    ->map(fn($day): array => [
+                        "date" => $day->date,
+                        "count" => $day->count,
+                    ])
+                    ->values()
+                    ->all(),
+            ],
+            "upcoming_deadlines" => [
+                "period_start" => $this->upcomingDeadlines->periodStart,
+                "period_end" => $this->upcomingDeadlines->periodEnd,
+                "tasks" => collect($this->upcomingDeadlines->tasks)
+                    ->map(fn($task): array => [
+                        "id" => $task->id,
+                        "name" => $task->name,
+                        "due_date" => $task->dueDate,
+                        "is_overdue" => $task->isOverdue,
+                        "category" => $task->category,
+                    ])
+                    ->values()
+                    ->all(),
+            ],
         ];
     }
 }

@@ -51,7 +51,7 @@ export interface UpcomingDeadlines {
 export interface UpcomingDeadlineTask {
   id: number
   name: string
-  due_date: string
+  due_date: string | null
   is_overdue: boolean
 
   category: {
