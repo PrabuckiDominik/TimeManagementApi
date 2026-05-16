@@ -8,10 +8,14 @@ import plTasks from '@/shared/i18n/locales/pl/tasks'
 import enTasks from '@/shared/i18n/locales/en/tasks'
 import plSidebar from '@/shared/i18n/locales/pl/sidebar'
 import enSidebar from '@/shared/i18n/locales/en/sidebar'
+import plProfile from '@/shared/i18n/locales/pl/profile'
+import enProfile from '@/shared/i18n/locales/en/profile'
+import plCategories from '@/shared/i18n/locales/pl/categories'
+import enCategories from '@/shared/i18n/locales/en/categories'
 
 export const i18n = createI18n({
   legacy: false,
-  locale: 'pl',
+  locale: localStorage.getItem('locale') ?? 'pl',
   fallbackLocale: 'en',
   messages: {
     pl: {
@@ -19,12 +23,16 @@ export const i18n = createI18n({
       dashboard: plDashboard,
       tasks: plTasks,
       sidebar: plSidebar,
+      profile: plProfile,
+      categories: plCategories,
     },
     en: {
       auth: enAuth,
       dashboard: enDashboard,
       tasks: enTasks,
       sidebar: enSidebar,
+      profile: enProfile,
+      categories: enCategories,
     },
   },
 })

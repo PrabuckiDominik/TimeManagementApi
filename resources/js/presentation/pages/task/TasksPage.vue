@@ -11,6 +11,8 @@
         v-model:status="status"
       />
 
+      <TaskTagsPanel @changed="fetchTasks" />
+
       <template v-if="loading">
         <div class="space-y-4">
           <AppSkeleton
@@ -55,15 +57,18 @@ import TaskFilters from '@/presentation/components/tasks/TaskFilters.vue'
 import TaskHeader from '@/presentation/components/tasks/TaskHeader.vue'
 import TaskList from '@/presentation/components/tasks/TaskList.vue'
 import TaskFormModal from '@/presentation/components/tasks/modals/TaskFormModal.vue'
-
+import TaskTagsPanel from '@/presentation/components/tasks/tags/TaskTagsPanel.vue'
 import { useTasks } from '@/presentation/composables/useTasks'
-
 import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
 import type { Task } from '@/domain/tasks/models/Task'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const {
   tasks,
   loading,
+  fetchTasks,
   createTask,
   updateTask,
   deleteTask,
@@ -76,6 +81,10 @@ const createModalOpen = ref(false)
 const editingTask = ref<Task | null>(null)
 
 const filteredTasks = computed(() => {
+  const categoryId = route.query.category_id
+    ? Number(route.query.category_id)
+    : null
+
   return tasks.value.filter(task => {
     const query = search.value.toLowerCase()
 
@@ -89,7 +98,10 @@ const filteredTasks = computed(() => {
     const matchesStatus =
       status.value === '' || task.status === status.value
 
-    return matchesSearch && matchesStatus
+    const matchesCategory =
+      categoryId === null || task.category?.id === categoryId
+
+    return matchesSearch && matchesStatus && matchesCategory
   })
 })
 

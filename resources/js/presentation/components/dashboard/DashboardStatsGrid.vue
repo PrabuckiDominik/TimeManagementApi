@@ -5,21 +5,25 @@
     <DashboardStatCard
       :title="$t('dashboard.grid.total_tasks')"
       :value="stats?.task_stats?.total_tasks ?? 0"
+      icon="Σ"
     />
 
     <DashboardStatCard
       :title="$t('dashboard.grid.completed')"
       :value="stats?.task_stats?.completed ?? 0"
+      icon="✓"
     />
 
     <DashboardStatCard
       :title="$t('dashboard.grid.in_progress')"
       :value="stats?.task_stats?.in_progress ?? 0"
+      icon="↻"
     />
 
     <DashboardStatCard
       :title="$t('dashboard.grid.overdue')"
       :value="stats?.task_stats?.overdue ?? 0"
+      icon="!"
       danger
     />
   </div>
@@ -27,6 +31,7 @@
 
 <script setup lang="ts">
 import DashboardStatCard from '@/presentation/components/dashboard/cards/DashboardStatCard.vue'
+
 import type { DashboardStats } from '@/domain/dashboard/models/DashboardStats'
 
 defineProps<{

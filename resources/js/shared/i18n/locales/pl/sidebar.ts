@@ -1,5 +1,6 @@
 export default {
-  dashboard: 'Panel',
+  dashboard: 'Panel statystyk',
   tasks: 'Zadania',
   profile: 'Profil',
+  categories: 'Kategorie',
 }

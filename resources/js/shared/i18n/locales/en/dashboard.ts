@@ -27,4 +27,22 @@ export default {
     upcoming: 'Upcoming Tasks',
     total_tasks: 'Total Tasks',
   },
+
+  dashboard: {
+    task: {
+      no_category: 'No category',
+      overdue: 'Overdue',
+      upcoming: 'Upcoming',
+    },
+    charts: {
+      tasks: 'Tasks',
+      completed_tasks: 'Completed tasks',
+    },
+  },
+
+  empty: {
+    title: 'You do not have any tasks yet',
+    description: 'Create your first task to start seeing dashboard statistics.',
+  },
+
 }

@@ -64,4 +64,18 @@ export default {
 
   due: 'Due',
   completed: 'Completed',
+
+  tags: {
+    title: 'Tags',
+    subtitle: 'Manage tags assigned to tasks',
+    create: 'Add tag',
+    save: 'Save',
+    save_short: 'OK',
+    cancel: 'Cancel',
+    cancel_short: 'Cancel',
+    edit: 'Edit',
+    delete: 'Delete',
+    empty: 'You do not have any tags yet.',
+    name_placeholder: 'Tag name',
+  },
 }

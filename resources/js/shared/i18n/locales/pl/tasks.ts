@@ -64,4 +64,18 @@ export default {
 
   due: 'Termin',
   completed: 'Ukończono',
+
+  tags: {
+    title: 'Tagi',
+    subtitle: 'Zarządzaj tagami przypisywanymi do zadań',
+    create: 'Dodaj tag',
+    save: 'Zapisz',
+    save_short: 'OK',
+    cancel: 'Anuluj',
+    cancel_short: 'Anuluj',
+    edit: 'Edytuj',
+    delete: 'Usuń',
+    empty: 'Nie masz jeszcze żadnych tagów.',
+    name_placeholder: 'Nazwa tagu',
+  },
 }

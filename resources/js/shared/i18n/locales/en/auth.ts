@@ -23,4 +23,22 @@ export default {
   },
   show: 'Show',
   hide: 'Hide',
+
+  forgot_password: {
+    title: 'Forgot password',
+    subtitle: 'Enter your email and we will send you a reset link',
+    email: 'Email address',
+    submit: 'Send reset link',
+    remember_password: 'Remember your password?',
+    login: 'Sign in',
+  },
+
+  reset_password: {
+    title: 'Reset password',
+    subtitle: 'Set a new password for your account',
+    email: 'Email address',
+    password: 'New password',
+    password_confirmation: 'Confirm new password',
+    submit: 'Reset password',
+  },
 }

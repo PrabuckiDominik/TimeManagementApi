@@ -4,9 +4,7 @@
       <DashboardHeader />
 
       <template v-if="loading">
-        <div
-          class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
-        >
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <div
             v-for="item in 4"
             :key="item"
@@ -16,13 +14,20 @@
       </template>
 
       <template v-else-if="stats">
-        <DashboardStatsGrid v-if="stats" :stats="stats" />
+        <DashboardStatsGrid :stats="stats" />
 
-        <DashboardChartsGrid v-if="stats" :stats="stats" />
-
-        <DashboardUpcomingDeadlines
-          :tasks="stats.upcoming_deadlines.tasks"
+        <DashboardEmptyState
+          v-if="stats.task_stats.total_tasks === 0"
         />
+
+        <template v-else>
+          <DashboardChartsGrid :stats="stats" />
+
+          <DashboardUpcomingDeadlines
+            v-if="stats.upcoming_deadlines.tasks.length > 0"
+            :tasks="stats.upcoming_deadlines.tasks"
+          />
+        </template>
       </template>
     </div>
   </AppLayout>
@@ -35,6 +40,7 @@ import DashboardHeader from '@/presentation/components/dashboard/DashboardHeader
 import DashboardStatsGrid from '@/presentation/components/dashboard/DashboardStatsGrid.vue'
 import DashboardChartsGrid from '@/presentation/components/dashboard/DashboardChartsGrid.vue'
 import DashboardUpcomingDeadlines from '@/presentation/components/dashboard/DashboardUpcomingDeadlines.vue'
+import DashboardEmptyState from '@/presentation/components/dashboard/DashboardEmptyState.vue'
 
 import { useDashboard } from '@/presentation/composables/useDashboard'
 

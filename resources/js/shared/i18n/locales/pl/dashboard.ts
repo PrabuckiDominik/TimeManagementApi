@@ -29,4 +29,21 @@ export default {
     upcoming: 'Nadchodzące zadania',
     total_tasks: 'Wszystkie zadania',
   },
+
+  dashboard: {
+    task: {
+      no_category: 'Brak kategorii',
+      overdue: 'Spóźnione',
+      upcoming: 'Nadchodzące',
+    },
+    charts: {
+      tasks: 'Zadania',
+      completed_tasks: 'Ukończone zadania',
+    },
+  },
+
+  empty: {
+    title: 'Nie masz jeszcze żadnych zadań',
+    description: 'Dodaj pierwsze zadanie, aby panel zaczął pokazywać statystyki.',
+  },
 }

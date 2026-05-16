@@ -1,19 +1,30 @@
-import { TaskApi } from '@/data/task/TaskApi'
+import { CategoryApi } from '@/data/categories/CategoryApi'
 
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
-import type { Task } from '@/domain/tasks/models/Task'
-import type { TaskRepository } from '@/domain/tasks/repositories/TaskRepository'
+import type { Category } from '@/domain/categories/models/Category'
+import type { StoreCategoryDto } from '@/domain/categories/dto/StoreCategoryDto'
+import type { UpdateCategoryDto } from '@/domain/categories/dto/UpdateCategoryDto'
+import type { CategoryRepository } from '@/domain/categories/repositories/CategoryRepository'
 
-export class CategoryRepositoryImpl implements TaskRepository {
-  async getAll(): Promise<Task[]> {
-    const response = await TaskApi.getAll()
+export class CategoryRepositoryImpl implements CategoryRepository {
+  async getAll(): Promise<Category[]> {
+    const response = await CategoryApi.getAll()
 
     return response.data.data
   }
 
-  async create(dto: StoreTaskDto): Promise<Task> {
-    const response = await TaskApi.create(dto)
+  async create(dto: StoreCategoryDto): Promise<Category> {
+    const response = await CategoryApi.create(dto)
 
     return response.data.data
+  }
+
+  async update(id: number, dto: UpdateCategoryDto): Promise<Category> {
+    const response = await CategoryApi.update(id, dto)
+
+    return response.data.data
+  }
+
+  async delete(id: number): Promise<void> {
+    await CategoryApi.delete(id)
   }
 }

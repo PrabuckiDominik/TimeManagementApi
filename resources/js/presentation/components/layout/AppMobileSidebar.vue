@@ -25,36 +25,88 @@
         </button>
       </div>
 
-      <nav class="space-y-2 p-4">
+      <nav class="space-y-2 overflow-y-auto p-4">
         <RouterLink
           to="/dashboard"
-          class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          class="block rounded-xl px-4 py-3 text-sm font-medium transition"
+          :class="isActive('/dashboard')
+            ? 'bg-indigo-50 text-indigo-600'
+            : 'text-gray-700 hover:bg-gray-100'"
           @click="emit('close')"
         >
-          Dashboard
+          {{ $t('sidebar.dashboard') }}
         </RouterLink>
 
         <RouterLink
           to="/tasks"
-          class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          class="block rounded-xl px-4 py-3 text-sm font-medium transition"
+          :class="isTasksActive
+            ? 'bg-indigo-50 text-indigo-600'
+            : 'text-gray-700 hover:bg-gray-100'"
           @click="emit('close')"
         >
-          Tasks
+          {{ $t('sidebar.tasks') }}
         </RouterLink>
 
         <RouterLink
           to="/profile"
-          class="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          class="block rounded-xl px-4 py-3 text-sm font-medium transition"
+          :class="isActive('/profile')
+            ? 'bg-indigo-50 text-indigo-600'
+            : 'text-gray-700 hover:bg-gray-100'"
           @click="emit('close')"
         >
-          Profile
+          {{ $t('sidebar.profile') }}
         </RouterLink>
+
+        <div class="pt-6">
+          <div class="mb-2 flex items-center justify-between px-4">
+            <span class="text-xs font-semibold uppercase tracking-wide text-gray-400">
+              {{ $t('sidebar.categories') }}
+            </span>
+
+            <RouterLink
+              to="/categories"
+              class="text-lg font-semibold text-gray-400 transition hover:text-indigo-600"
+              @click="emit('close')"
+            >
+              +
+            </RouterLink>
+          </div>
+
+          <div class="space-y-1">
+            <RouterLink
+              v-for="category in categories"
+              :key="category.id"
+              :to="`/tasks?category_id=${category.id}`"
+              class="flex items-center rounded-xl px-4 py-3 text-sm font-medium transition"
+              :class="isCategoryActive(category.id)
+                ? 'bg-indigo-50 text-indigo-600'
+                : 'text-gray-700 hover:bg-gray-100'"
+              @click="emit('close')"
+            >
+              <span
+                class="mr-3 size-2 rounded-full"
+                :style="{ backgroundColor: category.color ?? '#6366f1' }"
+              />
+
+              <span class="truncate">
+                {{ category.title }}
+              </span>
+            </RouterLink>
+          </div>
+        </div>
       </nav>
     </aside>
   </Transition>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { useCategories } from '@/presentation/composables/useCategories'
+
 const { open } = defineProps<{
   open: boolean
 }>()
@@ -63,6 +115,25 @@ const emit = defineEmits<{
   close: []
 }>()
 
+const route = useRoute()
+
+const {
+  categories,
+} = useCategories()
+
 const appName =
   import.meta.env.VITE_APP_NAME ?? 'Time Management'
+
+const isActive = (path: string): boolean => {
+  return route.path.startsWith(path)
+}
+
+const isTasksActive = computed(() =>
+  route.path === '/tasks' && !route.query.category_id,
+)
+
+const isCategoryActive = (categoryId: number): boolean => {
+  return route.path === '/tasks'
+    && Number(route.query.category_id) === categoryId
+}
 </script>

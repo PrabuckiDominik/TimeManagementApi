@@ -32,7 +32,8 @@ const props = defineProps<{
 }>()
 
 const chartData = computed(() => ({
-  labels: props.data.map(item => item.title ?? 'No category'),
+  labels: props.data.map(item => item.title ?? t('dashboard.task.no_category'),
+  ),
   datasets: [
     {
       label: t('dashboard.charts.tasks'),

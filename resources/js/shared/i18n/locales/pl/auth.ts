@@ -23,4 +23,22 @@ export default {
   },
   show: 'Pokaż',
   hide: 'Ukryj',
+
+  forgot_password: {
+    title: 'Nie pamiętasz hasła?',
+    subtitle: 'Podaj email, a wyślemy link do resetowania hasła',
+    email: 'Adres email',
+    submit: 'Wyślij link resetujący',
+    remember_password: 'Pamiętasz hasło?',
+    login: 'Zaloguj się',
+  },
+
+  reset_password: {
+    title: 'Resetowanie hasła',
+    subtitle: 'Ustaw nowe hasło do swojego konta',
+    email: 'Adres email',
+    password: 'Nowe hasło',
+    password_confirmation: 'Potwierdź nowe hasło',
+    submit: 'Zresetuj hasło',
+  },
 }

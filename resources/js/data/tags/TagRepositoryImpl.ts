@@ -1,19 +1,30 @@
-import { TaskApi } from '@/data/task/TaskApi'
+import { TagApi } from '@/data/tags/TagApi'
 
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
-import type { Task } from '@/domain/tasks/models/Task'
-import type { TaskRepository } from '@/domain/tasks/repositories/TaskRepository'
+import type { StoreTagDto } from '@/domain/tags/dto/StoreTagDto'
+import type { UpdateTagDto } from '@/domain/tags/dto/UpdateTagDto'
+import type { Tag } from '@/domain/tags/models/Tag'
+import type { TagRepository } from '@/domain/tags/repositories/TagRepository'
 
-export class TagRepositoryImpl implements TaskRepository {
-  async getAll(): Promise<Task[]> {
-    const response = await TaskApi.getAll()
+export class TagRepositoryImpl implements TagRepository {
+  async getAll(): Promise<Tag[]> {
+    const response = await TagApi.getAll()
 
     return response.data.data
   }
 
-  async create(dto: StoreTaskDto): Promise<Task> {
-    const response = await TaskApi.create(dto)
+  async create(dto: StoreTagDto): Promise<Tag> {
+    const response = await TagApi.create(dto)
 
     return response.data.data
+  }
+
+  async update(id: number, dto: UpdateTagDto): Promise<Tag> {
+    const response = await TagApi.update(id, dto)
+
+    return response.data.data
+  }
+
+  async delete(id: number): Promise<void> {
+    await TagApi.delete(id)
   }
 }

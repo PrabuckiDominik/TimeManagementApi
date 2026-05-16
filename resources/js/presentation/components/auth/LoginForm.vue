@@ -57,7 +57,7 @@ const submit = async () => {
           class="absolute right-3 top-9 text-sm text-slate-500 hover:text-slate-700"
           @click="showPassword = !showPassword"
         >
-          {{ showPassword ? "Hide" : "Show" }}
+          {{ showPassword ? $t('auth.hide') : $t('auth.show') }}
         </button>
       </div>
 
