@@ -12,12 +12,12 @@ use TimeManagement\Models\User;
 
 class UpdatePasswordControllerTest extends TestCase
 {
-
     protected function setUp(): void
     {
         parent::setUp();
         Cache::flush();
     }
+
     public function testGuestCannotChangePassword(): void
     {
         $this->putJson("/api/auth/change-password", [
