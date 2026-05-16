@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response as Http;
 use Tests\TestCase;
@@ -11,6 +12,12 @@ use TimeManagement\Models\User;
 
 class UpdatePasswordControllerTest extends TestCase
 {
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Cache::flush();
+    }
     public function testGuestCannotChangePassword(): void
     {
         $this->putJson("/api/auth/change-password", [
