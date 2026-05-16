@@ -5,17 +5,28 @@ declare(strict_types=1);
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use TimeManagement\Http\Controllers\CategoryController;
+use TimeManagement\Http\Controllers\DashboardController;
 use TimeManagement\Http\Controllers\EmailVerificationController;
 use TimeManagement\Http\Controllers\LoginController;
 use TimeManagement\Http\Controllers\LogoutController;
 use TimeManagement\Http\Controllers\RegisterController;
 use TimeManagement\Http\Controllers\ResetPasswordController;
+use TimeManagement\Http\Controllers\TagController;
 use TimeManagement\Http\Controllers\TaskController;
+use TimeManagement\Http\Controllers\UpdatePasswordController;
+use TimeManagement\Http\Controllers\UserProfileController;
 
 Route::middleware("auth:sanctum")->group(function (): void {
     Route::get("/user", fn(Request $request): JsonResponse => $request->user());
     Route::post("/auth/logout", LogoutController::class);
     Route::apiResource("tasks", TaskController::class);
+    Route::apiResource("categories", CategoryController::class);
+    Route::apiResource("tags", TagController::class);
+    Route::get("/dashboard", [DashboardController::class, "show"]);
+    Route::get("/profile", [UserProfileController::class, "show"]);
+    Route::put("/profile", [UserProfileController::class, "update"]);
+    Route::put("/auth/change-password", [UpdatePasswordController::class, "updatePassword"]);
 });
 
 Route::get("/auth/verify-email/{id}/{hash}", [EmailVerificationController::class, "verify"])

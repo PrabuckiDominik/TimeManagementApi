@@ -7,6 +7,7 @@ namespace Tests\Feature;
 use Symfony\Component\HttpFoundation\Response as Http;
 use Tests\TestCase;
 use TimeManagement\Models\Category;
+use TimeManagement\Models\Tag;
 use TimeManagement\Models\Task;
 use TimeManagement\Models\User;
 
@@ -177,5 +178,103 @@ class TaskControllerTest extends TestCase
 
         $response->assertStatus(Http::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrors(["name"]);
+    }
+
+    public function testUserCanDeleteOwnTask(): void
+    {
+        $response = $this->actingAs($this->user)
+            ->deleteJson("/api/tasks/{$this->task->id}");
+
+        $response->assertStatus(Http::HTTP_OK);
+
+        $this->assertDatabaseMissing("tasks", [
+            "id" => $this->task->id,
+        ]);
+    }
+
+    public function testUserCannotDeleteOtherUserTask(): void
+    {
+        $task = Task::factory()->create([
+            "user_id" => $this->otherUser->id,
+        ]);
+
+        $this->actingAs($this->user)
+            ->deleteJson("/api/tasks/{$task->id}")
+            ->assertStatus(Http::HTTP_FORBIDDEN);
+    }
+
+    public function testStoreTaskWithTags(): void
+    {
+        $tags = Tag::factory()->count(2)->create([
+            "user_id" => $this->user->id,
+        ]);
+
+        $response = $this->actingAs($this->user)
+            ->postJson("/api/tasks", [
+                "name" => "Task with tags",
+                "tag_ids" => $tags->pluck("id")->toArray(),
+            ]);
+
+        $response->assertStatus(Http::HTTP_CREATED);
+
+        $taskId = $response->json("data.id");
+
+        $this->assertDatabaseCount("tag_task", 2);
+
+        foreach ($tags as $tag) {
+            $this->assertDatabaseHas("tag_task", [
+                "task_id" => $taskId,
+                "tag_id" => $tag->id,
+            ]);
+        }
+    }
+
+    public function testUpdateTaskSyncTags(): void
+    {
+        $tags = Tag::factory()->count(3)->create([
+            "user_id" => $this->user->id,
+        ]);
+
+        $this->actingAs($this->user)
+            ->putJson("/api/tasks/{$this->task->id}", [
+                "tag_ids" => [$tags[0]->id, $tags[1]->id],
+            ])
+            ->assertStatus(Http::HTTP_OK);
+
+        $this->assertDatabaseCount("tag_task", 2);
+    }
+
+    public function testUpdateTaskRemovesAllTags(): void
+    {
+        $tags = Tag::factory()->count(2)->create([
+            "user_id" => $this->user->id,
+        ]);
+
+        $this->task->tags()->sync($tags->pluck("id"));
+
+        $this->actingAs($this->user)
+            ->putJson("/api/tasks/{$this->task->id}", [
+                "tag_ids" => [],
+            ])
+            ->assertStatus(Http::HTTP_OK);
+
+        $this->assertDatabaseCount("tag_task", 0);
+    }
+
+    public function testUserCannotAttachOtherUserTags(): void
+    {
+        $foreignTag = Tag::factory()->create([
+            "user_id" => $this->otherUser->id,
+        ]);
+
+        $this->actingAs($this->user)
+            ->putJson("/api/tasks/{$this->task->id}", [
+                "tag_ids" => [$foreignTag->id],
+            ])
+            ->assertStatus(Http::HTTP_OK);
+
+        $this->assertDatabaseMissing("tag_task", [
+            "tag_id" => $foreignTag->id,
+        ]);
     }
 }

@@ -15,11 +15,10 @@ class UserResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "email" => $this->email,
-            "email_verified_at" => $this->email_verified_at,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
-            //            "events" => EventResource::collection($this->whenLoaded("ownedEvents")),
-            //            "events_count" => $this->owned_events_count,
+
+            "tasks" => TaskResource::collection(
+                $this->whenLoaded("tasks"),
+            ),
         ];
     }
 }

@@ -4,34 +4,48 @@ declare(strict_types=1);
 
 namespace TimeManagement\Actions;
 
+use TimeManagement\DTO\UpdateTaskDto;
+use TimeManagement\Enums\TaskStatus;
 use TimeManagement\Models\Task;
 use TimeManagement\Models\User;
 
 class UpdateTaskAction
 {
-    public function execute(Task $task, array $data, User $user): Task
+    public function execute(Task $task, UpdateTaskDto $dto, User $user): Task
     {
-        $data = $this->resolveCategory($data, $user);
+        $data = $dto->toArray();
+
+        if ($dto->status !== null) {
+            if ($dto->status === TaskStatus::DONE && $task->status !== TaskStatus::DONE) {
+                $data["completed_at"] = now();
+            }
+
+            if ($dto->status !== TaskStatus::DONE) {
+                $data["completed_at"] = null;
+            }
+        }
+
+        if ($dto->hasCategoryId) {
+            $data["category_id"] = $dto->category_id === null
+                ? null
+                : $user->categories()->findOrFail($dto->category_id)->id;
+        }
 
         $task->update($data);
 
-        return $task->load("category");
-    }
+        if ($dto->hasTagIds) {
+            if ($dto->tag_ids === null) {
+                $task->tags()->sync([]);
+            } else {
+                $tagIds = $user->tags()
+                    ->whereIn("id", $dto->tag_ids)
+                    ->pluck("id")
+                    ->toArray();
 
-    private function resolveCategory(array $data, User $user): array
-    {
-        if (!array_key_exists("category_id", $data)) {
-            return $data;
+                $task->tags()->sync($tagIds);
+            }
         }
 
-        if ($data["category_id"] === null) {
-            return $data;
-        }
-
-        $data["category_id"] = $user->categories()
-            ->findOrFail($data["category_id"])
-            ->id;
-
-        return $data;
+        return $task->refresh()->load(["category", "tags"]);
     }
 }

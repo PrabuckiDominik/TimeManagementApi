@@ -8,7 +8,7 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as Status;
 use TimeManagement\Http\Requests\LoginRequest;
-use TimeManagement\Http\Resources\UserResource;
+use TimeManagement\Http\Resources\UserProfileResource;
 
 class LoginController extends Controller
 {
@@ -23,12 +23,21 @@ class LoginController extends Controller
         }
 
         $user = $auth->user();
+
+        if (!$user->hasVerifiedEmail()) {
+            $auth->logout();
+
+            return response()->json([
+                "message" => __("auth.email_not_verified"),
+            ], Status::HTTP_FORBIDDEN);
+        }
+
         $token = $user->createToken("token")->plainTextToken;
 
         return response()->json([
             "message" => "success",
             "token" => $token,
-            "user_id" => new UserResource($user),
+            "user" => new UserProfileResource($user),
         ], Status::HTTP_OK);
     }
 }

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as Status;
+use TimeManagement\Actions\DeleteTaskAction;
 use TimeManagement\Actions\GetUserTaskAction;
 use TimeManagement\Actions\ShowTaskAction;
 use TimeManagement\Actions\StoreTaskAction;
@@ -17,11 +19,11 @@ use TimeManagement\Models\Task;
 
 class TaskController extends Controller
 {
-    public function index(GetUserTaskAction $action): JsonResponse
+    public function index(Request $request, GetUserTaskAction $action): JsonResponse
     {
         $this->authorize("viewAny", Task::class);
 
-        $tasks = $action->execute(request()->user());
+        $tasks = $action->execute($request->user());
 
         return response()->json([
             "data" => TaskResource::collection($tasks),
@@ -43,7 +45,7 @@ class TaskController extends Controller
     {
         $this->authorize("create", Task::class);
 
-        $task = $action->execute($request->user(), $request->validated());
+        $task = $action->execute($request->user(), $request->toDto());
 
         return response()->json([
             "message" => __("tasks.created"),
@@ -55,11 +57,22 @@ class TaskController extends Controller
     {
         $this->authorize("update", $task);
 
-        $task = $action->execute($task, $request->validated(), $request->user());
+        $task = $action->execute($task, $request->toDto(), $request->user());
 
         return response()->json([
             "message" => __("tasks.updated"),
             "data" => new TaskResource($task),
         ]);
+    }
+
+    public function destroy(Task $task, DeleteTaskAction $action): JsonResponse
+    {
+        $this->authorize("delete", $task);
+
+        $action->execute($task);
+
+        return response()->json([
+            "message" => __("tasks.deleted"),
+        ], Status::HTTP_OK);
     }
 }

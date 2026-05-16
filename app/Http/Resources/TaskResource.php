@@ -21,6 +21,7 @@ class TaskResource extends JsonResource
             "completed_at" => $this->completed_at?->toISOString(),
             "is_overdue" => $this->isOverdue(),
             "category" => CategoryResource::make($this->whenLoaded("category")),
+            "tags" => TagResource::collection($this->whenLoaded("tags")),
             "created_at" => $this->created_at->toISOString(),
             "updated_at" => $this->updated_at->toISOString(),
         ];

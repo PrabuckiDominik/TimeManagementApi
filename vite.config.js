@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
+import path from 'path'
 
 export default ({ mode }) => {
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
@@ -16,11 +17,11 @@ export default ({ mode }) => {
           origin: 'https://' + process.env.VITE_DEV_SERVER_DOCKER_HOST_NAME,
           cors: true,
         },
-        resolve: {
-            alias: {
-                '@': '/resources/js',
-            },
+      resolve: {
+        alias: {
+          "@": path.resolve(__dirname, "resources/js"),
         },
+      },
         plugins: [
             laravel({
                 input: ['resources/css/app.css', 'resources/js/app.ts'],

@@ -12,4 +12,5 @@ return [
     "invalid_verification_hash" => "Invalid verification hash.",
     "email_already_verified" => "Email is already verified.",
     "email_verified_successfully" => "Email has been successfully verified.",
+    "email_not_verified" => "Email is not verified.",
 ];

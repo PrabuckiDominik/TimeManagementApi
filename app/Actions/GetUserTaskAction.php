@@ -12,9 +12,6 @@ class GetUserTaskAction
 {
     public function execute(User $user): Collection
     {
-        return Task::with("category")
-            ->where("user_id", $user->id)
-            ->latest()
-            ->get();
+        return Task::with(["category", "tags"])->where("user_id", $user->id)->latest()->get();
     }
 }
