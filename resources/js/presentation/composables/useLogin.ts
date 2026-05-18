@@ -30,24 +30,18 @@ export function useLogin(
     } catch (e: any) {
       if (e.response?.status === 422) {
         errors.value = e.response.data.errors
-
-        return
-      }
-
-      if (e.response?.status === 403) {
+      } else if (e.response?.status === 403) {
         errors.value = {
           general: [
             e.response?.data?.message ?? 'Invalid credentials.',
           ],
         }
-
-        return
-      }
-
-      errors.value = {
-        general: [
-          e.response?.data?.message ?? 'Login failed.',
-        ],
+      } else {
+        errors.value = {
+          general: [
+            e.response?.data?.message ?? 'Login failed.',
+          ],
+        }
       }
     } finally {
       loading.value = false

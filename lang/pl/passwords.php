@@ -10,4 +10,9 @@ return [
     "same_as_current" => "Nowe hasło nie może być takie samo jak obecne hasło.",
     "updated_successfully" => "Hasło zostało pomyślnie zaktualizowane.",
     "user" => "Nie znaleziono użytkownika o podanym adresie e-mail.",
+    "reset_subject" => "Resetowanie hasła",
+    "reset_title" => "Resetowanie hasła",
+    "reset_intro" => "Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta.",
+    "reset_button" => "Zresetuj hasło",
+    "reset_outro" => "Jeśli nie prosiłeś o reset hasła, zignoruj tę wiadomość.",
 ];

@@ -41,4 +41,11 @@ export default {
     password_confirmation: 'Potwierdź nowe hasło',
     submit: 'Zresetuj hasło',
   },
+  messages: {
+    verification_email_sent: 'Wysłaliśmy wiadomość email z linkiem weryfikacyjnym.',
+    email_verified: 'Adres email został poprawnie zweryfikowany.',
+    email_already_verified: 'Adres email został już wcześniej zweryfikowany.',
+    invalid_verification_link: 'Link weryfikacyjny jest nieprawidłowy lub wygasł.',
+    session_expired: 'Twoja sesja wygasła. Zaloguj się ponownie.',
+  },
 }

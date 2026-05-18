@@ -41,4 +41,11 @@ export default {
     password_confirmation: 'Confirm new password',
     submit: 'Reset password',
   },
+  messages: {
+    verification_email_sent: 'We have sent a verification email.',
+    email_verified: 'Your email address has been successfully verified.',
+    email_already_verified: 'Your email address is already verified.',
+    invalid_verification_link: 'The verification link is invalid or expired.',
+    session_expired: 'Your session has expired. Please log in again.',
+  },
 }

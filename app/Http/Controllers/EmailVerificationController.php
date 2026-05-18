@@ -5,34 +5,43 @@ declare(strict_types=1);
 namespace TimeManagement\Http\Controllers;
 
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response as Status;
 use TimeManagement\Models\User;
 
 class EmailVerificationController extends Controller
 {
-    public function verify(Request $request, int $id): JsonResponse
+    public function verify(int $id, string $hash): RedirectResponse
     {
         $user = User::query()->find($id);
 
         if (!$user) {
-            return response()->json([
-                "message" => __("auth.user_not_found"),
-            ], Status::HTTP_NOT_FOUND);
+            return redirect()
+                ->to(config("app.url") . "/login?verified=user_not_found")
+                ->setStatusCode(Status::HTTP_NOT_FOUND);
+        }
+
+        if (!hash_equals(
+            sha1($user->getEmailForVerification()),
+            $hash,
+        )) {
+            return redirect()
+                ->to(config("app.url") . "/login?verified=invalid")
+                ->setStatusCode(Status::HTTP_FORBIDDEN);
         }
 
         if ($user->hasVerifiedEmail()) {
-            return response()->json([
-                "message" => __("auth.email_already_verified"),
-            ], Status::HTTP_OK);
+            return redirect()
+                ->to(config("app.url") . "/login?verified=already")
+                ->setStatusCode(Status::HTTP_OK);
         }
 
-        $user->markEmailAsVerified();
-        event(new Verified($user));
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+        }
 
-        return response()->json([
-            "message" => __("auth.email_verified_successfully"),
-        ], Status::HTTP_OK);
+        return redirect()
+            ->to(config("app.url") . "/login?verified=success")
+            ->setStatusCode(Status::HTTP_OK);
     }
 }
