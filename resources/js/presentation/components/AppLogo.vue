@@ -1,5 +1,5 @@
 <script>
-import { appConfig } from '@/appConfig'
+import {appConfig} from '@/appConfig'
 import {defineComponent} from 'vue'
 
 export default defineComponent({

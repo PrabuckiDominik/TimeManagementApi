@@ -1,10 +1,10 @@
-import { onMounted, ref } from 'vue'
+import {onMounted, ref} from 'vue'
 
-import { TagRepositoryImpl } from '@/data/tags/TagRepositoryImpl'
+import {TagRepositoryImpl} from '@/data/tags/TagRepositoryImpl'
 
-import type { StoreTagDto } from '@/domain/tags/dto/StoreTagDto'
-import type { UpdateTagDto } from '@/domain/tags/dto/UpdateTagDto'
-import type { Tag } from '@/domain/tags/models/Tag'
+import type {StoreTagDto} from '@/domain/tags/dto/StoreTagDto'
+import type {UpdateTagDto} from '@/domain/tags/dto/UpdateTagDto'
+import type {Tag} from '@/domain/tags/models/Tag'
 
 type FormErrors = Record<string, string[]>
 

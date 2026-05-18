@@ -2,7 +2,7 @@
   <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
     <div class="flex items-start justify-between">
       <div>
-        <p class="text-sm font-medium text-gray-500">
+        <p class="text-sm font-medium text-gray-700">
           {{ title }}
         </p>
 
@@ -13,7 +13,7 @@
 
       <div
         class="flex size-10 items-center justify-center rounded-xl"
-        :class="danger ? 'bg-red-100 text-red-600' : 'bg-indigo-100 text-indigo-600'"
+        :class="danger ? 'bg-red-200 text-red-800' : 'bg-indigo-200 text-indigo-800'"
       >
         <span class="text-lg font-bold">
           {{ icon }}

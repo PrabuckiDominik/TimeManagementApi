@@ -1,7 +1,7 @@
 <template>
   <section class="space-y-4">
     <div class="flex items-center justify-between">
-      <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-700">
         {{ title }} ({{ tasks.length }})
       </h2>
     </div>
@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import TaskCard from '@/presentation/components/tasks/card/TaskCard.vue'
 
-import type { Task } from '@/domain/tasks/models/Task'
+import type {Task} from '@/domain/tasks/models/Task'
 
 defineProps<{
   title: string

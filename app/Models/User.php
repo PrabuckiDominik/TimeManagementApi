@@ -17,6 +17,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use TimeManagement\Enums\TaskPriority;
 use TimeManagement\Enums\TaskStatus;
+use TimeManagement\Notifications\ResetPasswordNotification;
+use TimeManagement\Notifications\VerifyEmailNotification;
 
 /**
  * @property int $id
@@ -128,6 +130,16 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function tasksByStatusCount(TaskStatus $status): int
     {
         return $this->tasksByStatus($status)->count();
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new VerifyEmailNotification());
+    }
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     protected function casts(): array

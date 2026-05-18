@@ -1,10 +1,10 @@
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
 
-import { AuthRepositoryImpl } from '@/data/auth/AuthRepositoryImpl'
-import { authStorage } from '@/shared/auth/authStorage'
+import {AuthRepositoryImpl} from '@/data/auth/AuthRepositoryImpl'
+import {authStorage} from '@/shared/auth/authStorage'
 
-import type { LoginDto } from '@/domain/auth/dto/LoginDto'
+import type {LoginDto} from '@/domain/auth/dto/LoginDto'
 
 type FormErrors = Record<string, string[]>
 
@@ -30,24 +30,18 @@ export function useLogin(
     } catch (e: any) {
       if (e.response?.status === 422) {
         errors.value = e.response.data.errors
-
-        return
-      }
-
-      if (e.response?.status === 403) {
+      } else if (e.response?.status === 403) {
         errors.value = {
           general: [
             e.response?.data?.message ?? 'Invalid credentials.',
           ],
         }
-
-        return
-      }
-
-      errors.value = {
-        general: [
-          e.response?.data?.message ?? 'Login failed.',
-        ],
+      } else {
+        errors.value = {
+          general: [
+            e.response?.data?.message ?? 'Login failed.',
+          ],
+        }
       }
     } finally {
       loading.value = false

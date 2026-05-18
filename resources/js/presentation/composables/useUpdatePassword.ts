@@ -1,14 +1,14 @@
-import { reactive, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import {reactive, ref} from 'vue'
+import {useI18n} from 'vue-i18n'
 
-import { AuthRepositoryImpl } from '@/data/auth/AuthRepositoryImpl'
+import {AuthRepositoryImpl} from '@/data/auth/AuthRepositoryImpl'
 
 type FormErrors = Record<string, string[]>
 
 const repository = new AuthRepositoryImpl()
 
 export function useUpdatePassword() {
-  const { t } = useI18n()
+  const {t} = useI18n()
 
   const loading = ref(false)
   const success = ref<string | null>(null)
@@ -55,7 +55,7 @@ export function useUpdatePassword() {
     loading.value = true
 
     try {
-      await repository.updatePassword({ ...form })
+      await repository.updatePassword({...form})
 
       success.value = String(t('profile.password.success'))
 

@@ -18,10 +18,11 @@
         </h1>
 
         <button
-          class="rounded-xl border border-gray-200 p-2"
+          class="rounded-xl border border-gray-300 p-2 text-gray-800 transition hover:bg-gray-100"
+          :aria-label="$t('common.close')"
           @click="emit('close')"
         >
-          ✕
+          <span aria-hidden="true">✕</span>
         </button>
       </div>
 
@@ -30,8 +31,8 @@
           to="/dashboard"
           class="block rounded-xl px-4 py-3 text-sm font-medium transition"
           :class="isActive('/dashboard')
-            ? 'bg-indigo-50 text-indigo-600'
-            : 'text-gray-700 hover:bg-gray-100'"
+            ? 'bg-indigo-100 text-indigo-800'
+            : 'text-gray-800 hover:bg-gray-100'"
           @click="emit('close')"
         >
           {{ $t('sidebar.dashboard') }}
@@ -41,8 +42,8 @@
           to="/tasks"
           class="block rounded-xl px-4 py-3 text-sm font-medium transition"
           :class="isTasksActive
-            ? 'bg-indigo-50 text-indigo-600'
-            : 'text-gray-700 hover:bg-gray-100'"
+            ? 'bg-indigo-100 text-indigo-800'
+            : 'text-gray-800 hover:bg-gray-100'"
           @click="emit('close')"
         >
           {{ $t('sidebar.tasks') }}
@@ -52,8 +53,8 @@
           to="/profile"
           class="block rounded-xl px-4 py-3 text-sm font-medium transition"
           :class="isActive('/profile')
-            ? 'bg-indigo-50 text-indigo-600'
-            : 'text-gray-700 hover:bg-gray-100'"
+            ? 'bg-indigo-100 text-indigo-800'
+            : 'text-gray-800 hover:bg-gray-100'"
           @click="emit('close')"
         >
           {{ $t('sidebar.profile') }}
@@ -61,13 +62,14 @@
 
         <div class="pt-6">
           <div class="mb-2 flex items-center justify-between px-4">
-            <span class="text-xs font-semibold uppercase tracking-wide text-gray-400">
+            <span class="text-xs font-semibold uppercase tracking-wide text-gray-600">
               {{ $t('sidebar.categories') }}
             </span>
 
             <RouterLink
               to="/categories"
-              class="text-lg font-semibold text-gray-400 transition hover:text-indigo-600"
+              class="text-lg font-semibold text-gray-600 transition hover:text-indigo-800"
+              :aria-label="$t('sidebar.add_category')"
               @click="emit('close')"
             >
               +
@@ -81,13 +83,13 @@
               :to="`/tasks?category_id=${category.id}`"
               class="flex items-center rounded-xl px-4 py-3 text-sm font-medium transition"
               :class="isCategoryActive(category.id)
-                ? 'bg-indigo-50 text-indigo-600'
+                ? 'bg-indigo-100 text-indigo-800'
                 : 'text-gray-700 hover:bg-gray-100'"
               @click="emit('close')"
             >
               <span
                 class="mr-3 size-2 rounded-full"
-                :style="{ backgroundColor: category.color ?? '#6366f1' }"
+                :style="{ backgroundColor: category.color ?? '#4338ca' }"
               />
 
               <span class="truncate">
@@ -102,12 +104,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import {computed} from 'vue'
+import {useRoute} from 'vue-router'
 
-import { useCategories } from '@/presentation/composables/useCategories'
+import {useCategories} from '@/presentation/composables/useCategories'
 
-const { open } = defineProps<{
+const {open} = defineProps<{
   open: boolean
 }>()
 

@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang='ts'>
-import { computed } from 'vue'
+import {computed} from 'vue'
 
 const props = defineProps<{
   variant?: 'success' | 'danger' | 'warning'
@@ -17,13 +17,13 @@ const props = defineProps<{
 const variantClasses = computed(() => {
   switch (props.variant) {
   case 'danger':
-    return 'bg-red-100 text-red-600'
+    return 'bg-red-100 text-red-800'
 
   case 'warning':
-    return 'bg-yellow-100 text-yellow-600'
+    return 'bg-yellow-100 text-yellow-800'
 
   default:
-    return 'bg-green-100 text-green-600'
+    return 'bg-green-100 text-green-800'
   }
 })
 </script>

@@ -1,4 +1,4 @@
-import { httpClient } from '@/data/http/httpClient'
+import {httpClient} from '@/data/http/httpClient'
 
 export const DashboardApi = {
   async get() {

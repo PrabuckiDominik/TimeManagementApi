@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 import AppContainer from '@/presentation/components/layout/AppContainer.vue'
 import AppMobileSidebar from '@/presentation/components/layout/AppMobileSidebar.vue'

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import {ref} from 'vue'
+import {useI18n} from 'vue-i18n'
 
 import AuthCard from '@/presentation/components/auth/AuthCard.vue'
 import AuthHeader from '@/presentation/components/auth/AuthHeader.vue'
 import AuthInput from '@/presentation/components/auth/AuthInput.vue'
 import AuthSubmitButton from '@/presentation/components/auth/AuthSubmitButton.vue'
 
-import { useResetPassword } from '@/presentation/composables/useResetPassword'
+import {useResetPassword} from '@/presentation/composables/useResetPassword'
 
-const { t } = useI18n()
+const {t} = useI18n()
 
 const {
   form,
@@ -34,6 +34,7 @@ const showPasswordConfirmation = ref(false)
       @submit.prevent="submit"
     >
       <AuthInput
+        id="reset-password-email"
         v-model="form.email"
         type="email"
         :label="t('auth.reset_password.email')"
@@ -42,6 +43,7 @@ const showPasswordConfirmation = ref(false)
 
       <div class="relative">
         <AuthInput
+          id="reset-password-password"
           v-model="form.password"
           :type="showPassword ? 'text' : 'password'"
           :label="t('auth.reset_password.password')"
@@ -59,6 +61,7 @@ const showPasswordConfirmation = ref(false)
 
       <div class="relative">
         <AuthInput
+          id="reset-password-password_confirmation"
           v-model="form.password_confirmation"
           :type="showPasswordConfirmation ? 'text' : 'password'"
           :label="t('auth.reset_password.password_confirmation')"

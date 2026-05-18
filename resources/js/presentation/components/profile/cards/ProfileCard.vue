@@ -9,7 +9,7 @@
             {{ user.name }}
           </h2>
 
-          <p class="mt-1 text-gray-500">
+          <p class="mt-2 text-sm text-gray-700">
             {{ user.email }}
           </p>
 
@@ -24,11 +24,14 @@
         <template v-else>
           <div class="space-y-4">
             <div>
-              <label class="text-sm font-medium text-gray-700">
+              <label for="profile-name"
+                     class="text-sm font-medium text-gray-700"
+              >
                 {{ $t('profile.fields.name') }}
               </label>
 
               <input
+                id="profile-name"
                 v-model="name"
                 type="text"
                 maxlength="255"
@@ -44,15 +47,18 @@
             </div>
 
             <div>
-              <label class="text-sm font-medium text-gray-700">
+              <label for="profile-email"
+                     class="text-sm font-medium text-gray-700"
+              >
                 {{ $t('profile.fields.email') }}
               </label>
 
               <input
+                id="profile-email"
                 :value="user.email"
                 disabled
                 type="email"
-                class="mt-2 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-500"
+                class="mt-2 w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 text-gray-700"
               >
             </div>
 
@@ -80,14 +86,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed} from 'vue'
 
 import AppAvatar from '@/presentation/components/ui/AppAvatar.vue'
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-import type { User } from '@/domain/auth/models/User'
-import type { UpdateProfileDto } from '@/domain/profile/dto/UpdateProfileDto'
+import type {User} from '@/domain/auth/models/User'
+import type {UpdateProfileDto} from '@/domain/profile/dto/UpdateProfileDto'
 
 const props = defineProps<{
   user: User

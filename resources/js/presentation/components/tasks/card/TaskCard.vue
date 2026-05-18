@@ -2,19 +2,25 @@
   <AppCard
     class="transition"
     :class="isCompleted
-      ? 'bg-gray-50 opacity-70'
-      : 'hover:border-indigo-200'"
+      ? 'bg-gray-100'
+      : 'hover:border-indigo-300'"
   >
     <div class="flex items-start gap-4">
       <button
         type="button"
         class="mt-1 flex size-6 shrink-0 items-center justify-center rounded-full border transition"
         :class="isCompleted
-          ? 'border-green-400 bg-green-50 text-green-500'
-          : 'border-gray-300 hover:border-indigo-400'"
+          ? 'border-green-600 bg-green-100 text-green-800'
+          : 'border-gray-400 hover:border-indigo-600'"
+        :aria-label="isCompleted
+          ? $t('tasks.actions.mark_as_todo')
+          : $t('tasks.actions.mark_as_done')"
         @click="emit('toggleDone', task)"
       >
-        <span v-if="isCompleted">
+        <span
+          v-if="isCompleted"
+          aria-hidden="true"
+        >
           ✓
         </span>
       </button>
@@ -23,7 +29,7 @@
         <h3
           class="break-words text-lg font-semibold"
           :class="isCompleted
-            ? 'text-gray-400 line-through'
+            ? 'text-gray-700 line-through'
             : 'text-gray-900'"
         >
           {{ task.name }}
@@ -31,10 +37,7 @@
 
         <p
           v-if="task.description"
-          class="mt-2 break-words text-sm"
-          :class="isCompleted
-            ? 'text-gray-400'
-            : 'text-gray-500'"
+          class="mt-2 break-words text-sm text-gray-700"
         >
           {{ task.description }}
         </p>
@@ -56,7 +59,7 @@
 
           <span
             v-if="task.completed_at"
-            class="rounded-md bg-green-50 px-3 py-1 text-xs font-medium text-green-600"
+            class="rounded-md bg-green-100 px-3 py-1 text-xs font-medium text-green-800"
           >
             {{ $t('tasks.completed') }}:
             {{ formatDate(task.completed_at) }}
@@ -66,8 +69,8 @@
             v-if="task.due_date"
             class="rounded-md px-3 py-1 text-xs font-medium"
             :class="task.is_overdue
-              ? 'bg-red-100 text-red-600'
-              : 'bg-gray-100 text-gray-600'"
+              ? 'bg-red-100 text-red-800'
+              : 'bg-gray-100 text-gray-800'"
           >
             {{ $t('tasks.due') }}:
             {{ formatDate(task.due_date) }}
@@ -76,29 +79,39 @@
           <span
             v-for="tag in task.tags"
             :key="tag.id"
-            class="text-xs text-gray-400"
+            class="text-xs text-gray-600"
           >
             #{{ tag.name }}
           </span>
         </div>
       </div>
 
-      <div class="relative shrink-0">
+      <div
+        class="relative shrink-0"
+        @keydown="handleEscape"
+      >
         <button
           type="button"
-          class="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+          class="rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 hover:text-gray-900"
+          :aria-label="$t('tasks.actions.open_menu')"
+          :aria-expanded="menuOpen"
+          aria-haspopup="menu"
           @click="menuOpen = !menuOpen"
         >
-          ⋮
+          <span aria-hidden="true">
+            ⋮
+          </span>
         </button>
 
         <div
           v-if="menuOpen"
-          class="absolute right-0 z-20 mt-2 w-40 rounded-xl border border-gray-200 bg-white py-2 shadow-lg"
+          role="menu"
+          class="absolute right-0 z-20 mt-2 w-40 rounded-xl border border-gray-300 bg-white py-2 shadow-lg"
         >
           <button
             type="button"
-            class="block w-full px-4 py-2 text-left text-sm text-gray-700 transition hover:bg-gray-50"
+            role="menuitem"
+            class="block w-full px-4 py-2 text-left text-sm text-gray-800 transition hover:bg-gray-100"
             @click="handleEdit"
           >
             {{ $t('tasks.actions.edit') }}
@@ -106,7 +119,8 @@
 
           <button
             type="button"
-            class="block w-full px-4 py-2 text-left text-sm text-red-600 transition hover:bg-red-50"
+            role="menuitem"
+            class="block w-full px-4 py-2 text-left text-sm text-red-800 transition hover:bg-red-100"
             @click="handleDelete"
           >
             {{ $t('tasks.actions.delete') }}
@@ -118,12 +132,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import {computed, ref} from 'vue'
 
 import AppBadge from '@/presentation/components/ui/AppBadge.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-import type { Task } from '@/domain/tasks/models/Task'
+import type {Task} from '@/domain/tasks/models/Task'
 
 const props = defineProps<{
   task: Task
@@ -168,5 +182,11 @@ const handleDelete = (): void => {
   menuOpen.value = false
 
   emit('delete', props.task)
+}
+
+const handleEscape = (event: KeyboardEvent): void => {
+  if (event.key === 'Escape') {
+    menuOpen.value = false
+  }
 }
 </script>

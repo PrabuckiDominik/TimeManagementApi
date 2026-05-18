@@ -1,10 +1,10 @@
-import { computed, onMounted, ref } from 'vue'
+import {computed, onMounted, ref} from 'vue'
 
-import { TaskRepositoryImpl } from '@/data/task/TaskRepositoryImpl'
+import {TaskRepositoryImpl} from '@/data/task/TaskRepositoryImpl'
 
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
-import type { UpdateTaskDto } from '@/domain/tasks/dto/UpdateTaskDto'
-import type { Task } from '@/domain/tasks/models/Task'
+import type {StoreTaskDto} from '@/domain/tasks/dto/StoreTaskDto'
+import type {UpdateTaskDto} from '@/domain/tasks/dto/UpdateTaskDto'
+import type {Task} from '@/domain/tasks/models/Task'
 
 const repository = new TaskRepositoryImpl()
 

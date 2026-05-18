@@ -4,17 +4,25 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use Illuminate\Auth\Notifications\ResetPassword;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 use TimeManagement\Models\User;
+use TimeManagement\Notifications\ResetPasswordNotification;
 
 class ResetPasswordTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testUserCanResetPasswordWithValidToken(): void
     {
+        Notification::fake();
+
+        $token = null;
+
         $user = User::factory()->create([
             "password" => Hash::make("old-password"),
         ]);
@@ -23,11 +31,15 @@ class ResetPasswordTest extends TestCase
             "email" => $user->email,
         ]);
 
-        Notification::assertSentTo($user, ResetPassword::class, function (ResetPassword $notification) use (&$token): bool {
-            $token = $notification->token;
+        Notification::assertSentTo(
+            $user,
+            ResetPasswordNotification::class,
+            function (ResetPasswordNotification $notification) use (&$token): bool {
+                $token = $notification->token;
 
-            return true;
-        });
+                return true;
+            },
+        );
 
         $response = $this->postJson("/api/auth/reset-password", [
             "email" => $user->email,
@@ -37,9 +49,16 @@ class ResetPasswordTest extends TestCase
         ]);
 
         $response->assertOk()
-            ->assertJson(["message" => trans("passwords.reset")]);
+            ->assertJson([
+                "message" => trans("passwords.reset"),
+            ]);
 
-        $this->assertTrue(Hash::check("new-secure-password", $user->fresh()->password));
+        $this->assertTrue(
+            Hash::check(
+                "new-secure-password",
+                $user->fresh()->password,
+            ),
+        );
     }
 
     public function testCannotResetWithInvalidToken(): void
@@ -54,6 +73,8 @@ class ResetPasswordTest extends TestCase
         ]);
 
         $response->assertStatus(400)
-            ->assertJson(["message" => trans(Password::INVALID_TOKEN)]);
+            ->assertJson([
+                "message" => trans(Password::INVALID_TOKEN),
+            ]);
     }
 }

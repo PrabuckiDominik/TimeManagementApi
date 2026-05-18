@@ -6,14 +6,15 @@
           {{ $t('tasks.tags.title') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-500">
+        <p class="mt-1 text-sm text-gray-700">
           {{ $t('tasks.tags.subtitle') }}
         </p>
       </div>
 
       <button
         type="button"
-        class="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700"
+        class="rounded-xl bg-indigo-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-800"
+        :aria-label="$t('tasks.tags.create')"
         @click="startCreating"
       >
         {{ $t('tasks.tags.create') }}
@@ -26,26 +27,21 @@
       @submit.prevent="submitCreate"
     >
       <div class="flex-1">
-        <input
+        <FormTextInput
+          id="new-tag-name"
           v-model="form.name"
-          type="text"
-          maxlength="255"
-          class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
+          :label="$t('tasks.tags.name_label')"
           :placeholder="$t('tasks.tags.name_placeholder')"
-        >
-
-        <p
-          v-if="errors.name"
-          class="mt-2 text-sm text-red-500"
-        >
-          {{ errors.name[0] }}
-        </p>
+          :error="errors.name"
+          :maxlength="255"
+          hide-label
+        />
       </div>
 
       <div class="flex gap-2">
         <button
           type="button"
-          class="rounded-xl border border-gray-300 px-4 py-2 text-gray-700 transition hover:bg-gray-50"
+          class="rounded-xl border border-gray-400 px-4 py-2 text-gray-800 transition hover:bg-gray-100"
           @click="cancelCreating"
         >
           {{ $t('tasks.tags.cancel') }}
@@ -73,7 +69,7 @@
 
     <div
       v-else-if="tags.length === 0"
-      class="mt-5 rounded-xl border border-dashed border-gray-200 p-6 text-center text-sm text-gray-500"
+      class="mt-5 rounded-xl border border-dashed border-gray-300 p-6 text-center text-sm text-gray-700"
     >
       {{ $t('tasks.tags.empty') }}
     </div>
@@ -95,16 +91,22 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import {reactive, ref} from 'vue'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 import AppSkeleton from '@/presentation/components/ui/AppSkeleton.vue'
+import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 import TaskTagItem from '@/presentation/components/tasks/tags/TaskTagItem.vue'
 
-import { useTags } from '@/presentation/composables/useTags'
+import {useTags} from '@/presentation/composables/useTags'
 
-import type { Tag } from '@/domain/tags/models/Tag'
+import type {Tag} from '@/domain/tags/models/Tag'
+import {useI18n} from 'vue-i18n'
+
+const emit = defineEmits<{
+  changed: []
+}>()
 
 const {
   tags,
@@ -135,7 +137,9 @@ const cancelCreating = (): void => {
 const submitCreate = async (): Promise<void> => {
   if (!form.name.trim()) {
     errors.value = {
-      name: ['Name is required.'],
+      name: [
+        String(t('tasks.tags.validation.name_required')),
+      ],
     }
 
     return
@@ -144,6 +148,8 @@ const submitCreate = async (): Promise<void> => {
   await createTag({
     name: form.name.trim(),
   })
+
+  emit('changed')
 
   form.name = ''
   creating.value = false
@@ -156,19 +162,18 @@ const handleUpdate = async (
   await updateTag(tag, {
     name,
   })
+
   emit('changed')
 }
 
+const {t} = useI18n()
 const handleDelete = async (tag: Tag): Promise<void> => {
-  if (!confirm(String('Delete this tag?'))) {
+  if (!confirm(String(t('tasks.tags.confirm_delete')))) {
     return
   }
 
   await deleteTag(tag)
+
   emit('changed')
 }
-
-const emit = defineEmits<{
-  changed: []
-}>()
 </script>

@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed} from 'vue'
 
 import DashboardChartCard from '@/presentation/components/dashboard/cards/DashboardChartCard.vue'
 
@@ -40,7 +40,7 @@ import CompletionTrendChart from '@/presentation/components/dashboard/charts/Com
 import PriorityPieChart from '@/presentation/components/dashboard/charts/PriorityPieChart.vue'
 import StatusPieChart from '@/presentation/components/dashboard/charts/StatusPieChart.vue'
 
-import type { DashboardStats } from '@/domain/dashboard/models/DashboardStats'
+import type {DashboardStats} from '@/domain/dashboard/models/DashboardStats'
 
 const props = defineProps<{
   stats: DashboardStats

@@ -1,7 +1,7 @@
-import { httpClient } from '@/data/http/httpClient'
+import {httpClient} from '@/data/http/httpClient'
 
-import type { StoreCategoryDto } from '@/domain/categories/dto/StoreCategoryDto'
-import type { UpdateCategoryDto } from '@/domain/categories/dto/UpdateCategoryDto'
+import type {StoreCategoryDto} from '@/domain/categories/dto/StoreCategoryDto'
+import type {UpdateCategoryDto} from '@/domain/categories/dto/UpdateCategoryDto'
 
 export const CategoryApi = {
   async getAll() {

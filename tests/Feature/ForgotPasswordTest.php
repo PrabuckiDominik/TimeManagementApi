@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use Illuminate\Auth\Notifications\ResetPassword;
+use Exception;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use TimeManagement\Models\User;
+use TimeManagement\Notifications\ResetPasswordNotification;
 
 class ForgotPasswordTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testUserCanRequestPasswordResetLink(): void
     {
+        Notification::fake();
+
         $user = User::factory()->create();
 
         $response = $this->postJson("/api/auth/forgot-password", [
@@ -20,8 +26,13 @@ class ForgotPasswordTest extends TestCase
         ]);
 
         $response->assertOk()
-            ->assertJson(["message" => trans("passwords.sent")]);
+            ->assertJson([
+                "message" => trans("passwords.sent"),
+            ]);
 
-        Notification::assertSentTo($user, ResetPassword::class);
+        Notification::assertSentTo(
+            $user,
+            ResetPasswordNotification::class,
+        );
     }
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
+import {reactive, ref} from 'vue'
+import {useI18n} from 'vue-i18n'
 
-import { useLogin } from '@/presentation/composables/useLogin'
+import {useLogin} from '@/presentation/composables/useLogin'
 
 import AuthCard from '@/presentation/components/auth/AuthCard.vue'
 import AuthHeader from '@/presentation/components/auth/AuthHeader.vue'
@@ -10,9 +10,9 @@ import AuthInput from '@/presentation/components/auth/AuthInput.vue'
 import AuthSubmitButton from '@/presentation/components/auth/AuthSubmitButton.vue'
 import AuthFooter from '@/presentation/components/auth/AuthFooter.vue'
 
-const { t } = useI18n()
+const {t} = useI18n()
 
-const { login, loading, errors } = useLogin()
+const {login, loading, errors} = useLogin()
 
 const showPassword = ref(false)
 
@@ -38,6 +38,7 @@ const submit = async () => {
 
     <form class="space-y-4" @submit.prevent="submit">
       <AuthInput
+        id="login-email"
         v-model="form.email"
         type="email"
         :label="t('auth.login.email')"
@@ -46,6 +47,7 @@ const submit = async () => {
 
       <div class="relative">
         <AuthInput
+          id="login-password"
           v-model="form.password"
           :type="showPassword ? 'text' : 'password'"
           :label="t('auth.login.password')"

@@ -1,7 +1,7 @@
-import { reactive, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import {reactive, ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 
-import { AuthRepositoryImpl } from '@/data/auth/AuthRepositoryImpl'
+import {AuthRepositoryImpl} from '@/data/auth/AuthRepositoryImpl'
 
 type FormErrors = Record<string, string[]>
 

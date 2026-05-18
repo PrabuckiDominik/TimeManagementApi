@@ -4,7 +4,7 @@
       {{ $t('dashboard.empty.title') }}
     </h2>
 
-    <p class="mt-2 text-gray-500">
+    <p class="mt-2 text-gray-600">
       {{ $t('dashboard.empty.description') }}
     </p>
   </AppCard>

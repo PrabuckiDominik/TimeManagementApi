@@ -29,7 +29,7 @@
 
     <AppCard
       v-if="tasks.length === 0"
-      class="text-center text-sm text-gray-500"
+      class="text-center text-sm text-gray-600"
     >
       {{ $t('tasks.empty') }}
     </AppCard>
@@ -37,12 +37,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed} from 'vue'
 
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 import TaskStatusSection from '@/presentation/components/tasks/sections/TaskStatusSection.vue'
 
-import type { Task } from '@/domain/tasks/models/Task'
+import type {Task} from '@/domain/tasks/models/Task'
 
 const props = defineProps<{
   tasks: Task[]

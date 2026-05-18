@@ -1,6 +1,6 @@
-import { httpClient } from '@/data/http/httpClient'
+import {httpClient} from '@/data/http/httpClient'
 
-import type { UpdateProfileDto } from '@/domain/profile/dto/UpdateProfileDto'
+import type {UpdateProfileDto} from '@/domain/profile/dto/UpdateProfileDto'
 
 export const ProfileApi = {
   async get() {

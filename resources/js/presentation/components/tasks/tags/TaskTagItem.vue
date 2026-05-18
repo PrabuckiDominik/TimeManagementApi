@@ -1,20 +1,19 @@
 <template>
   <div
-    class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-2 text-sm"
+    class="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-gray-100 px-3 py-2 text-sm"
   >
     <template v-if="editing">
-      <input
+      <FormTextInput
+        :id="`tag-name-${tag.id}`"
         v-model="name"
-        type="text"
-        maxlength="255"
-        class="w-32 bg-transparent outline-none"
-        @keydown.enter.prevent="save"
-        @keydown.esc.prevent="cancel"
-      >
+        :label="$t('tasks.tags.name_label')"
+        :maxlength="255"
+        hide-label
+      />
 
       <button
         type="button"
-        class="font-medium text-indigo-600"
+        class="font-medium text-indigo-800 transition hover:text-indigo-900 disabled:text-gray-500"
         :disabled="saving"
         @click="save"
       >
@@ -23,7 +22,7 @@
 
       <button
         type="button"
-        class="text-gray-500"
+        class="text-gray-700 transition hover:text-gray-900"
         @click="cancel"
       >
         {{ $t('tasks.tags.cancel_short') }}
@@ -31,13 +30,13 @@
     </template>
 
     <template v-else>
-      <span class="font-medium text-gray-700">
+      <span class="font-medium text-gray-900">
         #{{ tag.name }}
       </span>
 
       <button
         type="button"
-        class="text-gray-400 transition hover:text-indigo-600"
+        class="text-gray-700 transition hover:text-indigo-800"
         @click="editing = true"
       >
         {{ $t('tasks.tags.edit') }}
@@ -45,7 +44,7 @@
 
       <button
         type="button"
-        class="text-gray-400 transition hover:text-red-600"
+        class="text-red-700 transition hover:text-red-900"
         @click="$emit('delete', tag)"
       >
         {{ $t('tasks.tags.delete') }}
@@ -55,9 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
-import type { Tag } from '@/domain/tags/models/Tag'
+import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
+
+import type {Tag} from '@/domain/tags/models/Tag'
 
 const props = defineProps<{
   tag: Tag

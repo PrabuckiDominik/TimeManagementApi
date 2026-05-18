@@ -13,8 +13,8 @@
         to="/dashboard"
         class="flex items-center rounded-xl px-4 py-3 text-sm font-medium transition"
         :class="isActive('/dashboard')
-          ? 'bg-indigo-50 text-indigo-600'
-          : 'text-gray-700 hover:bg-gray-100'"
+          ? 'bg-indigo-100 text-indigo-800'
+          : 'text-gray-800 hover:bg-gray-100'"
       >
         {{ $t('sidebar.dashboard') }}
       </RouterLink>
@@ -23,8 +23,8 @@
         to="/tasks"
         class="flex items-center rounded-xl px-4 py-3 text-sm font-medium transition"
         :class="isTasksActive
-          ? 'bg-indigo-50 text-indigo-600'
-          : 'text-gray-700 hover:bg-gray-100'"
+          ? 'bg-indigo-100 text-indigo-800'
+          : 'text-gray-800 hover:bg-gray-100'"
       >
         {{ $t('sidebar.tasks') }}
       </RouterLink>
@@ -33,21 +33,21 @@
         to="/profile"
         class="flex items-center rounded-xl px-4 py-3 text-sm font-medium transition"
         :class="isActive('/profile')
-          ? 'bg-indigo-50 text-indigo-600'
-          : 'text-gray-700 hover:bg-gray-100'"
+          ? 'bg-indigo-100 text-indigo-800'
+          : 'text-gray-800 hover:bg-gray-100'"
       >
         {{ $t('sidebar.profile') }}
       </RouterLink>
 
       <div class="pt-6">
         <div class="mb-2 flex items-center justify-between px-4">
-          <span class="text-xs font-semibold uppercase tracking-wide text-gray-400">
+          <span class="text-xs font-semibold uppercase tracking-wide text-gray-600">
             {{ $t('sidebar.categories') }}
           </span>
 
           <RouterLink
             to="/categories"
-            class="text-lg font-semibold text-gray-400 transition hover:text-indigo-600"
+            class="text-lg font-semibold text-gray-600 transition hover:text-indigo-800"
           >
             +
           </RouterLink>
@@ -64,8 +64,8 @@
               : 'text-gray-700 hover:bg-gray-100'"
           >
             <span
-              class="mr-3 size-2 rounded-full"
-              :style="{ backgroundColor: category.color ?? '#6366f1' }"
+              class="mr-3 size-3 rounded-full border border-gray-300"
+              :style="{ backgroundColor: category.color ?? '#4338ca' }"
             />
 
             <span class="truncate">
@@ -79,10 +79,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import {computed} from 'vue'
+import {useRoute} from 'vue-router'
 
-import { useCategories } from '@/presentation/composables/useCategories'
+import {useCategories} from '@/presentation/composables/useCategories'
 
 const route = useRoute()
 

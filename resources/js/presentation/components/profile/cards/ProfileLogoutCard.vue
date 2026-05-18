@@ -2,7 +2,7 @@
   <AppCard>
     <button
       type="button"
-      class="w-full rounded-xl bg-red-50 p-4 font-medium text-red-600 transition hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+      class="w-full rounded-xl bg-red-100 p-4 font-medium text-red-800 transition hover:bg-red-200 disabled:cursor-not-allowed disabled:opacity-60"
       :disabled="loading"
       @click="logout"
     >
@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-import { useLogout } from '@/presentation/composables/useLogout'
+import {useLogout} from '@/presentation/composables/useLogout'
 
 const {
   logout,

@@ -1,8 +1,8 @@
-import { TaskApi } from '@/data/task/TaskApi'
+import {TaskApi} from '@/data/task/TaskApi'
 
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
-import type { Task } from '@/domain/tasks/models/Task'
-import type { TaskRepository } from '@/domain/tasks/repositories/TaskRepository'
+import type {StoreTaskDto} from '@/domain/tasks/dto/StoreTaskDto'
+import type {Task} from '@/domain/tasks/models/Task'
+import type {TaskRepository} from '@/domain/tasks/repositories/TaskRepository'
 import {type UpdateTaskDto} from '@/domain/tasks/dto/UpdateTaskDto'
 
 export class TaskRepositoryImpl implements TaskRepository {

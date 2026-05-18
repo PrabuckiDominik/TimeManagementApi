@@ -6,22 +6,14 @@
 </template>
 
 <script setup lang='ts'>
-import {
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  Tooltip,
-} from 'chart.js'
+import {CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Tooltip} from 'chart.js'
 
-import { computed } from 'vue'
-import { Line } from 'vue-chartjs'
-import type { CompletionTrend } from '@/domain/dashboard/models/DashboardStats'
-import { useI18n } from 'vue-i18n'
+import {computed} from 'vue'
+import {Line} from 'vue-chartjs'
+import type {CompletionTrend} from '@/domain/dashboard/models/DashboardStats'
+import {useI18n} from 'vue-i18n'
 
-const { t } = useI18n()
+const {t} = useI18n()
 
 ChartJS.register(
   CategoryScale,
@@ -46,8 +38,8 @@ const chartData = computed(() => ({
       label: t('dashboard.charts.completed_tasks'),
       data: props.data.days.map(day => day.count),
 
-      borderColor: '#6366F1',
-      backgroundColor: '#6366F1',
+      borderColor: '#4338CA',
+      backgroundColor: '#4338CA',
 
       tension: 0.4,
     },

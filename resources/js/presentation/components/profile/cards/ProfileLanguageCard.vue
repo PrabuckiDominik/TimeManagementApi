@@ -5,11 +5,15 @@
     </h2>
 
     <div class="mt-6">
-      <label class="text-sm font-medium text-gray-700">
+      <label
+        for="profile-language"
+        class="text-sm font-medium text-gray-700"
+      >
         {{ $t('profile.language.label') }}
       </label>
 
       <select
+        id="profile-language"
         v-model="selectedLocale"
         class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
       >
@@ -26,12 +30,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
+import {computed} from 'vue'
+import {useI18n} from 'vue-i18n'
 
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-const { locale } = useI18n()
+const {locale} = useI18n()
 
 const selectedLocale = computed({
   get: () => locale.value,

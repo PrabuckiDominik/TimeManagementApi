@@ -1,6 +1,6 @@
-import { httpClient } from '@/data/http/httpClient'
+import {httpClient} from '@/data/http/httpClient'
 
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
+import type {StoreTaskDto} from '@/domain/tasks/dto/StoreTaskDto'
 import {type UpdateTaskDto} from '@/domain/tasks/dto/UpdateTaskDto'
 
 export const TaskApi = {

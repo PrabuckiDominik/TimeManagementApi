@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import UpcomingDeadlineCard from '@/presentation/components/dashboard/cards/UpcomingDeadlineCard.vue'
 
-import type { UpcomingDeadlineTask } from '@/domain/dashboard/models/DashboardStats'
+import type {UpcomingDeadlineTask} from '@/domain/dashboard/models/DashboardStats'
 
 defineProps<{
   tasks: UpcomingDeadlineTask[]
