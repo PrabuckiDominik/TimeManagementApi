@@ -11,22 +11,27 @@ class UserPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->hasRole(Role::Administrator->value);
+        return $user->hasRole([Role::Administrator->value, Role::SuperAdministrator->value]);
     }
 
     public function view(User $user, User $targetUser): bool
     {
         return $user->id === $targetUser->id
-            || $user->hasRole(Role::Administrator->value);
+            || $user->hasRole([Role::Administrator->value, Role::SuperAdministrator->value]);
     }
 
     public function update(User $user, User $targetUser): bool
     {
+        if ($targetUser->hasRole(Role::SuperAdministrator->value)) {
+            return $user->hasRole(Role::SuperAdministrator->value);
+        }
+
         if ($user->id === $targetUser->id) {
             return true;
         }
 
-        return $user->hasRole(Role::Administrator->value);
+        return $user->hasRole(Role::Administrator->value)
+            || $user->hasRole(Role::SuperAdministrator->value);
     }
 
     public function delete(User $user, User $targetUser): bool
@@ -35,7 +40,12 @@ class UserPolicy
             return false;
         }
 
-        return $user->hasRole(Role::Administrator->value);
+        if ($targetUser->hasRole(Role::SuperAdministrator->value)) {
+            return $user->hasRole(Role::SuperAdministrator->value);
+        }
+
+        return $user->hasRole(Role::Administrator->value)
+            || $user->hasRole(Role::SuperAdministrator->value);
     }
 
     public function manageAdmins(User $user): bool

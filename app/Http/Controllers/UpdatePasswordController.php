@@ -31,10 +31,6 @@ class UpdatePasswordController extends Controller
         $user->password = Hash::make($newPassword);
         $user->save();
 
-        activity()
-            ->performedOn($user)
-            ->log("Changed password via profile");
-
         return response()->json([
             "message" => __("passwords.updated_successfully"),
         ], Status::HTTP_OK);
