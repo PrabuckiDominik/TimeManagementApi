@@ -59,14 +59,6 @@ class LoginUserTest extends TestCase
         $response->assertJsonValidationErrors(["email", "password"]);
     }
 
-    private function validData(array $overrides = []): array
-    {
-        return array_merge([
-            "email" => "jan.kowalski@gmail.com",
-            "password" => "securePassword123",
-        ], $overrides);
-    }
-
     public function testUserIsThrottledAfterTooManyFailedLoginAttempts(): void
     {
         RateLimiter::clear("login:127.0.0.1");
@@ -89,5 +81,13 @@ class LoginUserTest extends TestCase
             ->assertJson([
                 "message" => __("auth.throttle_login"),
             ]);
+    }
+
+    private function validData(array $overrides = []): array
+    {
+        return array_merge([
+            "email" => "jan.kowalski@gmail.com",
+            "password" => "securePassword123",
+        ], $overrides);
     }
 }
