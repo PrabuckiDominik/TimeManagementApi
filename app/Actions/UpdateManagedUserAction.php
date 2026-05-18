@@ -32,6 +32,17 @@ class UpdateManagedUserAction
 
         $user->save();
 
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($user)
+            ->event("updated")
+            ->withProperties([
+                "user_id" => $user->id,
+                "email_changed" => $emailChanged,
+                "email" => $user->email,
+            ])
+            ->log("Updated managed user");
+
         if ($emailChanged) {
             $user->sendEmailVerificationNotification();
         }

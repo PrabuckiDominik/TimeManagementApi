@@ -12,6 +12,12 @@ class LogoutUserAction
 {
     public function execute(User $user): void
     {
+        activity()
+            ->causedBy($user)
+            ->performedOn($user)
+            ->event("logged_out")
+            ->log("User logged out");
+
         $token = $user->currentAccessToken();
 
         if ($token instanceof PersonalAccessToken) {

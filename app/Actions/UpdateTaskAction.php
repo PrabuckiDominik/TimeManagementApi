@@ -31,6 +31,16 @@ class UpdateTaskAction
                 : $user->categories()->findOrFail($dto->category_id)->id;
         }
 
+        $old = $task->only([
+            "name",
+            "description",
+            "priority",
+            "status",
+            "due_date",
+            "category_id",
+            "completed_at",
+        ]);
+
         $task->update($data);
 
         if ($dto->hasTagIds) {
@@ -46,6 +56,29 @@ class UpdateTaskAction
             }
         }
 
-        return $task->refresh()->load(["category", "tags"]);
+        $task = $task->refresh()->load(["category", "tags"]);
+
+        $task = $task->refresh()->load(["category", "tags"]);
+
+        activity()
+            ->causedBy($user)
+            ->performedOn($task)
+            ->event("updated")
+            ->withProperties([
+                "old" => $old,
+                "new" => $task->only([
+                    "name",
+                    "description",
+                    "priority",
+                    "status",
+                    "due_date",
+                    "category_id",
+                    "completed_at",
+                ]),
+                "tag_ids" => $task->tags->pluck("id")->values()->all(),
+            ])
+            ->log("Updated task");
+
+        return $task;
     }
 }
