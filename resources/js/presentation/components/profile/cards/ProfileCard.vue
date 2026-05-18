@@ -86,14 +86,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed} from 'vue'
 
 import AppAvatar from '@/presentation/components/ui/AppAvatar.vue'
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-import type { User } from '@/domain/auth/models/User'
-import type { UpdateProfileDto } from '@/domain/profile/dto/UpdateProfileDto'
+import type {User} from '@/domain/auth/models/User'
+import type {UpdateProfileDto} from '@/domain/profile/dto/UpdateProfileDto'
 
 const props = defineProps<{
   user: User

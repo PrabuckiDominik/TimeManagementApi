@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
+import {reactive, ref} from 'vue'
+import {useI18n} from 'vue-i18n'
 
-import { useLogin } from '@/presentation/composables/useLogin'
+import {useLogin} from '@/presentation/composables/useLogin'
 
 import AuthCard from '@/presentation/components/auth/AuthCard.vue'
 import AuthHeader from '@/presentation/components/auth/AuthHeader.vue'
@@ -10,9 +10,9 @@ import AuthInput from '@/presentation/components/auth/AuthInput.vue'
 import AuthSubmitButton from '@/presentation/components/auth/AuthSubmitButton.vue'
 import AuthFooter from '@/presentation/components/auth/AuthFooter.vue'
 
-const { t } = useI18n()
+const {t} = useI18n()
 
-const { login, loading, errors } = useLogin()
+const {login, loading, errors} = useLogin()
 
 const showPassword = ref(false)
 

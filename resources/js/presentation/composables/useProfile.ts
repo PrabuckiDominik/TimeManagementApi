@@ -1,10 +1,10 @@
-import { onMounted, reactive, ref } from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 
-import { authStorage } from '@/shared/auth/authStorage'
-import { ProfileRepositoryImpl } from '@/data/profile/ProfileRepositoryImpl'
+import {authStorage} from '@/shared/auth/authStorage'
+import {ProfileRepositoryImpl} from '@/data/profile/ProfileRepositoryImpl'
 
-import type { User } from '@/domain/auth/models/User'
-import type { UpdateProfileDto } from '@/domain/profile/dto/UpdateProfileDto'
+import type {User} from '@/domain/auth/models/User'
+import type {UpdateProfileDto} from '@/domain/profile/dto/UpdateProfileDto'
 
 type FormErrors = Record<string, string[]>
 

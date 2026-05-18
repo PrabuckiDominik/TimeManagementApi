@@ -132,12 +132,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import {computed, ref} from 'vue'
 
 import AppBadge from '@/presentation/components/ui/AppBadge.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-import type { Task } from '@/domain/tasks/models/Task'
+import type {Task} from '@/domain/tasks/models/Task'
 
 const props = defineProps<{
   task: Task

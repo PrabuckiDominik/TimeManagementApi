@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-import { useLogout } from '@/presentation/composables/useLogout'
+import {useLogout} from '@/presentation/composables/useLogout'
 
 const {
   logout,

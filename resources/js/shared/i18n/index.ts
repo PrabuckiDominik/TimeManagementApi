@@ -1,4 +1,4 @@
-import { createI18n } from 'vue-i18n'
+import {createI18n} from 'vue-i18n'
 
 import enAuth from '@/shared/i18n/locales/en/auth'
 import plAuth from '@/shared/i18n/locales/pl/auth'

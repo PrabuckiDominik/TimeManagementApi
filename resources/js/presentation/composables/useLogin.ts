@@ -1,10 +1,10 @@
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
 
-import { AuthRepositoryImpl } from '@/data/auth/AuthRepositoryImpl'
-import { authStorage } from '@/shared/auth/authStorage'
+import {AuthRepositoryImpl} from '@/data/auth/AuthRepositoryImpl'
+import {authStorage} from '@/shared/auth/authStorage'
 
-import type { LoginDto } from '@/domain/auth/dto/LoginDto'
+import type {LoginDto} from '@/domain/auth/dto/LoginDto'
 
 type FormErrors = Record<string, string[]>
 

@@ -6,17 +6,12 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ArcElement,
-  Chart as ChartJS,
-  Legend,
-  Tooltip,
-} from 'chart.js'
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { Pie } from 'vue-chartjs'
+import {ArcElement, Chart as ChartJS, Legend, Tooltip} from 'chart.js'
+import {computed} from 'vue'
+import {useI18n} from 'vue-i18n'
+import {Pie} from 'vue-chartjs'
 
-import type { PriorityDistribution } from '@/domain/dashboard/models/DashboardStats'
+import type {PriorityDistribution} from '@/domain/dashboard/models/DashboardStats'
 
 ChartJS.register(
   ArcElement,
@@ -28,7 +23,7 @@ const props = defineProps<{
   data: PriorityDistribution[]
 }>()
 
-const { t } = useI18n()
+const {t} = useI18n()
 
 const chartData = computed(() => ({
   labels: props.data.map(item =>

@@ -42,7 +42,7 @@ import DashboardChartsGrid from '@/presentation/components/dashboard/DashboardCh
 import DashboardUpcomingDeadlines from '@/presentation/components/dashboard/DashboardUpcomingDeadlines.vue'
 import DashboardEmptyState from '@/presentation/components/dashboard/DashboardEmptyState.vue'
 
-import { useDashboard } from '@/presentation/composables/useDashboard'
+import {useDashboard} from '@/presentation/composables/useDashboard'
 
-const { stats, loading } = useDashboard()
+const {stats, loading} = useDashboard()
 </script>

@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import {reactive, ref} from 'vue'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
@@ -99,9 +99,9 @@ import AppSkeleton from '@/presentation/components/ui/AppSkeleton.vue'
 import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 import TaskTagItem from '@/presentation/components/tasks/tags/TaskTagItem.vue'
 
-import { useTags } from '@/presentation/composables/useTags'
+import {useTags} from '@/presentation/composables/useTags'
 
-import type { Tag } from '@/domain/tags/models/Tag'
+import type {Tag} from '@/domain/tags/models/Tag'
 import {useI18n} from 'vue-i18n'
 
 const emit = defineEmits<{
@@ -166,7 +166,7 @@ const handleUpdate = async (
   emit('changed')
 }
 
-const { t } = useI18n()
+const {t} = useI18n()
 const handleDelete = async (tag: Tag): Promise<void> => {
   if (!confirm(String(t('tasks.tags.confirm_delete')))) {
     return

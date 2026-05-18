@@ -1,4 +1,4 @@
-import type { User } from '@/domain/auth/models/User'
+import type {User} from '@/domain/auth/models/User'
 
 const TOKEN_KEY = 'token'
 const USER_KEY = 'user'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
+import {computed} from 'vue'
+import {useRoute} from 'vue-router'
+import {useI18n} from 'vue-i18n'
 
 import AuthLayout from '@/presentation/layouts/AuthLayout.vue'
 import AppLogo from '@/presentation/components/AppLogo.vue'
@@ -9,7 +9,7 @@ import LoginForm from '@/presentation/components/auth/LoginForm.vue'
 
 const route = useRoute()
 
-const { t } = useI18n()
+const {t} = useI18n()
 
 const successMessage = computed(() => {
   if (route.query.registered === 'success') {

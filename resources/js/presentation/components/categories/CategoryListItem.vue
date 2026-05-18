@@ -87,12 +87,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 
-import type { Category } from '@/domain/categories/models/Category'
+import type {Category} from '@/domain/categories/models/Category'
 
 const props = defineProps<{
   category: Category

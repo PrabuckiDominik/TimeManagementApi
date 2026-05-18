@@ -79,10 +79,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import {computed} from 'vue'
+import {useRoute} from 'vue-router'
 
-import { useCategories } from '@/presentation/composables/useCategories'
+import {useCategories} from '@/presentation/composables/useCategories'
 
 const route = useRoute()
 

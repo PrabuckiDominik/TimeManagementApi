@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang='ts'>
-import type { UpcomingDeadlineTask } from '@/domain/dashboard/models/DashboardStats'
+import type {UpcomingDeadlineTask} from '@/domain/dashboard/models/DashboardStats'
 
 defineProps<{
   task: UpcomingDeadlineTask

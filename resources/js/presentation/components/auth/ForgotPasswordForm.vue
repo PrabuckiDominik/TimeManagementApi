@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import {useI18n} from 'vue-i18n'
 
 import AuthCard from '@/presentation/components/auth/AuthCard.vue'
 import AuthFooter from '@/presentation/components/auth/AuthFooter.vue'
@@ -7,9 +7,9 @@ import AuthHeader from '@/presentation/components/auth/AuthHeader.vue'
 import AuthInput from '@/presentation/components/auth/AuthInput.vue'
 import AuthSubmitButton from '@/presentation/components/auth/AuthSubmitButton.vue'
 
-import { useForgotPassword } from '@/presentation/composables/useForgotPassword'
+import {useForgotPassword} from '@/presentation/composables/useForgotPassword'
 
-const { t } = useI18n()
+const {t} = useI18n()
 
 const {
   form,

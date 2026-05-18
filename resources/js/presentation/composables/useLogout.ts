@@ -1,9 +1,9 @@
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
 
-import { AuthRepositoryImpl } from '@/data/auth/AuthRepositoryImpl'
+import {AuthRepositoryImpl} from '@/data/auth/AuthRepositoryImpl'
 
-import { authStorage } from '@/shared/auth/authStorage'
+import {authStorage} from '@/shared/auth/authStorage'
 
 const repository = new AuthRepositoryImpl()
 

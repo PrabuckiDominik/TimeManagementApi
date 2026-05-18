@@ -54,11 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 
-import type { Tag } from '@/domain/tags/models/Tag'
+import type {Tag} from '@/domain/tags/models/Tag'
 
 const props = defineProps<{
   tag: Tag

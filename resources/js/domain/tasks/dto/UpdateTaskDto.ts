@@ -1,3 +1,3 @@
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
+import type {StoreTaskDto} from '@/domain/tasks/dto/StoreTaskDto'
 
 export type UpdateTaskDto = Partial<StoreTaskDto>

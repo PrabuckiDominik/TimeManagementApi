@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import DashboardStatCard from '@/presentation/components/dashboard/cards/DashboardStatCard.vue'
 
-import type { DashboardStats } from '@/domain/dashboard/models/DashboardStats'
+import type {DashboardStats} from '@/domain/dashboard/models/DashboardStats'
 
 defineProps<{
   stats: DashboardStats

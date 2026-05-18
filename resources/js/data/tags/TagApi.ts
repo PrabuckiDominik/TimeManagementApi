@@ -1,7 +1,7 @@
-import { httpClient } from '@/data/http/httpClient'
+import {httpClient} from '@/data/http/httpClient'
 
-import type { StoreTagDto } from '@/domain/tags/dto/StoreTagDto'
-import type { UpdateTagDto } from '@/domain/tags/dto/UpdateTagDto'
+import type {StoreTagDto} from '@/domain/tags/dto/StoreTagDto'
+import type {UpdateTagDto} from '@/domain/tags/dto/UpdateTagDto'
 
 export const TagApi = {
   async getAll() {

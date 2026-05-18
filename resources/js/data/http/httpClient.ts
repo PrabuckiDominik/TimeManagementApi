@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-import { router } from '@/presentation/router'
+import {router} from '@/presentation/router'
 
-import { authStorage } from '@/shared/auth/authStorage'
-import { i18n } from '@/shared/i18n'
+import {authStorage} from '@/shared/auth/authStorage'
+import {i18n} from '@/shared/i18n'
 
 export const httpClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

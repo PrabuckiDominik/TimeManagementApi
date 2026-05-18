@@ -33,7 +33,7 @@ import ProfileLanguageCard from '@/presentation/components/profile/cards/Profile
 import ProfileLogoutCard from '@/presentation/components/profile/cards/ProfileLogoutCard.vue'
 import ProfileSecurityCard from '@/presentation/components/profile/cards/ProfileSecurityCard.vue'
 
-import { useProfile } from '@/presentation/composables/useProfile'
+import {useProfile} from '@/presentation/composables/useProfile'
 
 const {
   user,

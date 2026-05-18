@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
-import { authStorage } from '@/shared/auth/authStorage'
-import { i18n } from '@/shared/i18n'
+import {authStorage} from '@/shared/auth/authStorage'
+import {i18n} from '@/shared/i18n'
 
 import DashboardPage from '@/presentation/pages/dashboard/DashboardPage.vue'
 import LoginPage from '@/presentation/pages/auth/LoginPage.vue'

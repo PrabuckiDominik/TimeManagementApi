@@ -75,8 +75,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
+import {reactive} from 'vue'
+import {useI18n} from 'vue-i18n'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
@@ -84,11 +84,11 @@ import AppSkeleton from '@/presentation/components/ui/AppSkeleton.vue'
 import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 import CategoryListItem from '@/presentation/components/categories/CategoryListItem.vue'
 
-import { useCategories } from '@/presentation/composables/useCategories'
+import {useCategories} from '@/presentation/composables/useCategories'
 
-import type { Category } from '@/domain/categories/models/Category'
+import type {Category} from '@/domain/categories/models/Category'
 
-const { t } = useI18n()
+const {t} = useI18n()
 
 const {
   categories,

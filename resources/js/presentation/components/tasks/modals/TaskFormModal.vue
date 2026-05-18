@@ -155,7 +155,9 @@
             </div>
           </div>
 
-          <div class="flex shrink-0 flex-col-reverse gap-3 border-t bg-white px-5 py-4 sm:flex-row sm:justify-end sm:px-6">
+          <div
+            class="flex shrink-0 flex-col-reverse gap-3 border-t bg-white px-5 py-4 sm:flex-row sm:justify-end sm:px-6"
+          >
             <button
               type="button"
               class="rounded-xl px-4 py-3 text-gray-600 transition hover:bg-gray-100 sm:py-2"
@@ -175,26 +177,21 @@
 </template>
 
 <script setup lang="ts">
-import {
-  onMounted,
-  onUnmounted,
-  reactive,
-  ref,
-} from 'vue'
-import { useI18n } from 'vue-i18n'
+import {onMounted, onUnmounted, reactive, ref} from 'vue'
+import {useI18n} from 'vue-i18n'
 
-import { CategoryApi } from '@/data/categories/CategoryApi'
-import { TagApi } from '@/data/tags/TagApi'
+import {CategoryApi} from '@/data/categories/CategoryApi'
+import {TagApi} from '@/data/tags/TagApi'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import FormSelect from '@/presentation/components/ui/forms/FormSelect.vue'
 import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 import FormTextarea from '@/presentation/components/ui/forms/FormTextarea.vue'
 
-import type { Category } from '@/domain/categories/models/Category'
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
-import type { Task } from '@/domain/tasks/models/Task'
-import type { Tag } from '@/domain/tags/models/Tag'
+import type {Category} from '@/domain/categories/models/Category'
+import type {StoreTaskDto} from '@/domain/tasks/dto/StoreTaskDto'
+import type {Task} from '@/domain/tasks/models/Task'
+import type {Tag} from '@/domain/tags/models/Tag'
 
 type FormErrors = Record<string, string[]>
 
@@ -207,7 +204,7 @@ const emit = defineEmits<{
   saved: [dto: StoreTaskDto]
 }>()
 
-const { t } = useI18n()
+const {t} = useI18n()
 
 const categories = ref<Category[]>([])
 const tags = ref<Tag[]>([])

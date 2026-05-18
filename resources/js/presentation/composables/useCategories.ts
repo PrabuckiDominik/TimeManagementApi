@@ -1,10 +1,10 @@
-import { onMounted, ref } from 'vue'
+import {onMounted, ref} from 'vue'
 
-import { CategoryRepositoryImpl } from '@/data/categories/CategoryRepositoryImpl'
+import {CategoryRepositoryImpl} from '@/data/categories/CategoryRepositoryImpl'
 
-import type { Category } from '@/domain/categories/models/Category'
-import type { StoreCategoryDto } from '@/domain/categories/dto/StoreCategoryDto'
-import type { UpdateCategoryDto } from '@/domain/categories/dto/UpdateCategoryDto'
+import type {Category} from '@/domain/categories/models/Category'
+import type {StoreCategoryDto} from '@/domain/categories/dto/StoreCategoryDto'
+import type {UpdateCategoryDto} from '@/domain/categories/dto/UpdateCategoryDto'
 
 type FormErrors = Record<string, string[]>
 

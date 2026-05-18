@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import {computed, ref} from 'vue'
 
 import AppLayout from '@/presentation/layouts/AppLayout.vue'
 import AppSkeleton from '@/presentation/components/ui/AppSkeleton.vue'
@@ -58,10 +58,10 @@ import TaskHeader from '@/presentation/components/tasks/TaskHeader.vue'
 import TaskList from '@/presentation/components/tasks/TaskList.vue'
 import TaskFormModal from '@/presentation/components/tasks/modals/TaskFormModal.vue'
 import TaskTagsPanel from '@/presentation/components/tasks/tags/TaskTagsPanel.vue'
-import { useTasks } from '@/presentation/composables/useTasks'
-import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
-import type { Task } from '@/domain/tasks/models/Task'
-import { useRoute } from 'vue-router'
+import {useTasks} from '@/presentation/composables/useTasks'
+import type {StoreTaskDto} from '@/domain/tasks/dto/StoreTaskDto'
+import type {Task} from '@/domain/tasks/models/Task'
+import {useRoute} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 
 const route = useRoute()
@@ -126,7 +126,7 @@ const handleUpdateTask = async (dto: StoreTaskDto): Promise<void> => {
   editingTask.value = null
 }
 
-const { t } = useI18n()
+const {t} = useI18n()
 const handleDeleteTask = async (task: Task): Promise<void> => {
   if (!confirm(String(t('tasks.confirm_delete')))) {
     return

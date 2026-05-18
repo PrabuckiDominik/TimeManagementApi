@@ -129,12 +129,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 
-import { useUpdatePassword } from '@/presentation/composables/useUpdatePassword'
+import {useUpdatePassword} from '@/presentation/composables/useUpdatePassword'
 
 const editing = ref(false)
 

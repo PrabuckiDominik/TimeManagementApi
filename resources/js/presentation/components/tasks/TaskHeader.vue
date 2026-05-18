@@ -8,7 +8,7 @@
       </h1>
 
       <p class="mt-2 text-gray-600">
-        {{ $t('tasks.total_tasks', { count: totalTasks }) }}
+        {{ $t('tasks.total_tasks', {count: totalTasks}) }}
       </p>
 
       <AppButton
