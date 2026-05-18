@@ -24,4 +24,5 @@ return [
         "email_already_verified" => "Adres email został już wcześniej zweryfikowany.",
         "invalid_verification_link" => "Link weryfikacyjny jest nieprawidłowy lub wygasł.",
     ],
+    "throttle_login" => "Zbyt wiele nieudanych prób logowania. Spróbuj ponownie później.",
 ];

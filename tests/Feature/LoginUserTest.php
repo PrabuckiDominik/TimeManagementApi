@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Hash;
+use RateLimiter;
 use Tests\TestCase;
 use TimeManagement\Models\User;
 
@@ -64,5 +65,29 @@ class LoginUserTest extends TestCase
             "email" => "jan.kowalski@gmail.com",
             "password" => "securePassword123",
         ], $overrides);
+    }
+
+    public function testUserIsThrottledAfterTooManyFailedLoginAttempts(): void
+    {
+        RateLimiter::clear("login:127.0.0.1");
+
+        User::factory()->create([
+            "email" => "jan.kowalski@gmail.com",
+            "password" => Hash::make("correctPassword"),
+        ]);
+
+        foreach (range(1, 4) as $attempt) {
+            $this->postJson("/api/auth/login", $this->validData([
+                "password" => "wrongPassword",
+            ]))->assertStatus(403);
+        }
+
+        $this->postJson("/api/auth/login", $this->validData([
+            "password" => "wrongPassword",
+        ]))
+            ->assertStatus(429)
+            ->assertJson([
+                "message" => __("auth.throttle_login"),
+            ]);
     }
 }
