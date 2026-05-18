@@ -27,6 +27,8 @@ class UpdateTaskRequest extends FormRequest
 
     public function toDto(): UpdateTaskDto
     {
+        $categoryId = $this->input("category_id");
+
         return new UpdateTaskDto(
             name: $this->input("name"),
             description: $this->input("description"),
@@ -38,7 +40,9 @@ class UpdateTaskRequest extends FormRequest
                 : null,
             due_date: $this->input("due_date"),
             hasCategoryId: $this->exists("category_id"),
-            category_id: $this->input("category_id"),
+            category_id: $categoryId !== null
+                ? (int)$categoryId
+                : null,
             tag_ids: $this->input("tag_ids"),
             hasTagIds: $this->exists("tag_ids"),
         );

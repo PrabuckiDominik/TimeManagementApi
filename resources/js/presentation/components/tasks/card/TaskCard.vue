@@ -67,13 +67,17 @@
 
           <span
             v-if="task.due_date"
-            class="rounded-md px-3 py-1 text-xs font-medium"
+            class="rounded-md px-3 py-1 text-xs font-semibold"
             :class="task.is_overdue
               ? 'bg-red-100 text-red-800'
               : 'bg-gray-100 text-gray-800'"
           >
             {{ $t('tasks.due') }}:
             {{ formatDate(task.due_date) }}
+
+            <span v-if="task.is_overdue">
+              · {{ $t('tasks.overdue') }}
+            </span>
           </span>
 
           <span

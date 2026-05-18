@@ -32,6 +32,8 @@ class StoreTaskRequest extends FormRequest
 
     public function toDto(): StoreTaskDto
     {
+        $categoryId = $this->input("category_id");
+
         return new StoreTaskDto(
             name: $this->input("name"),
             description: $this->input("description"),
@@ -42,7 +44,9 @@ class StoreTaskRequest extends FormRequest
                 ? TaskStatus::from($this->input("status"))
                 : null,
             due_date: $this->input("due_date"),
-            category_id: $this->input("category_id"),
+            category_id: $categoryId !== null
+                ? (int)$categoryId
+                : null,
             tag_ids: $this->input("tag_ids"),
         );
     }
