@@ -1,17 +1,33 @@
 <template>
   <AppCard>
     <div class="flex flex-wrap items-center gap-4">
+      <label
+        for="tasks-search"
+        class="sr-only"
+      >
+        {{ $t('tasks.filters.search_label') }}
+      </label>
+
       <input
+        id="tasks-search"
         :value="search"
         type="text"
         :placeholder="$t('tasks.filters.search_placeholder')"
-        class="w-full rounded-xl border border-gray-200 px-4 py-2 outline-none transition focus:border-indigo-500 md:w-80"
+        class="w-full rounded-xl border border-gray-300 px-4 py-2 text-gray-900 outline-none transition placeholder:text-gray-500 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 md:w-80"
         @input="onSearchInput"
       >
 
+      <label
+        for="tasks-status"
+        class="sr-only"
+      >
+        {{ $t('tasks.filters.status_label') }}
+      </label>
+
       <select
+        id="tasks-status"
         :value="status"
-        class="rounded-xl border border-gray-200 px-4 py-2 outline-none"
+        class="rounded-xl border border-gray-300 px-4 py-2 text-gray-900 outline-none transition focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
         @change="onStatusChange"
       >
         <option value="">

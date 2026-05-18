@@ -32,6 +32,7 @@ const {
       @submit.prevent="submit"
     >
       <AuthInput
+        id="forgot-password-email"
         v-model="form.email"
         type="email"
         :label="t('auth.forgot_password.email')"

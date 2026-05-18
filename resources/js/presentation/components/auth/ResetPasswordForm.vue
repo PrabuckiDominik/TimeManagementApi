@@ -34,6 +34,7 @@ const showPasswordConfirmation = ref(false)
       @submit.prevent="submit"
     >
       <AuthInput
+        id="reset-password-email"
         v-model="form.email"
         type="email"
         :label="t('auth.reset_password.email')"
@@ -42,6 +43,7 @@ const showPasswordConfirmation = ref(false)
 
       <div class="relative">
         <AuthInput
+          id="reset-password-password"
           v-model="form.password"
           :type="showPassword ? 'text' : 'password'"
           :label="t('auth.reset_password.password')"
@@ -59,6 +61,7 @@ const showPasswordConfirmation = ref(false)
 
       <div class="relative">
         <AuthInput
+          id="reset-password-password_confirmation"
           v-model="form.password_confirmation"
           :type="showPasswordConfirmation ? 'text' : 'password'"
           :label="t('auth.reset_password.password_confirmation')"

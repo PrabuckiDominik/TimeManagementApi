@@ -1,31 +1,36 @@
 <template>
   <AppCard>
     <form
-      class="flex flex-col gap-3 sm:flex-row"
+      class="flex flex-col gap-3 sm:flex-row sm:items-start"
       @submit.prevent="submitCreate"
     >
       <div class="flex-1">
-        <input
+        <FormTextInput
+          id="category-title"
           v-model="form.title"
-          type="text"
-          maxlength="255"
-          class="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
+          :label="$t('categories.form.title_label')"
           :placeholder="$t('categories.form.title_placeholder')"
-        >
-
-        <p
-          v-if="errors.title"
-          class="mt-2 text-sm text-red-500"
-        >
-          {{ errors.title[0] }}
-        </p>
+          :error="errors.title"
+          :maxlength="255"
+          hide-label
+        />
       </div>
 
-      <input
-        v-model="form.color"
-        type="color"
-        class="h-12 w-16 rounded-xl border border-gray-300 bg-white p-1"
-      >
+      <div>
+        <label
+          for="category-color"
+          class="sr-only"
+        >
+          {{ $t('categories.form.color_label') }}
+        </label>
+
+        <input
+          id="category-color"
+          v-model="form.color"
+          type="color"
+          class="h-12 w-16 rounded-xl border border-gray-300 bg-white p-1"
+        >
+      </div>
 
       <AppButton
         type="submit"
@@ -71,16 +76,17 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
 import AppCard from '@/presentation/components/ui/AppCard.vue'
 import AppSkeleton from '@/presentation/components/ui/AppSkeleton.vue'
+import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 import CategoryListItem from '@/presentation/components/categories/CategoryListItem.vue'
 
 import { useCategories } from '@/presentation/composables/useCategories'
 
 import type { Category } from '@/domain/categories/models/Category'
-import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
@@ -102,7 +108,9 @@ const form = reactive({
 const submitCreate = async (): Promise<void> => {
   if (!form.title.trim()) {
     errors.value = {
-      title: ['Category title is required.'],
+      title: [
+        String(t('categories.validation.title_required')),
+      ],
     }
 
     return

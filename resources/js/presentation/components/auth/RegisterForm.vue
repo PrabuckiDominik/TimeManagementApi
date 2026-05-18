@@ -31,6 +31,7 @@ const showPasswordConfirmation = ref(false)
 
     <form class="space-y-4" @submit.prevent="submit">
       <AuthInput
+        id="register-name"
         v-model="form.name"
         :label="t('auth.register.name')"
         placeholder="Jan Kowalski"
@@ -38,6 +39,7 @@ const showPasswordConfirmation = ref(false)
       />
 
       <AuthInput
+        id="register-email"
         v-model="form.email"
         type="email"
         :label="t('auth.register.email')"
@@ -47,6 +49,7 @@ const showPasswordConfirmation = ref(false)
 
       <div class="relative">
         <AuthInput
+          id="register-password"
           v-model="form.password"
           :type="showPassword ? 'text' : 'password'"
           :label="t('auth.register.password')"
@@ -65,6 +68,7 @@ const showPasswordConfirmation = ref(false)
 
       <div class="relative">
         <AuthInput
+          id="register-password-confirmation"
           v-model="form.password_confirmation"
           :type="showPasswordConfirmation ? 'text' : 'password'"
           :label="t('auth.register.passwordConfirmation')"

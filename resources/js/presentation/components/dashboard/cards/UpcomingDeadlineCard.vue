@@ -7,13 +7,13 @@
         {{ task.name }}
       </h4>
 
-      <p class="mt-1 text-sm text-gray-500">
+      <p class="mt-1 text-sm text-gray-700">
         {{ task.category?.title ?? $t('dashboard.task.no_category') }}
       </p>
 
       <p
         v-if="task.due_date"
-        class="mt-1 text-sm text-gray-500"
+        class="mt-1 text-sm text-gray-700"
       >
         {{ $t('dashboard.task.due') }}:
         {{ formatDate(task.due_date) }}
@@ -23,8 +23,8 @@
     <div
       class="w-fit shrink-0 rounded-full px-3 py-1 text-sm font-medium"
       :class="task.is_overdue
-        ? 'bg-red-100 text-red-600'
-        : 'bg-green-100 text-green-600'"
+        ? 'bg-red-100 text-red-800'
+        : 'bg-green-100 text-green-800'"
     >
       {{ task.is_overdue ? $t('dashboard.task.overdue') : $t('dashboard.task.upcoming') }}
     </div>

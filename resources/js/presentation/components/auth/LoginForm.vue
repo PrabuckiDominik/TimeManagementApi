@@ -38,6 +38,7 @@ const submit = async () => {
 
     <form class="space-y-4" @submit.prevent="submit">
       <AuthInput
+        id="login-email"
         v-model="form.email"
         type="email"
         :label="t('auth.login.email')"
@@ -46,6 +47,7 @@ const submit = async () => {
 
       <div class="relative">
         <AuthInput
+          id="login-password"
           v-model="form.password"
           :type="showPassword ? 'text' : 'password'"
           :label="t('auth.login.password')"

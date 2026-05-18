@@ -39,7 +39,7 @@ const chartData = computed(() => ({
       label: t('dashboard.charts.tasks'),
       data: props.data.map(item => item.count),
       backgroundColor: props.data.map(
-        item => item.color ?? '#6366F1',
+        item => item.color ?? '#4338CA',
       ),
     },
   ],

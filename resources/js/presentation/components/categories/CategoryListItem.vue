@@ -4,18 +4,29 @@
   >
     <template v-if="editing">
       <div class="flex flex-1 flex-col gap-3 sm:flex-row">
-        <input
+        <FormTextInput
+          :id="`category-title-${category.id}`"
           v-model="title"
-          type="text"
-          maxlength="255"
-          class="w-full rounded-xl border border-gray-300 px-4 py-2 outline-none transition focus:border-indigo-500"
-        >
+          :label="$t('categories.form.title_label')"
+          :maxlength="255"
+          hide-label
+        />
 
-        <input
-          v-model="color"
-          type="color"
-          class="h-11 w-16 rounded-xl border border-gray-300 bg-white p-1"
-        >
+        <div>
+          <label
+            :for="`category-color-${category.id}`"
+            class="sr-only"
+          >
+            {{ $t('categories.form.color_label') }}
+          </label>
+
+          <input
+            :id="`category-color-${category.id}`"
+            v-model="color"
+            type="color"
+            class="h-11 w-16 rounded-xl border border-gray-300 bg-white p-1"
+          >
+        </div>
       </div>
 
       <div class="flex gap-2">
@@ -79,6 +90,7 @@
 import { ref } from 'vue'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
+import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
 
 import type { Category } from '@/domain/categories/models/Category'
 

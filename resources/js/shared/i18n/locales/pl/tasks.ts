@@ -17,6 +17,8 @@ export default {
 
   filters: {
     search_placeholder: 'Szukaj zadań...',
+    search_label: 'Szukaj zadań',
+    status_label: 'Filtruj po statusie',
   },
 
   sections: {
@@ -30,6 +32,9 @@ export default {
   actions: {
     edit: 'Edytuj',
     delete: 'Usuń',
+    open_menu: 'Otwórz menu zadania',
+    mark_as_done: 'Oznacz jako ukończone',
+    mark_as_todo: 'Oznacz jako do zrobienia',
   },
 
   modal: {
@@ -38,6 +43,7 @@ export default {
     create: 'Utwórz zadanie',
     update: 'Zaktualizuj zadanie',
     cancel: 'Anuluj',
+    close: 'Zamknij',
 
     fields: {
       name: 'Tytuł zadania',
@@ -77,5 +83,8 @@ export default {
     delete: 'Usuń',
     empty: 'Nie masz jeszcze żadnych tagów.',
     name_placeholder: 'Nazwa tagu',
+    name_label: 'Nazwa tagu',
+    confirm_delete: 'Czy na pewno chcesz usunąć ten tag?',
   },
+  confirm_delete: 'Czy na pewno chcesz usunąć to zadanie?',
 }

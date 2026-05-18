@@ -25,6 +25,7 @@ export const router = createRouter({
       component: LoginPage,
       meta: {
         guestOnly: true,
+        title: 'auth.login.title',
       },
     },
 
@@ -33,6 +34,7 @@ export const router = createRouter({
       component: RegisterPage,
       meta: {
         guestOnly: true,
+        title: 'auth.register.title',
       },
     },
 
@@ -41,6 +43,7 @@ export const router = createRouter({
       component: DashboardPage,
       meta: {
         requiresAuth: true,
+        title: 'dashboard.title',
       },
     },
 
@@ -49,6 +52,7 @@ export const router = createRouter({
       component: TasksPage,
       meta: {
         requiresAuth: true,
+        title: 'tasks.title',
       },
     },
 
@@ -57,6 +61,7 @@ export const router = createRouter({
       component: ProfilePage,
       meta: {
         requiresAuth: true,
+        title: 'profile.title',
       },
     },
 
@@ -65,6 +70,7 @@ export const router = createRouter({
       component: ForgotPasswordPage,
       meta: {
         guestOnly: true,
+        title: 'auth.forgot_password.title',
       },
     },
 
@@ -73,6 +79,7 @@ export const router = createRouter({
       component: ResetPasswordPage,
       meta: {
         guestOnly: true,
+        title: 'auth.reset_password.title',
       },
     },
 
@@ -81,6 +88,7 @@ export const router = createRouter({
       component: CategoriesPage,
       meta: {
         requiresAuth: true,
+        title: 'categories.title',
       },
     },
 
@@ -105,4 +113,17 @@ router.beforeEach(to => {
   if (to.meta.guestOnly && token) {
     return '/dashboard'
   }
+})
+
+import { i18n } from '@/shared/i18n'
+router.afterEach(to => {
+  const appName = import.meta.env.VITE_APP_NAME ?? 'Time Management'
+
+  const titleKey = typeof to.meta.title === 'string'
+    ? to.meta.title
+    : null
+
+  document.title = titleKey
+    ? `${i18n.global.t(titleKey)} | ${appName}`
+    : appName
 })

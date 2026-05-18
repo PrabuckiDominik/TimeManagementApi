@@ -15,6 +15,7 @@
           <button
             type="button"
             class="text-2xl text-gray-500 transition hover:text-gray-700"
+            :aria-label="$t('tasks.modal.close')"
             @click="$emit('close')"
           >
             ×
@@ -26,153 +27,110 @@
           @submit.prevent="submit"
         >
           <div class="min-h-0 flex-1 space-y-5 overflow-y-auto p-5 sm:px-6">
-            <div>
-              <div class="flex items-center justify-between">
-                <label class="text-sm font-medium text-gray-700">
-                  {{ $t('tasks.modal.fields.name') }} *
-                </label>
-
+            <FormTextInput
+              id="task-name"
+              v-model="form.name"
+              :label="`${$t('tasks.modal.fields.name')} *`"
+              :placeholder="$t('tasks.modal.placeholders.name')"
+              :error="errors.name"
+              :maxlength="255"
+            >
+              <template #meta>
                 <span
                   class="text-xs"
-                  :class="form.name.length > 255 ? 'text-red-500' : 'text-gray-400'"
+                  :class="form.name.length > 255 ? 'text-red-500' : 'text-gray-600'"
                 >
                   {{ form.name.length }}/255
                 </span>
-              </div>
+              </template>
+            </FormTextInput>
 
-              <input
-                v-model="form.name"
-                type="text"
-                maxlength="255"
-                class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
-                :placeholder="$t('tasks.modal.placeholders.name')"
-              >
-
-              <p
-                v-if="errors.name"
-                class="mt-2 text-sm text-red-500"
-              >
-                {{ errors.name[0] }}
-              </p>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between">
-                <label class="text-sm font-medium text-gray-700">
-                  {{ $t('tasks.modal.fields.description') }}
-                </label>
-
+            <FormTextarea
+              id="task-description"
+              v-model="form.description"
+              :label="$t('tasks.modal.fields.description')"
+              :placeholder="$t('tasks.modal.placeholders.description')"
+              :error="errors.description"
+              :maxlength="255"
+              :rows="4"
+            >
+              <template #meta>
                 <span
                   class="text-xs"
-                  :class="(form.description?.length ?? 0) > 255 ? 'text-red-500' : 'text-gray-400'"
+                  :class="(form.description?.length ?? 0) > 255 ? 'text-red-500' : 'text-gray-600'"
                 >
                   {{ form.description?.length ?? 0 }}/255
                 </span>
-              </div>
-
-              <textarea
-                v-model="form.description"
-                rows="4"
-                maxlength="255"
-                class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
-                :placeholder="$t('tasks.modal.placeholders.description')"
-              />
-
-              <p
-                v-if="errors.description"
-                class="mt-2 text-sm text-red-500"
-              >
-                {{ errors.description[0] }}
-              </p>
-            </div>
+              </template>
+            </FormTextarea>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <label class="text-sm font-medium text-gray-700">
-                  {{ $t('tasks.modal.fields.priority') }}
-                </label>
+              <FormSelect
+                id="task-priority"
+                v-model="form.priority"
+                :label="$t('tasks.modal.fields.priority')"
+              >
+                <option value="low">
+                  {{ $t('tasks.priority.low') }}
+                </option>
 
-                <select
-                  v-model="form.priority"
-                  class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
+                <option value="medium">
+                  {{ $t('tasks.priority.medium') }}
+                </option>
+
+                <option value="high">
+                  {{ $t('tasks.priority.high') }}
+                </option>
+              </FormSelect>
+
+              <FormSelect
+                id="task-status"
+                v-model="form.status"
+                :label="$t('tasks.modal.fields.status')"
+              >
+                <option value="todo">
+                  {{ $t('tasks.status.todo') }}
+                </option>
+
+                <option value="in_progress">
+                  {{ $t('tasks.status.in_progress') }}
+                </option>
+
+                <option value="done">
+                  {{ $t('tasks.status.done') }}
+                </option>
+              </FormSelect>
+
+              <FormTextInput
+                id="task-due-date"
+                v-model="form.due_date"
+                type="date"
+                :label="$t('tasks.modal.fields.deadline')"
+              />
+
+              <FormSelect
+                id="task-category"
+                v-model="form.category_id"
+                :label="$t('tasks.modal.fields.category')"
+              >
+                <option value="">
+                  {{ $t('tasks.modal.placeholders.no_category') }}
+                </option>
+
+                <option
+                  v-for="category in categories"
+                  :key="category.id"
+                  :value="category.id"
                 >
-                  <option value="low">
-                    {{ $t('tasks.priority.low') }}
-                  </option>
-
-                  <option value="medium">
-                    {{ $t('tasks.priority.medium') }}
-                  </option>
-
-                  <option value="high">
-                    {{ $t('tasks.priority.high') }}
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <label class="text-sm font-medium text-gray-700">
-                  {{ $t('tasks.modal.fields.status') }}
-                </label>
-
-                <select
-                  v-model="form.status"
-                  class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
-                >
-                  <option value="todo">
-                    {{ $t('tasks.status.todo') }}
-                  </option>
-
-                  <option value="in_progress">
-                    {{ $t('tasks.status.in_progress') }}
-                  </option>
-
-                  <option value="done">
-                    {{ $t('tasks.status.done') }}
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <label class="text-sm font-medium text-gray-700">
-                  {{ $t('tasks.modal.fields.deadline') }}
-                </label>
-
-                <input
-                  v-model="form.due_date"
-                  type="date"
-                  class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
-                >
-              </div>
-
-              <div>
-                <label class="text-sm font-medium text-gray-700">
-                  {{ $t('tasks.modal.fields.category') }}
-                </label>
-
-                <select
-                  v-model="form.category_id"
-                  class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
-                >
-                  <option :value="null">
-                    {{ $t('tasks.modal.placeholders.no_category') }}
-                  </option>
-
-                  <option
-                    v-for="category in categories"
-                    :key="category.id"
-                    :value="category.id"
-                  >
-                    {{ category.title }}
-                  </option>
-                </select>
-              </div>
+                  {{ category.title }}
+                </option>
+              </FormSelect>
             </div>
 
             <div>
-              <label class="text-sm font-medium text-gray-700">
+              <span class="text-sm font-medium text-gray-700">
                 {{ $t('tasks.modal.fields.tags') }}
-              </label>
+              </span>
 
               <div class="mt-3 flex max-h-28 flex-wrap gap-2 overflow-y-auto pr-1 sm:max-h-none">
                 <label
@@ -188,6 +146,7 @@
                     type="checkbox"
                     class="hidden"
                     :value="tag.id"
+                    :aria-label="`${$t('tasks.modal.fields.tags')}: ${tag.name}`"
                   >
 
                   #{{ tag.name }}
@@ -228,6 +187,9 @@ import { CategoryApi } from '@/data/categories/CategoryApi'
 import { TagApi } from '@/data/tags/TagApi'
 
 import AppButton from '@/presentation/components/ui/AppButton.vue'
+import FormSelect from '@/presentation/components/ui/forms/FormSelect.vue'
+import FormTextInput from '@/presentation/components/ui/forms/FormTextInput.vue'
+import FormTextarea from '@/presentation/components/ui/forms/FormTextarea.vue'
 
 import type { Category } from '@/domain/categories/models/Category'
 import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
@@ -277,8 +239,8 @@ const submit = (): void => {
   }
 
   if (
-    form.description &&
-    form.description.length > 255
+    form.description !== null
+    && form.description.length > 255
   ) {
     errors.value.description = [
       String(t('tasks.validation.description_max')),

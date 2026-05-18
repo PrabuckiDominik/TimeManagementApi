@@ -4,7 +4,7 @@
       {{ $t('profile.title') }}
     </h1>
 
-    <p class="mt-1 text-gray-500">
+    <p class="mt-1 text-gray-700">
       {{ $t('profile.subtitle') }}
     </p>
   </div>

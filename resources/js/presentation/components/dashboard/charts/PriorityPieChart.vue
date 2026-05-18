@@ -41,16 +41,16 @@ const chartData = computed(() => ({
       backgroundColor: props.data.map(item => {
         switch (item.priority) {
         case 'low':
-          return '#10B981'
+          return '#047857'
 
         case 'medium':
           return '#F59E0B'
 
         case 'high':
-          return '#EF4444'
+          return '#B91C1C'
 
         default:
-          return '#6366F1'
+          return '#4338CA'
         }
       }),
     },

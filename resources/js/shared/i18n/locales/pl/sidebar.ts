@@ -3,4 +3,5 @@ export default {
   tasks: 'Zadania',
   profile: 'Profil',
   categories: 'Kategorie',
+  add_category: 'Dodaj kategorię',
 }

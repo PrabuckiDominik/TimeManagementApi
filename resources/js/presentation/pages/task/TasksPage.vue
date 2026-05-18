@@ -62,6 +62,7 @@ import { useTasks } from '@/presentation/composables/useTasks'
 import type { StoreTaskDto } from '@/domain/tasks/dto/StoreTaskDto'
 import type { Task } from '@/domain/tasks/models/Task'
 import { useRoute } from 'vue-router'
+import {useI18n} from 'vue-i18n'
 
 const route = useRoute()
 
@@ -125,8 +126,9 @@ const handleUpdateTask = async (dto: StoreTaskDto): Promise<void> => {
   editingTask.value = null
 }
 
+const { t } = useI18n()
 const handleDeleteTask = async (task: Task): Promise<void> => {
-  if (!confirm('Are you sure you want to delete this task?')) {
+  if (!confirm(String(t('tasks.confirm_delete')))) {
     return
   }
 

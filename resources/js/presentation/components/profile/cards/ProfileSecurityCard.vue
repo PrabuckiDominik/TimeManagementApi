@@ -14,7 +14,7 @@
         {{ $t('profile.security.change_password') }}
       </span>
 
-      <span class="mt-1 block text-sm text-gray-500">
+      <span class="mt-1 block text-sm text-gray-700">
         {{ $t('profile.security.change_password_description') }}
       </span>
     </button>
@@ -26,24 +26,27 @@
     >
       <p
         v-if="errors.general"
-        class="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600"
+        class="rounded-xl bg-red-100 px-4 py-3 text-sm text-red-800"
       >
         {{ errors.general[0] }}
       </p>
 
       <p
         v-if="success"
-        class="rounded-xl bg-green-50 px-4 py-3 text-sm text-green-600"
+        class="rounded-xl bg-green-100 px-4 py-3 text-sm text-green-800"
       >
         {{ success }}
       </p>
 
       <div>
-        <label class="text-sm font-medium text-gray-700">
+        <label for="current-password"
+               class="text-sm font-medium text-gray-700"
+        >
           {{ $t('profile.password.current') }}
         </label>
 
         <input
+          id="current-password"
           v-model="form.current_password"
           type="password"
           class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
@@ -51,18 +54,21 @@
 
         <p
           v-if="errors.current_password"
-          class="mt-2 text-sm text-red-500"
+          class="mt-2 text-sm text-red-700"
         >
           {{ errors.current_password[0] }}
         </p>
       </div>
 
       <div>
-        <label class="text-sm font-medium text-gray-700">
+        <label for="new-password"
+               class="text-sm font-medium text-gray-700"
+        >
           {{ $t('profile.password.new') }}
         </label>
 
         <input
+          id="new-password"
           v-model="form.new_password"
           type="password"
           class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
@@ -77,11 +83,14 @@
       </div>
 
       <div>
-        <label class="text-sm font-medium text-gray-700">
+        <label for="new-password-confirmation"
+               class="text-sm font-medium text-gray-700"
+        >
           {{ $t('profile.password.confirmation') }}
         </label>
 
         <input
+          id="new-password-confirmation"
           v-model="form.new_password_confirmation"
           type="password"
           class="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"

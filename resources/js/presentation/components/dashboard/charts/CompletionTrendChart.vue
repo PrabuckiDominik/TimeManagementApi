@@ -46,8 +46,8 @@ const chartData = computed(() => ({
       label: t('dashboard.charts.completed_tasks'),
       data: props.data.days.map(day => day.count),
 
-      borderColor: '#6366F1',
-      backgroundColor: '#6366F1',
+      borderColor: '#4338CA',
+      backgroundColor: '#4338CA',
 
       tension: 0.4,
     },

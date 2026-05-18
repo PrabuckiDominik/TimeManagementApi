@@ -29,7 +29,7 @@
 
     <AppCard
       v-if="tasks.length === 0"
-      class="text-center text-sm text-gray-500"
+      class="text-center text-sm text-gray-600"
     >
       {{ $t('tasks.empty') }}
     </AppCard>

@@ -8,7 +8,7 @@
           <div
             v-for="item in 4"
             :key="item"
-            class="h-32 animate-pulse rounded-2xl bg-white"
+            class="h-32 animate-pulse rounded-2xl bg-gray-200"
           />
         </div>
       </template>

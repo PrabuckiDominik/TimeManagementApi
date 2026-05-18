@@ -17,6 +17,8 @@ export default {
 
   filters: {
     search_placeholder: 'Search tasks...',
+    search_label: 'Search tasks',
+    status_label: 'Filter by status',
   },
 
   sections: {
@@ -30,6 +32,9 @@ export default {
   actions: {
     edit: 'Edit',
     delete: 'Delete',
+    open_menu: 'Open task menu',
+    mark_as_done: 'Mark as done',
+    mark_as_todo: 'Mark as to do',
   },
 
   modal: {
@@ -38,6 +43,7 @@ export default {
     create: 'Create Task',
     update: 'Update Task',
     cancel: 'Cancel',
+    close: 'Close',
 
     fields: {
       name: 'Task title',
@@ -77,5 +83,8 @@ export default {
     delete: 'Delete',
     empty: 'You do not have any tags yet.',
     name_placeholder: 'Tag name',
+    name_label: 'Tag name',
+    confirm_delete: 'Are you sure you want to delete this tag?',
   },
+  confirm_delete: 'Are you sure you want to delete this task?',
 }
