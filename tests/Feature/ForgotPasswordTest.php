@@ -12,7 +12,6 @@ use TimeManagement\Notifications\ResetPasswordNotification;
 
 class ForgotPasswordTest extends TestCase
 {
-
     /**
      * @throws Exception
      */

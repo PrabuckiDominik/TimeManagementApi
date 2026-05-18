@@ -132,13 +132,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->tasksByStatus($status)->count();
     }
 
-    protected function casts(): array
-    {
-        return [
-            "email_verified_at" => "datetime",
-            "password" => "hashed",
-        ];
-    }
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new VerifyEmailNotification());
@@ -147,5 +140,13 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    protected function casts(): array
+    {
+        return [
+            "email_verified_at" => "datetime",
+            "password" => "hashed",
+        ];
     }
 }
