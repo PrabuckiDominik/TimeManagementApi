@@ -24,6 +24,7 @@ class UserWithTaskDataSeeder extends Seeder
                 "email_verified_at" => now(),
             ],
         );
+        $user->assignRole(["user"]);
 
         $categories = Category::factory()
             ->count(5)

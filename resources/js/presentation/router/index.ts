@@ -15,6 +15,9 @@ import CategoriesPage from '@/presentation/pages/category/CategoriesPage.vue'
 import ForbiddenPage from '@/presentation/pages/errors/ForbiddenPage.vue'
 import OfflinePage from '@/presentation/pages/errors/OfflinePage.vue'
 import ServerErrorPage from '@/presentation/pages/errors/ServerErrorPage.vue'
+import {hasAdminRole} from '@/shared/auth/hasAdminRole'
+import AdminUsersPage from '@/presentation/pages/admin/AdminUsersPage.vue'
+import ActivityLogsPage from '@/presentation/pages/admin/ActivityLogsPage.vue'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -98,6 +101,26 @@ export const router = createRouter({
     },
 
     {
+      path: '/admin/users',
+      component: AdminUsersPage,
+      meta: {
+        requiresAuth: true,
+        requiresAdmin: true,
+        title: 'admin.users.title',
+      },
+    },
+
+    {
+      path: '/admin/activity-logs',
+      component: ActivityLogsPage,
+      meta: {
+        requiresAuth: true,
+        requiresAdmin: true,
+        title: 'admin.activity.title',
+      },
+    },
+
+    {
       path: '/403',
       component: ForbiddenPage,
       meta: {
@@ -141,6 +164,10 @@ router.beforeEach(to => {
 
   if (to.meta.guestOnly && token) {
     return '/dashboard'
+  }
+
+  if (to.meta.requiresAdmin && !hasAdminRole()) {
+    return '/403'
   }
 })
 

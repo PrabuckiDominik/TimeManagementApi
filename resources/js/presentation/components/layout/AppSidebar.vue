@@ -39,6 +39,28 @@
         {{ $t('sidebar.profile') }}
       </RouterLink>
 
+      <RouterLink
+        v-if="isAdmin"
+        to="/admin/users"
+        class="flex items-center rounded-xl px-4 py-3 text-sm font-medium transition"
+        :class="isActive('/admin/users')
+          ? 'bg-indigo-100 text-indigo-800'
+          : 'text-gray-800 hover:bg-gray-100'"
+      >
+        {{ $t('sidebar.admin_users') }}
+      </RouterLink>
+
+      <RouterLink
+        v-if="isAdmin"
+        to="/admin/activity-logs"
+        class="flex items-center rounded-xl px-4 py-3 text-sm font-medium transition"
+        :class="isActive('/admin/activity-logs')
+          ? 'bg-indigo-100 text-indigo-800'
+          : 'text-gray-800 hover:bg-gray-100'"
+      >
+        {{ $t('sidebar.activity_logs') }}
+      </RouterLink>
+
       <div class="pt-6">
         <div class="mb-2 flex items-center justify-between px-4">
           <span class="text-xs font-semibold uppercase tracking-wide text-gray-600">
@@ -82,9 +104,11 @@
 import {computed} from 'vue'
 import {useRoute} from 'vue-router'
 
+import {hasAdminRole} from '@/shared/auth/hasAdminRole'
 import {useCategories} from '@/presentation/composables/useCategories'
 
 const route = useRoute()
+const isAdmin = computed(() => hasAdminRole())
 
 const {
   categories,

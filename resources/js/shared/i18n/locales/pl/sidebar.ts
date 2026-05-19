@@ -4,4 +4,6 @@ export default {
   profile: 'Profil',
   categories: 'Kategorie',
   add_category: 'Dodaj kategorię',
+  admin_users: 'Użytkownicy',
+  activity_logs: 'Aktywność systemu',
 }
