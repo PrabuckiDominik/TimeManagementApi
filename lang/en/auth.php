@@ -24,4 +24,5 @@ return [
         "email_already_verified" => "Your email address is already verified.",
         "invalid_verification_link" => "The verification link is invalid or expired.",
     ],
+    "throttle_login" => "Too many failed login attempts. Please try again later.",
 ];

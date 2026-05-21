@@ -26,6 +26,16 @@ class RegisterUserAction
         $user->assignRole(Role::User->value);
         $user->sendEmailVerificationNotification();
 
+        activity()
+            ->causedBy($user)
+            ->performedOn($user)
+            ->event("registered")
+            ->withProperties([
+                "user_id" => $user->id,
+                "email" => $user->email,
+            ])
+            ->log("Registered user");
+
         return $user;
     }
 }

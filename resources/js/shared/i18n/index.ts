@@ -14,6 +14,8 @@ import plCategories from '@/shared/i18n/locales/pl/categories'
 import enCategories from '@/shared/i18n/locales/en/categories'
 import plErrors from '@/shared/i18n/locales/pl/errors'
 import enErrors from '@/shared/i18n/locales/en/errors'
+import plAdmin from '@/shared/i18n/locales/pl/admin'
+import enAdmin from '@/shared/i18n/locales/en/admin'
 
 export const i18n = createI18n({
   legacy: false,
@@ -28,6 +30,7 @@ export const i18n = createI18n({
       profile: plProfile,
       categories: plCategories,
       errors: plErrors,
+      admin: plAdmin,
     },
     en: {
       auth: enAuth,
@@ -37,6 +40,7 @@ export const i18n = createI18n({
       profile: enProfile,
       categories: enCategories,
       errors: enErrors,
+      admin: enAdmin,
     },
   },
 })

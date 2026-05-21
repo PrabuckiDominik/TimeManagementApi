@@ -87,4 +87,5 @@ export default {
     confirm_delete: 'Are you sure you want to delete this tag?',
   },
   confirm_delete: 'Are you sure you want to delete this task?',
+  overdue: 'Overdue',
 }

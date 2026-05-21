@@ -11,8 +11,28 @@ class UpdateCategoryAction
 {
     public function execute(Category $category, UpdateCategoryDto $dto): Category
     {
+        $old = $category->only([
+            "title",
+            "color",
+        ]);
+
         $category->update($dto->toArray());
 
-        return $category->refresh();
+        $category->refresh();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($category)
+            ->event("updated")
+            ->withProperties([
+                "old" => $old,
+                "new" => $category->only([
+                    "title",
+                    "color",
+                ]),
+            ])
+            ->log("Updated category");
+
+        return $category;
     }
 }

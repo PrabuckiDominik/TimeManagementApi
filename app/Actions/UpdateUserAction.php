@@ -11,10 +11,26 @@ class UpdateUserAction
 {
     public function execute(User $user, UpdateUserDto $dto): User
     {
-        $user->update(
-            $dto->toArray(),
-        );
+        $old = $user->only([
+            "name",
+        ]);
 
-        return $user->refresh();
+        $user->update($dto->toArray());
+
+        $user->refresh();
+
+        activity()
+            ->causedBy($user)
+            ->performedOn($user)
+            ->event("updated")
+            ->withProperties([
+                "old" => $old,
+                "new" => $user->only([
+                    "name",
+                ]),
+            ])
+            ->log("Updated profile");
+
+        return $user;
     }
 }

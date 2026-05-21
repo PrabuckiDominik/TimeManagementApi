@@ -12,10 +12,23 @@ class StoreCategoryAction
 {
     public function execute(User $user, StoreCategoryDto $dto): Category
     {
-        return Category::create([
+        $category = Category::create([
             "user_id" => $user->id,
             "title" => $dto->title,
             "color" => $dto->color,
         ]);
+
+        activity()
+            ->causedBy($user)
+            ->performedOn($category)
+            ->event("created")
+            ->withProperties([
+                "category_id" => $category->id,
+                "title" => $category->title,
+                "color" => $category->color,
+            ])
+            ->log("Created category");
+
+        return $category;
     }
 }

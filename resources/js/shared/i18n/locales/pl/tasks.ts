@@ -87,4 +87,5 @@ export default {
     confirm_delete: 'Czy na pewno chcesz usunąć ten tag?',
   },
   confirm_delete: 'Czy na pewno chcesz usunąć to zadanie?',
+  overdue: 'Spóźnione',
 }

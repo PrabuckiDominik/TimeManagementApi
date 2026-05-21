@@ -11,8 +11,26 @@ class UpdateTagAction
 {
     public function execute(Tag $tag, UpdateTagDto $dto): Tag
     {
+        $old = $tag->only([
+            "name",
+        ]);
+
         $tag->update($dto->toArray());
 
-        return $tag->refresh();
+        $tag->refresh();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($tag)
+            ->event("updated")
+            ->withProperties([
+                "old" => $old,
+                "new" => $tag->only([
+                    "name",
+                ]),
+            ])
+            ->log("Updated tag");
+
+        return $tag;
     }
 }

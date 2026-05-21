@@ -19,7 +19,7 @@
 
         <button
           class="rounded-xl border border-gray-300 p-2 text-gray-800 transition hover:bg-gray-100"
-          :aria-label="$t('common.close')"
+          :aria-label="$t('profile.actions.cancel')"
           @click="emit('close')"
         >
           <span aria-hidden="true">✕</span>
@@ -58,6 +58,30 @@
           @click="emit('close')"
         >
           {{ $t('sidebar.profile') }}
+        </RouterLink>
+
+        <RouterLink
+          v-if="isAdmin"
+          to="/admin/users"
+          class="block rounded-xl px-4 py-3 text-sm font-medium transition"
+          :class="isActive('/admin/users')
+            ? 'bg-indigo-100 text-indigo-800'
+            : 'text-gray-800 hover:bg-gray-100'"
+          @click="emit('close')"
+        >
+          {{ $t('sidebar.admin_users') }}
+        </RouterLink>
+
+        <RouterLink
+          v-if="isAdmin"
+          to="/admin/activity-logs"
+          class="block rounded-xl px-4 py-3 text-sm font-medium transition"
+          :class="isActive('/admin/activity-logs')
+            ? 'bg-indigo-100 text-indigo-800'
+            : 'text-gray-800 hover:bg-gray-100'"
+          @click="emit('close')"
+        >
+          {{ $t('sidebar.activity_logs') }}
         </RouterLink>
 
         <div class="pt-6">
@@ -108,6 +132,9 @@ import {computed} from 'vue'
 import {useRoute} from 'vue-router'
 
 import {useCategories} from '@/presentation/composables/useCategories'
+import {hasAdminRole} from '@/shared/auth/hasAdminRole'
+
+const isAdmin = computed(() => hasAdminRole())
 
 const {open} = defineProps<{
   open: boolean

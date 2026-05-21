@@ -10,6 +10,16 @@ class DeleteTagAction
 {
     public function execute(Tag $tag): void
     {
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($tag)
+            ->event("deleted")
+            ->withProperties([
+                "tag_id" => $tag->id,
+                "name" => $tag->name,
+            ])
+            ->log("Deleted tag");
+
         $tag->delete();
     }
 }

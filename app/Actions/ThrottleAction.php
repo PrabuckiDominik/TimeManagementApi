@@ -34,4 +34,29 @@ class ThrottleAction
 
         $limiter->hit($key, $seconds);
     }
+
+    public function handleAttempts(
+        string $key,
+        int $maxAttempts,
+        string $duration,
+        ?string $translationKey = null,
+    ): void {
+        $seconds = Arr::get(self::DURATIONS, $duration);
+
+        if ($seconds === null) {
+            throw new InvalidArgumentException("Invalid throttle duration: $duration");
+        }
+
+        $limiter = app(RateLimiter::class);
+
+        if ($limiter->tooManyAttempts($key, $maxAttempts)) {
+            throw new HttpResponseException(response()->json([
+                "message" => $translationKey
+                    ? __($translationKey)
+                    : __("Too many requests."),
+            ], 429));
+        }
+
+        $limiter->hit($key, $seconds);
+    }
 }

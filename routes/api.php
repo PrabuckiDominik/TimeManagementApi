@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use TimeManagement\Http\Controllers\ActivityLogController;
 use TimeManagement\Http\Controllers\CategoryController;
 use TimeManagement\Http\Controllers\DashboardController;
 use TimeManagement\Http\Controllers\EmailVerificationController;
@@ -15,6 +16,7 @@ use TimeManagement\Http\Controllers\ResetPasswordController;
 use TimeManagement\Http\Controllers\TagController;
 use TimeManagement\Http\Controllers\TaskController;
 use TimeManagement\Http\Controllers\UpdatePasswordController;
+use TimeManagement\Http\Controllers\UserManagementController;
 use TimeManagement\Http\Controllers\UserProfileController;
 
 Route::middleware("auth:sanctum")->group(function (): void {
@@ -27,6 +29,14 @@ Route::middleware("auth:sanctum")->group(function (): void {
     Route::get("/profile", [UserProfileController::class, "show"]);
     Route::put("/profile", [UserProfileController::class, "update"]);
     Route::put("/auth/change-password", [UpdatePasswordController::class, "updatePassword"]);
+});
+
+Route::group(["prefix" => "admin", "middleware" => ["auth:sanctum", "role:administrator|superAdministrator"]], function (): void {
+    Route::get("/users", [UserManagementController::class, "index"])->name("users.index");
+    Route::get("/users/{user}", [UserManagementController::class, "show"])->name("users.show");
+    Route::put("/users/{user}", [UserManagementController::class, "update"])->name("users.update");
+    Route::delete("/users/{user}", [UserManagementController::class, "destroy"])->name("users.destroy");
+    Route::get("/activity-logs", [ActivityLogController::class, "index"])->name("activity-logs.index");
 });
 
 Route::get("/auth/verify-email/{id}/{hash}", [EmailVerificationController::class, "verify"])
