@@ -1,41 +1,57 @@
-## @DominikPrabucki/TimeManagementApi
-### About application
-> placeholder
+# @DominikPrabucki/TimeManagementApi
 
-### Local development
-```
+## About application
+
+TimeManagement is a full-stack task and productivity management application built with Laravel, Vue 3, TypeScript, and Flutter.
+
+The application allows users to:
+
+- manage tasks, categories, and tags,
+- track task statuses and priorities,
+- monitor dashboard statistics,
+- receive local mobile reminders,
+- work in offline read-only mode on mobile devices,
+- synchronize data between web and mobile applications.
+
+### Tech stack
+
+#### Backend
+- Laravel 12
+- PostgreSQL
+- Redis
+- PHPUnit
+- Larastan
+
+#### Frontend
+- Vue 3
+- TypeScript
+- Vite
+- TailwindCSS
+- Inertia.js
+
+#### Mobile
+- Flutter
+- Riverpod
+- SharedPreferences
+- Local notifications
+
+---
+
+# Local development
+
+## Requirements
+
+- Docker
+- Docker Compose
+- GNU Make
+- Node.js (optional outside container)
+- Android Studio / Flutter SDK (for mobile app)
+
+---
+
+## Installation
+
+```bash
 cp .env.example .env
 make init
 make dev
-```
-Application will be running under [localhost:63851](localhost:63851) and [http://timemanagement.blumilk.localhost/](http://example-app.blumilk.localhost/) in Blumilk traefik environment. If you don't have a Blumilk traefik environment set up yet, follow the instructions from this [repository](https://github.com/blumilksoftware/environment).
-
-#### Commands
-Before running any of the commands below, you must run shell:
-```
-make shell
-```
-
-| Command                 | Task                                        |
-|:------------------------|:--------------------------------------------|
-| `composer <command>`    | Composer                                    |
-| `composer test`         | Runs backend tests                          |
-| `composer analyse`      | Runs Larastan analyse for backend files     |
-| `composer cs`           | Lints backend files                         |
-| `composer csf`          | Lints and fixes backend files               |
-| `php artisan <command>` | Artisan commands                            |
-| `npm run dev`           | Compiles and hot-reloads for development    |
-| `npm run build`         | Compiles and minifies for production        |
-| `npm run lint`          | Lints frontend files                        |
-| `npm run lintf`         | Lints and fixes frontend files              |
-| `npm run tsc`           | Runs TypeScript checker                     |
-
-
-#### Containers
-
-| service    | container name            | default host port               |
-|:-----------|:--------------------------|:--------------------------------|
-| `app`      | `timemanagement-app-dev`    | [63851](http://localhost:63851) |
-| `database` | `timemanagement-db-dev`      | 63853                           |
-| `redis`    | `timemanagement-redis-dev`   | 63852                           |
-| `mailpit`  | `timemanagement-mailpit-dev` | 63854                           |
