@@ -19,21 +19,18 @@ The application allows users to:
 - Laravel 12
 - PostgreSQL
 - Redis
-- PHPUnit
-- Larastan
 
 #### Frontend
-- Vue 3
+- Vue
 - TypeScript
 - Vite
 - TailwindCSS
-- Inertia.js
 
 #### Mobile
 - Flutter
+- Dart
 - Riverpod
-- SharedPreferences
-- Local notifications
+
 
 ---
 
